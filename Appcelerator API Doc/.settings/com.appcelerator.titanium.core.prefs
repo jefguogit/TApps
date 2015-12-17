@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+provisioning_profiles/development/2C452415-BFEF-453A-978F-BC59E301D3B6/appid=*
+provisioning_profiles/development/2C452415-BFEF-453A-978F-BC59E301D3B6/filepath=/Users/user/Library/MobileDevice/Provisioning Profiles/2C452415-BFEF-453A-978F-BC59E301D3B6.mobileprovision
+provisioning_profiles/development/2C452415-BFEF-453A-978F-BC59E301D3B6/name=AC
+provisioning_profiles/development/2C452415-BFEF-453A-978F-BC59E301D3B6/uuid=2C452415-BFEF-453A-978F-BC59E301D3B6
+provisioning_profiles/development/A4F4A441-9A6D-4821-BF5D-1B709798D25B/appid=*
+provisioning_profiles/development/A4F4A441-9A6D-4821-BF5D-1B709798D25B/filepath=/Users/user/Library/MobileDevice/Provisioning Profiles/A4F4A441-9A6D-4821-BF5D-1B709798D25B.mobileprovision
+provisioning_profiles/development/A4F4A441-9A6D-4821-BF5D-1B709798D25B/name=Team Provisioning Profile\: *
+provisioning_profiles/development/A4F4A441-9A6D-4821-BF5D-1B709798D25B/uuid=A4F4A441-9A6D-4821-BF5D-1B709798D25B
+provisioning_profiles/distribution/2C452415-BFEF-453A-978F-BC59E301D3B6/appid=*
+provisioning_profiles/distribution/2C452415-BFEF-453A-978F-BC59E301D3B6/filepath=/Users/user/Library/MobileDevice/Provisioning Profiles/2C452415-BFEF-453A-978F-BC59E301D3B6.mobileprovision
+provisioning_profiles/distribution/2C452415-BFEF-453A-978F-BC59E301D3B6/name=AC
+provisioning_profiles/distribution/2C452415-BFEF-453A-978F-BC59E301D3B6/uuid=2C452415-BFEF-453A-978F-BC59E301D3B6

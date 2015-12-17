@@ -1,0 +1,7 @@
+Logfile initialized
+[INFO] logfile = /Users/user/Documents/Titanium_Studio_Workspace/WorldChampion/build.log
+[DEBUG] /Users/user/Library/Application Support/Titanium/mobilesdk/osx/2.1.4.GA/android/builder.py simulator WorldChampion /Users/user/Applications/android-sdk-macosx /Users/user/Documents/Titanium_Studio_Workspace/WorldChampion sgt.chess.worldchampion 8 WVGA854 /127.0.0.1:60366
+[INFO] Building WorldChampion for Android ... one moment
+[INFO] Titanium SDK version: 2.1.4 (11/09/12 12:46 51f2c64)
+[DEBUG] Waiting for device to be ready ...
+[TRACE] adb devices returned 0 devices/emulators

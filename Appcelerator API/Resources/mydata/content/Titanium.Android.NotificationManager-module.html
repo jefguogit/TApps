@@ -1,0 +1,64 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Android.NotificationManager</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>Module for managing status bar notifications.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>This module provides methods for sending and canceling status bar notifications,
+which are represented by the <a href="Titanium.Android.Notification-object.html"><code>Titanium.Android.Notification</code></a> object.</p>
+<p>The <code>NotificationManager</code> module is a thin wrapper on the Android <code>NotificationManager</code>
+class. The constants in this module are derived from the Android <code>Notification</code> class.</p>
+<p>See also:</p>
+<ul>
+<li>
+<p><a href="http://docs.appcelerator.com/titanium/2.0/#!/guide/Android_Notifications">Android Notifications in the Titanium Mobile Guides</a></p>
+</li>
+<li>
+<p><a href="http://developer.android.com/guide/topics/ui/notifiers/notifications.html">Status Bar Notifications in the Android Developer Guide</a></p>
+</li>
+<li>
+<p><a href="http://developer.android.com/reference/android/app/NotificationManager.html">NotificationManager in the Android API Reference</a> </p>
+</li>
+<li>
+<p><a href="http://developer.android.com/reference/android/app/Notification.html">Notification in the Android API Reference</a> </p>
+</li>
+</ul></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Simple Notification Example</h4><div class='code_example'><p>The following example shows how to create a notification that launches the
+application when the user clicks on the notification.</p>
+<p>The <a href="Titanium.Android.Intent-object.html">Intent</a> object associated with the notification determines 
+what happens when the user clicks on the notification. In this case, we simply launch the application.
+The intent in this sample uses a className to identify the activity to launch. </p>
+<p>A Titanium application's main activity generally has the class name:</p>
+<p><i>&lt;app_id&gt;.&lt;Appname&gt;</i><b>Activity</b> </p>
+<p>where <i>&lt;app_id&gt;</i> is the application's app ID, and <i>&lt;Appname&gt;</i>
+is the application's name, with the first letter capitalized and all other letters
+lowercase.</p>
+<p>For example, in this case the test application has the app ID
+<code>com.appcelerator.notificationsample</code> and app name <code>NotificationSample</code>, so the 
+activity class name is:</p>
+<pre><code>com.appcelerator.notificationsample.NotificationsampleActivity
+</code></pre>
+<p>You can also find the activity's class name by looking in the <code>build/android</code> folder of your 
+Titanium project.</p>
+<p>The notification icon must be specified as an Android resource ID. In this case,
+the icon, <code>my_icon.png</code> would be placed in
+<code>platforms/android/res/drawable/my_icon.png</code>.
+See <a href="Titanium.App.Android.R-object.html"><code>Titanium.App.Android.R</code></a> for more information.</p>
+<pre><code>// Intent object to launch the application 
+var intent = Ti.Android.createIntent({
+    flags : Ti.Android.FLAG_ACTIVITY_CLEAR_TOP | Ti.Android.FLAG_ACTIVITY_NEW_TASK,
+    // Substitute the correct classname for your application
+    className : 'com.appcelerator.notificationsample.NotificationsampleActivity',
+});
+intent.addCategory(Ti.Android.CATEGORY_LAUNCHER);
+
+// Create a PendingIntent to tie together the Activity and Intent
+var pending = Titanium.Android.createPendingIntent({
+    intent: intent,
+    flags: Titanium.Android.FLAG_UPDATE_CURRENT
+});
+
+// Create the notification
+var notification = Titanium.Android.createNotification({
+    // icon is passed as an Android resource ID -- see Ti.App.Android.R.
+    icon: Ti.App.Android.R.drawable.my_icon,
+    contentTitle: 'Something Happened',
+    contentText : 'Click to return to the application.',
+    contentIntent: pending
+});
+// Send the notification.
+Titanium.Android.NotificationManager.notify(1, notification);
+</code></pre></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Android.NotificationManager.DEFAULT_ALL-property.html'>DEFAULT_ALL</a></td><td class='type'>Number  </td><td class='summary'><p>Use all default settings for a notification; see<a href="Titanium.Android.Notification.defaults-property.html">Notification.defaults</a>.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.NotificationManager.DEFAULT_LIGHTS-property.html'>DEFAULT_LIGHTS</a></td><td class='type'>Number  </td><td class='summary'><p>Use the default light settings for a notification; see<a href="Titanium.Android.Notification.defaults-property.html">Notification.defaults</a>.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.NotificationManager.DEFAULT_SOUND-property.html'>DEFAULT_SOUND</a></td><td class='type'>Number  </td><td class='summary'><p>Use the default sound settings for a notification; see<a href="Titanium.Android.Notification.defaults-property.html">Notification.defaults</a>.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.NotificationManager.DEFAULT_VIBRATE-property.html'>DEFAULT_VIBRATE</a></td><td class='type'>Number  </td><td class='summary'><p>Use the default vibration settings for a notification; see<a href="Titanium.Android.Notification.defaults-property.html">Notification.defaults</a>.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.NotificationManager.FLAG_AUTO_CANCEL-property.html'>FLAG_AUTO_CANCEL</a></td><td class='type'>Number  </td><td class='summary'><p>Cancel the notification when it is clicked by the user.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.NotificationManager.FLAG_INSISTENT-property.html'>FLAG_INSISTENT</a></td><td class='type'>Number  </td><td class='summary'><p>Repeat audio until the notification is cancelled or the notification windowis opened.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.NotificationManager.FLAG_NO_CLEAR-property.html'>FLAG_NO_CLEAR</a></td><td class='type'>Number  </td><td class='summary'><p>Do not cancel the notification when the user clicks the Clear All button.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.NotificationManager.FLAG_ONGOING_EVENT-property.html'>FLAG_ONGOING_EVENT</a></td><td class='type'>Number  </td><td class='summary'><p>Specifies that a notification is in reference to something that is ongoing, like a phone call.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.NotificationManager.FLAG_ONLY_ALERT_ONCE-property.html'>FLAG_ONLY_ALERT_ONCE</a></td><td class='type'>Number  </td><td class='summary'><p>Play an alert (sound, lights, and/or vibration) once each time the notification is sent, even if it has not been canceled before that.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.NotificationManager.FLAG_SHOW_LIGHTS-property.html'>FLAG_SHOW_LIGHTS</a></td><td class='type'>Number  </td><td class='summary'><p>Use LED lights to alert the user to the notification.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.NotificationManager.STREAM_DEFAULT-property.html'>STREAM_DEFAULT</a></td><td class='type'>Number  </td><td class='summary'><p>Use with <a href="Titanium.Android.Notification.audioStreamType-property.html">audioStreamType</a> to request that the default stream type for notifications be used.</p><span class='permission_warning'>read-only</span></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Android.NotificationManager.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Android.NotificationManager.cancel-method.html'>cancel</a></td><td class='summary'><p>Cancels a previously displayed notification.</p></td></tr><tr><td class='name'><a href='Titanium.Android.NotificationManager.cancelAll-method.html'>cancelAll</a></td><td class='summary'><p>Cancels all previously displayed notifications.</p></td></tr><tr><td class='name'><a href='Titanium.Android.NotificationManager.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.Android.NotificationManager.notify-method.html'>notify</a></td><td class='summary'><p>Adds a persistent notification to the status bar.</p></td></tr><tr><td class='name'><a href='Titanium.Android.NotificationManager.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr></tbody></table></div></body></html>

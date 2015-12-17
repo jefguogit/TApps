@@ -1,0 +1,61 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li><a href='#events'>Events</a></li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.UI.OptionDialog</h1><div class='namespace_type'>object   </div><h3 class='summary'>Summary</h3><div class='summary'><p>An option dialog is a modal view that includes a message and one or more option items positioned in the middle of the display on Android and at the bottom edge on iOS. On Android, buttons may be added below the options.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>An option dialog is created using <a href="Titanium.UI.createOptionDialog-method.html"><code>Titanium.UI.createOptionDialog</code></a>.</p>
+<p>This dialog is considerably different on each platform, as described below.</p>
+<h4>Android</h4>
+<p>On Android, this dialog is shown in the middle of the display (not touching the edges), 
+with the option items represented in a picker. The previously-selected, or default, item can be 
+set on creation.</p>
+<p>Buttons below the picker may be optionally defined. The <code>click</code> event returns a Boolean value 
+to indicate whether either an option item or a button was clicked.</p>
+<h4>iOS</h4>
+<p>The <code>destructive</code> property may be set for an item, to give a visual cue that selecting it 
+results in an irreversible action.</p>
+<p>On iOS 4, option dialogs are automatically cancelled when the application is paused/suspended.</p>
+<h5>iPhone</h5>
+<p>On iPhone, this dialog is shown at the bottom edge of the display, with the option items 
+represented as vertical buttons. </p>
+<h5>iPad</h5>
+<p>On iPad, this dialog is shown in the middle of the display, or as a popover-like dialog if 
+another view or control is specified via an argument.</p>
+<p>Note that on iPad, the cancel button is not displayed -- users can cancel the dialog
+by clicking outside of the dialog.</p>
+<h4>Caveats</h4>
+<p>Care should be taken not to define any properties that are not documented, as this may produce 
+unexpected results. For example, setting a <code>message</code> property will prevent the picker of option 
+items from being displayed on Android.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Dialog with 3 Options</h4><div class='code_example'><p>Ti.UI.setBackgroundColor('white');
+var win = Ti.UI.createWindow({
+  title: 'Click window to test',
+  backgroundColor: 'white',
+  exitOnClose: true,
+  fullscreen: false
+});</p>
+<p>var opts = {
+  cancel: 2,
+  options: ['Confirm', 'Help', 'Cancel'],
+  selectedIndex: 2,
+  destructive: 0,
+  title: 'Delete File?'
+};</p>
+<p>win.addEventListener('click', function(e){
+  var dialog = Ti.UI.createOptionDialog(opts).show();
+});
+win.open();</p></div><h4 class='code_example_title'>Dialog with 2 Options and 1 Button on Android and 3 Options on iOS</h4><div class='code_example'><p>Ti.UI.setBackgroundColor('white');
+  var win = Ti.UI.createWindow({
+  title: 'Click window to test',
+  backgroundColor: 'white',
+  exitOnClose: true,
+  fullscreen: false
+});</p>
+<p>var opts = {
+  title: 'Delete File?'
+};</p>
+<p>var isAndroid = Ti.Platform.osname == 'android';</p>
+<p>if(isAndroid){
+  opts.options = ['Confirm', 'Cancel'];
+  opts.buttonNames = ['Confirm'];
+} else {
+  opts.options = ['Confirm', 'Help', 'Cancel'];
+}</p>
+<p>win.addEventListener('click', function(e){
+  var dialog = Ti.UI.createOptionDialog(opts).show();
+});
+win.open();</p></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.androidView-property.html'>androidView</a></td><td class='type'><a href='Titanium.UI.View-object.html'><code>Titanium.UI.View</code></a>  </td><td class='summary'><p>View to load inside the message area, to create a custom layout.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.cancel-property.html'>cancel</a></td><td class='type'>Number  </td><td class='summary'><p>Index to define the cancel option.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.destructive-property.html'>destructive</a></td><td class='type'>Number  </td><td class='summary'><p>Index to define the destructive option, indicated by a visual cue when rendered.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.options-property.html'>options</a></td><td class='type'>Array&lt;String&gt;  </td><td class='summary'><p>List of option names.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.selectedIndex-property.html'>selectedIndex</a></td><td class='type'>Number  </td><td class='summary'><p>Defines the default selected option.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.title-property.html'>title</a></td><td class='type'>String  </td><td class='summary'><p>Title of the dialog.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.titleid-property.html'>titleid</a></td><td class='type'>String  </td><td class='summary'><p>Key identifying a string in the locale file to use for the title text.</p></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.getAndroidView-method.html'>getAndroidView</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.OptionDialog.androidView-property.html">androidView</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.getCancel-method.html'>getCancel</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.OptionDialog.cancel-property.html">cancel</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.getDestructive-method.html'>getDestructive</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.OptionDialog.destructive-property.html">destructive</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.getOptions-method.html'>getOptions</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.OptionDialog.options-property.html">options</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.getSelectedIndex-method.html'>getSelectedIndex</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.OptionDialog.selectedIndex-property.html">selectedIndex</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.getTitle-method.html'>getTitle</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.OptionDialog.title-property.html">title</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.getTitleid-method.html'>getTitleid</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.OptionDialog.titleid-property.html">titleid</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.hide-method.html'>hide</a></td><td class='summary'><p>Hides this dialog.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.setAndroidView-method.html'>setAndroidView</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.OptionDialog.androidView-property.html">androidView</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.setCancel-method.html'>setCancel</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.OptionDialog.cancel-property.html">cancel</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.setTitle-method.html'>setTitle</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.OptionDialog.title-property.html">title</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.setTitleid-method.html'>setTitleid</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.OptionDialog.titleid-property.html">titleid</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.show-method.html'>show</a></td><td class='summary'><p>Shows this dialog.</p></td></tr></tbody></table><br><h3 id='events'>Events</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.UI.OptionDialog.click-event.html.html'>click</a></td><td class='summary'><p>Fired when an option of this dialog is clicked or, under certain circumstances, when this dialog is dismissed.</p></td></tr></tbody></table></div></body></html>

@@ -1,0 +1,111 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Contacts</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>The top-level Contacts module, used for accessing and modifying the system contacts address book.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>On Android, modification of existing contacts is currently not supported, whereas the creation of 
+new contacts and the removal of contacts are supported.</p>
+<p>See examples for more information.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Query Existing System Address Book Records</h4><div class='code_example'><p>Output to the console all properties of all people.</p>
+<pre><code>var singleValue = [
+  'recordId', 'firstName', 'middleName', 'lastName', 'fullName', 'prefix', 'suffix', 
+  'nickname', 'firstPhonetic', 'middlePhonetic', 'lastPhonetic', 'organization', 
+  'jobTitle', 'department', 'note', 'birthday', 'created', 'modified', 'kind'
+];
+var multiValue = [
+  'email', 'address', 'phone', 'instantMessage', 'relatedNames', 'date', 'url'
+];
+var people = Ti.Contacts.getAllPeople();
+Ti.API.info('Total contacts: ' + people.length);
+for (var i=0, ilen=people.length; i&lt;ilen; i++){
+  Ti.API.info('---------------------');
+  var person = people[i];
+  for (var j=0, jlen=singleValue.length; j&lt;jlen; j++){
+    Ti.API.info(singleValue[j] + ': ' + person[singleValue[j]]);
+  }
+  for (var j=0, jlen=multiValue.length; j&lt;jlen; j++){
+    Ti.API.info(multiValue[j] + ': ' + JSON.stringify(person[multiValue[j]]));
+  }
+}
+</code></pre></div><h4 class='code_example_title'>Add New System Address Book Records</h4><div class='code_example'><p>Create two new records in the system address book. Note that the <a href="Titanium.Contacts.Person-object.html"><code>Titanium.Contacts.Person</code></a> 
+object is queried in the same way that it is created (as shown in previous example.)</p>
+<pre><code>Ti.API.info('Saving contact...');
+Ti.Contacts.createPerson({
+  firstName: 'Paul',
+  lastName: 'Dowsett',
+  address:{
+    work:[
+      {
+        CountryCode: 'gb', // determines how the address is displayed
+        Street: '200 Brook Drive\
+Green Park',
+        City: 'Reading',
+        County: 'Berkshire',
+        Country: 'England',
+        ZIP: 'RG2 6UB'
+      },
+      {
+        CountryCode: 'gb', // determines how the address is displayed
+        Street: '1 St Pauls Road\
+Clerkenwell',
+        City: 'City of London',
+        State: 'London',
+        Country: 'England',
+        ZIP: 'EC1 1AA'
+      }
+    ],
+    home:[
+      {
+        CountryCode: 'gb', // determines how the address is displayed
+        Street: '2 Boleyn Court',
+        City: 'London',
+        State: 'Greenwich',
+        Country: 'England',
+        ZIP: 'SE10'
+      }
+    ]
+  },
+  birthday: '2012-01-01T12:00:00.000+0000',
+  instantMessage:{
+    home:[
+      {
+        service: 'AIM',
+        username: 'leisureAIM'
+      },
+      {
+        service: 'MSN',
+        username: 'no_paul_here@msn.com'
+      }
+    ],
+    work:[
+      {
+        service: 'AIM',
+        username: 'seriousAIM'
+      }
+    ]
+  },
+  organization: 'Appcelerator',
+  phone:{
+    mobile: ['07900 000001', '07900 000002'],
+    work: ['+44 (0)118 925 6128', '+44 (0)118 000 0000']
+  },
+  url:{
+    homepage: ['www.google.com'],
+    work: ['www.appcelerator.com', 'www.example.com']
+  }
+});
+Ti.API.info('Contact saved');
+
+Ti.API.info('Saving contact...');
+var workAddress1 = {
+  'CountryCode': 'us',
+  'Street':  '440 N. Bernardo Avenue',
+  'City': 'Mountain View',
+  'State': 'California',
+  'Country': 'United States',
+  'ZIP': '94043'
+};
+
+Ti.Contacts.createPerson({
+  firstName:'Arthur',
+  lastName:'Evans',
+  address:{
+    'work':[workAddress1]
+  }
+});
+Ti.API.info('Contact saved');
+</code></pre></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Contacts.CONTACTS_KIND_ORGANIZATION-property.html'>CONTACTS_KIND_ORGANIZATION</a></td><td class='type'>Number  </td><td class='summary'><p>Specifies that a contact is an organization.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Contacts.CONTACTS_KIND_PERSON-property.html'>CONTACTS_KIND_PERSON</a></td><td class='type'>Number  </td><td class='summary'><p>Specifies that a contact is a person.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Contacts.CONTACTS_SORT_FIRST_NAME-property.html'>CONTACTS_SORT_FIRST_NAME</a></td><td class='type'>Number  </td><td class='summary'><p>Specifies that group members will be sorted by first name.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Contacts.CONTACTS_SORT_LAST_NAME-property.html'>CONTACTS_SORT_LAST_NAME</a></td><td class='type'>Number  </td><td class='summary'><p>Specifies that group members will be sorted by last name.</p><span class='permission_warning'>read-only</span></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Contacts.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Contacts.createGroup-method.html'>createGroup</a></td><td class='summary'><p>Creates and returns an instance of <a href="Titanium.Contacts.Group-object.html"><code>Titanium.Contacts.Group</code></a>.</p></td></tr><tr><td class='name'><a href='Titanium.Contacts.createPerson-method.html'>createPerson</a></td><td class='summary'><p>Creates and returns an instance of <a href="Titanium.Contacts.Person-object.html"><code>Titanium.Contacts.Person</code></a>, and commits all pending changes to the underlying contacts database.</p></td></tr><tr><td class='name'><a href='Titanium.Contacts.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.Contacts.getAllGroups-method.html'>getAllGroups</a></td><td class='summary'><p>Gets all groups.</p></td></tr><tr><td class='name'><a href='Titanium.Contacts.getAllPeople-method.html'>getAllPeople</a></td><td class='summary'><p>Gets all people, unless a limit is specified.</p></td></tr><tr><td class='name'><a href='Titanium.Contacts.getGroupByID-method.html'>getGroupByID</a></td><td class='summary'><p>Gets the group with the specified identifier.</p></td></tr><tr><td class='name'><a href='Titanium.Contacts.getPeopleWithName-method.html'>getPeopleWithName</a></td><td class='summary'><p>Gets people with a <code>firstName</code>, <code>middleName</code> or <code>lastName</code> field, or a combination of these fields, that match the specified name.</p></td></tr><tr><td class='name'><a href='Titanium.Contacts.getPersonByID-method.html'>getPersonByID</a></td><td class='summary'><p>Gets the person with the specified identifier.</p></td></tr><tr><td class='name'><a href='Titanium.Contacts.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Contacts.removeGroup-method.html'>removeGroup</a></td><td class='summary'><p>Removes a group from the address book.</p></td></tr><tr><td class='name'><a href='Titanium.Contacts.removePerson-method.html'>removePerson</a></td><td class='summary'><p>Removes a contact from the address book.</p></td></tr><tr><td class='name'><a href='Titanium.Contacts.revert-method.html'>revert</a></td><td class='summary'><p>Reverts all changes made by the previous save to the address book.</p></td></tr><tr><td class='name'><a href='Titanium.Contacts.save-method.html'>save</a></td><td class='summary'><p>Commits all pending changes to the underlying contacts database.</p></td></tr><tr><td class='name'><a href='Titanium.Contacts.showContacts-method.html'>showContacts</a></td><td class='summary'><p>Displays a picker that allows a person to be selected.</p></td></tr></tbody></table></div></body></html>

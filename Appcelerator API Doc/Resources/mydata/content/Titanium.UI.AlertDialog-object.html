@@ -1,0 +1,87 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li><a href='#events'>Events</a></li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.UI.AlertDialog</h1><div class='namespace_type'>object   </div><h3 class='summary'>Summary</h3><div class='summary'><p>An alert dialog is a modal view that includes an optional title, a message and buttons, positioned in the middle of the display.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>An alert dialog is created using <a href="Titanium.UI.createAlertDialog-method.html"><code>Titanium.UI.createAlertDialog</code></a>.</p>
+<p>Although this dialog always appears in the middle of the display (not touching the edges), 
+other aspects of its aesthetics and the way the user interacts with it are different for each 
+platform, as described below.</p>
+<h4>Android</h4>
+<p>On Android, the default alert dialog displays text information, via a title and message, without 
+any buttons. As the user can use the system hardware <code>back</code> button to dismiss it, a button is 
+optional.</p>
+<p>Buttons are shown if the <code>buttonNames</code> property is defined, and are rendered horizontally below 
+the message.</p>
+<p>To create a custom layout, a view may be added and, in turn, a hierarchy of views added to that 
+child view.</p>
+<h4>iOS</h4>
+<p>On iOS, the default alert dialog displays text information, via a title and message, with 
+a single button to allow it to be dismissed.</p>
+<p>Buttons are defined using the <code>buttonNames</code> property and are rendered vertically below 
+the message.</p>
+<p>On iOS 4.0 and later, alert dialogs are automatically cancelled when the application is 
+paused/suspended.</p>
+<h4>Global Alias</h4>
+<p>A global method <code>alert()</code> is aliased to this object, and can be invoked with a single message. 
+For example</p>
+<pre><code>alert('this is a message');
+</code></pre>
+<p>This will generate an alert with a title of "Alert" and an "OK" button.</p>
+<h4>Caveats</h4>
+<p>Multiple alerts should not be shown at once.</p>
+<p>The <code>title</code> and <code>ok</code> properties cannot be changed while the alert dialog is being displayed. On
+Android only, you can change the <code>message</code> property while the alert dialog is being displayed.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Single-button Alert Dialog (using alias)</h4><div class='code_example'><p>Create a single-button alert dialog using the global <code>alert()</code> alias.</p>
+<pre><code>Ti.UI.setBackgroundColor('white');
+var win = Ti.UI.createWindow({  
+  title: 'Click window to test',
+  backgroundColor: 'white',
+  exitOnClose: true,
+  fullscreen: false
+});
+
+win.addEventListener('click', function(e){
+  alert('The file has been deleted');
+});
+win.open();
+</code></pre></div><h4 class='code_example_title'>Single-button Alert Dialog (standard)</h4><div class='code_example'><p>Create a single-button alert dialog, without explicitly defining it using the <code>buttonNames</code> 
+property, which is invoked when the app window is clicked.</p>
+<pre><code>Ti.UI.setBackgroundColor('white');
+var win = Ti.UI.createWindow({  
+  title: 'Click window to test',
+  backgroundColor: 'white',
+exitOnClose: true,
+fullscreen: false
+});
+
+win.addEventListener('click', function(e){
+  var dialog = Ti.UI.createAlertDialog({
+    message: 'The file has been deleted',
+    ok: 'Okay',
+    title: 'File Deleted'
+  }).show();
+});
+win.open();
+</code></pre></div><h4 class='code_example_title'>Three-button Alert Dialog</h4><div class='code_example'><p>Create a three-button alert dialog, which is invoked when the app window is clicked. 
+Output a message to the log when the cancel button is clicked.</p>
+<pre><code>Ti.UI.setBackgroundColor('white');
+var win = Ti.UI.createWindow({  
+  title: 'Click window to test',
+  backgroundColor: 'white',
+  exitOnClose: true,
+  fullscreen: false
+});
+win.addEventListener('click', function(e){
+  var dialog = Ti.UI.createAlertDialog({
+    cancel: 1,
+    buttonNames: ['Confirm', 'Cancel', 'Help'],
+    message: 'Would you like to delete the file?',
+    title: 'Delete'
+  });
+  dialog.addEventListener('click', function(e){
+    if (e.index === e.source.cancel){
+      Ti.API.info('The cancel button was clicked');
+    }
+    Ti.API.info('e.cancel: ' + e.cancel);
+    Ti.API.info('e.source.cancel: ' + e.source.cancel);
+    Ti.API.info('e.index: ' + e.index);
+  });
+  dialog.show();
+});
+win.open();
+</code></pre></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.androidView-property.html'>androidView</a></td><td class='type'><a href='Titanium.UI.View-object.html'><code>Titanium.UI.View</code></a>  </td><td class='summary'><p>View to load inside the message area, to create a custom layout.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.buttonNames-property.html'>buttonNames</a></td><td class='type'>Array&lt;String&gt;  </td><td class='summary'><p>Name of each button to create.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.cancel-property.html'>cancel</a></td><td class='type'>Number  </td><td class='summary'><p>Index to define the cancel button.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.message-property.html'>message</a></td><td class='type'>String  </td><td class='summary'><p>Dialog message.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.messageid-property.html'>messageid</a></td><td class='type'>String  </td><td class='summary'><p>Key identifying a string in the locale file to use for the message text.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.ok-property.html'>ok</a></td><td class='type'>String  </td><td class='summary'><p>Text for the <code>OK</code> button.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.okid-property.html'>okid</a></td><td class='type'>String  </td><td class='summary'><p>Key identifying a string in the locale file to use for the <code>ok</code> text.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.title-property.html'>title</a></td><td class='type'>String  </td><td class='summary'><p>Title of the dialog.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.titleid-property.html'>titleid</a></td><td class='type'>String  </td><td class='summary'><p>Key identifying a string in the locale file to use for the title text.</p></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.getAndroidView-method.html'>getAndroidView</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.AlertDialog.androidView-property.html">androidView</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.getButtonNames-method.html'>getButtonNames</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.AlertDialog.buttonNames-property.html">buttonNames</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.getCancel-method.html'>getCancel</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.AlertDialog.cancel-property.html">cancel</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.getMessage-method.html'>getMessage</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.AlertDialog.message-property.html">message</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.getOk-method.html'>getOk</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.AlertDialog.ok-property.html">ok</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.getTitle-method.html'>getTitle</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.AlertDialog.title-property.html">title</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.hide-method.html'>hide</a></td><td class='summary'><p>Hides this dialog.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.setAndroidView-method.html'>setAndroidView</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.AlertDialog.androidView-property.html">androidView</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.setCancel-method.html'>setCancel</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.AlertDialog.cancel-property.html">cancel</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.setMessage-method.html'>setMessage</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.AlertDialog.message-property.html">message</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.setOk-method.html'>setOk</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.AlertDialog.ok-property.html">ok</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.setTitle-method.html'>setTitle</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.AlertDialog.title-property.html">title</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.show-method.html'>show</a></td><td class='summary'><p>Shows this dialog.</p></td></tr></tbody></table><br><h3 id='events'>Events</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.UI.AlertDialog.click-event.html.html'>click</a></td><td class='summary'><p>Fired when a button in the dialog is clicked.</p></td></tr></tbody></table></div></body></html>

@@ -1,0 +1,53 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Android.Menu</h1><div class='namespace_type'>object   </div><h3 class='summary'>Summary</h3><div class='summary'><p>The Titanium binding of an Android Options Menu.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>Currently, <code>Menu</code> only supports menus displayed when the <strong>Menu</strong> button is pressed, 
+not the newer Action Bar style menu display.</p>
+<p>See also: <a href="http://developer.android.com/reference/android/view/Menu.html">Menu</a>
+in the Android Developer Reference.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Creating a Simple Menu</h4><div class='code_example'><p>This sample creates an Android menu that displays a menu item named "Item 1", 
+which logs a debug message when clicked.</p>
+<pre><code>var win = Ti.UI.createWindow({
+  fullscreen: true
+});
+
+var activity = win.activity;
+
+activity.onCreateOptionsMenu = function(e){
+  var menu = e.menu;
+  var menuItem = menu.add({ title: "Item 1" });
+  menuItem.icon = "item1.png";
+  menuItem.addEventListener("click", function(e) {
+    Ti.API.debug("I was clicked");
+  });
+};
+
+win.open();
+</code></pre></div><h4 class='code_example_title'>Creating a Dynamic Menu</h4><div class='code_example'><p>This sample creates an Android menu that displays a menu item named 
+"Login" or "Logout", depending on the value of a <code>loggedIn</code> Boolean variable. 
+Click on the item to toggle the variable's value.</p>
+<pre><code>var win = Ti.UI.createWindow({
+  fullscreen: true
+});
+var LOGIN = 1, LOGOUT = 2;
+var loggedIn = false;
+
+var activity = win.activity;
+
+activity.onCreateOptionsMenu = function(e){
+  var menu = e.menu;
+  var login = menu.add({ title: "Login", itemId: LOGIN });
+  login.setIcon("login.png");
+  login.addEventListener("click", function(e) {
+    loggedIn = true;
+  });
+  var logout = menu.add({ title: "Logout", itemId: LOGOUT });
+  logout.setIcon("logout.png");
+  logout.addEventListener("click", function(e) {
+    loggedIn = false;
+  });
+};
+
+activity.onPrepareOptionsMenu = function(e) {
+  var menu = e.menu;
+  menu.findItem(LOGIN).setVisible(!loggedIn);
+  menu.findItem(LOGOUT).setVisible(loggedIn);
+};
+win.open();
+</code></pre></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Android.Menu.items-property.html'>items</a></td><td class='type'>Array&lt;Titanium.Android.MenuItem&gt;  </td><td class='summary'><p>Array of menu items in this menu.</p><span class='permission_warning'>read-only</span></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Android.Menu.add-method.html'>add</a></td><td class='summary'><p>Creates a <a href="Titanium.Android.MenuItem-object.html"><code>Titanium.Android.MenuItem</code></a> from the passed creation options.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Menu.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Menu.clear-method.html'>clear</a></td><td class='summary'><p>Clears all items from this menu.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Menu.close-method.html'>close</a></td><td class='summary'><p>Closes the menu, if visible.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Menu.findItem-method.html'>findItem</a></td><td class='summary'><p>Locates a <a href="Titanium.Android.MenuItem-object.html">MenuItem</a> in this menu, by item ID or reference.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Menu.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Menu.getItem-method.html'>getItem</a></td><td class='summary'><p>Returns the <a href="Titanium.Android.MenuItem-object.html">MenuItem</a> at a specific index.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Menu.getItems-method.html'>getItems</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Android.Menu.items-property.html">items</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Menu.hasVisibleItems-method.html'>hasVisibleItems</a></td><td class='summary'><p>Returns <code>true</code> if this menu has visible items.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Menu.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Menu.removeGroup-method.html'>removeGroup</a></td><td class='summary'><p>Removes all menu items with the specified <a href="Titanium.Android.MenuItem.groupId-property.html">groupId</a>.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Menu.removeItem-method.html'>removeItem</a></td><td class='summary'><p>Removes a specific <a href="Titanium.Android.MenuItem-object.html">MenuItem</a> identified by its<a href="Titanium.Android.MenuItem.itemId-property.html">itemId</a>.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Menu.setGroupEnabled-method.html'>setGroupEnabled</a></td><td class='summary'><p>Enables or disables a group of menu items identified by a <a href="Titanium.Android.MenuItem.groupId-property.html">groupId</a>.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Menu.setGroupVisible-method.html'>setGroupVisible</a></td><td class='summary'><p>Shows or hides a group of menu items identified by a<a href="Titanium.Android.MenuItem.groupId-property.html">groupId</a>.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Menu.size-method.html'>size</a></td><td class='summary'><p>Number of items in this menu.</p></td></tr></tbody></table></div></body></html>

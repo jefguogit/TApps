@@ -1,0 +1,32 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li></ul></div><br><h1 class='namespace' id='apititle'>platformHeight</h1><div class='namespace_type'>Number   </div><div class='namespace_type'>Property of <a href='Titanium.Platform.DisplayCaps-object.html'>Titanium.Platform.DisplayCaps</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>0.8</td></tr><tr><td class='name'>iPhone</td><td class='description'>0.8</td></tr><tr><td class='name'>iPad</td><td class='description'>0.8</td></tr><tr><td class='name'>Mobile Web</td><td class='description'>1.8</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Absolute height of the display in relation to UI orientation. Measured in platform-specific units; pixels on Android and density-independent pixels (dip) on iOS.</p></div><h3 class='type'>Type</h3><div class='type'>Number </div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Platform Width and Height</h4><div class='code_example'><p>Create a window and limit it to portrait mode. Start the app and observe that the platform 
+width and height is output to the log. Change the physical orientation of the device and 
+click the window to test again. Note that the logged information relates to the UI rather 
+than the physical orientation of the device.</p>
+<pre><code>var win = Ti.UI.createWindow({
+  title: 'Click window to output UI dimensions',
+  backgroundColor: 'white',
+  orientationModes: [ Titanium.UI.PORTRAIT ], // UI restricted to portrait mode
+  fullscreen: false,
+  exitOnClose: true
+});
+
+var label = Ti.UI.createLabel({
+  text:'Hello world'
+});
+win.add(label);
+
+function logDisplayCaps(){
+  Ti.API.info('Width x Height: ' + Ti.Platform.displayCaps.platformWidth + ' x ' + Ti.Platform.displayCaps.platformHeight);
+}
+
+win.addEventListener('click',function(e){
+  // as the UI orientation is restricted by orientationModes, this will only ever 
+  // output the dimensions of the UI in portrait mode. For example, 480 x 800 for the 
+  // Android device tested
+  logDisplayCaps();
+});
+
+win.open();
+
+logDisplayCaps();
+</code></pre></div></div></div></body></html>

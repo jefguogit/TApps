@@ -1,0 +1,31 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>decodeNumber</h1><div class='namespace_type'>Function of <a href='Titanium.Codec-module.html'>Titanium.Codec</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>1.7</td></tr><tr><td class='name'>iPhone</td><td class='description'>1.7</td></tr><tr><td class='name'>iPad</td><td class='description'>1.7</td></tr><tr><td class='name'>Mobile Web</td><td class='description'>1.8</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Decodes a number from the <code>source</code> buffer using the specified data type.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>Takes a set of named parameters in the <code>options</code> argument.</p>
+<p>Bytes are read from  the <code>source</code> buffer and decoded as the specified data type, <code>type</code>.</p>
+<p>Two optional parameters can also be specified in <code>options</code>:</p>
+<ul>
+<li>
+<p>If <code>position</code> is included in the <code>options</code> dictionary, reads data from the 
+    buffer starting at <code>position</code>.</p>
+</li>
+<li>
+<p>If <code>byteOrder</code> is included in the <code>options</code> dictionary, the specified byte order
+    is used -- otherwise, the native byte order is assumed.</p>
+</li>
+</ul>
+<p>Throws an exception if <code>source</code> is null, or <code>position</code> is greater than <code>source.length</code></p>
+<p>On Mobile Web, <code>position</code> and <code>byteOrder</code> are not supported.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Decode a Double-Precision Floating Point Number</h4><div class='code_example'><p>This sample decodes an 8-byte double-precision floating point number using the
+OS byte order.</p>
+<pre><code>var buffer = // a buffer containing (at least) one 8-byte floating-point number
+var value = Ti.Codec.decodeNumber({
+    source: buffer,
+    type: Ti.Codec.TYPE_DOUBLE
+});
+</code></pre></div><h4 class='code_example_title'>Decode an Integer Specifying Start Position and Byte Order</h4><div class='code_example'><p>This sample decodes a 4-byte integer starting at index position 10 in the
+buffer, using big endian encoding.</p>
+<pre><code>var buffer = // a buffer containing a 4-byte integer at position 10.
+var value = Ti.Codec.decodeNumber({
+      source: buffer,
+      position: 10,
+      type: Ti.Codec.TYPE_INT,
+      byteOrder: Ti.Codec.BIG_ENDIAN
+});
+</code></pre></div></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>options</td><td class='type'>DecodeNumberDict  </td><td class='summary'><p>Named parameters.</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>Number</div></div></body></html>

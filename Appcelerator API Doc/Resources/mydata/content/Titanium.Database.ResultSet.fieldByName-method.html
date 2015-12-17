@@ -1,0 +1,15 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>fieldByName</h1><div class='namespace_type'>Function of <a href='Titanium.Database.ResultSet-object.html'>Titanium.Database.ResultSet</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>0.1</td></tr><tr><td class='name'>iPhone</td><td class='description'>0.1</td></tr><tr><td class='name'>iPad</td><td class='description'>0.1</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Retrieves the value for the specified field in the current row, and casts it to the specified type (String, Integer, Float or Double.)</p></div><br><h3 class='description'>Description</h3><div class='description'><p>All of the numeric types (Integer, Float or Double) are returned as JavaScript Number objects.<br />
+</p>
+<p>If no <code>type</code> parameter is specified, the returned data type depends on the data in the column.<br />
+</p>
+<ul>
+<li>If the data in the column is TEXT, the data is returned as a String.</li>
+<li>If the data in the column is any kind of number, the data is returned as a Number.</li>
+<li>If the data in the column is a BLOB, the data is returned as a <a href="Titanium.Blob-object.html"><code>Titanium.Blob</code></a> object.<br />
+</li>
+</ul>
+<p>When a <code>type</code> is specified and the data cannot be converted to the specified type, an 
+exception is thrown.<br />
+</p>
+<p>Returns null if the value in the table is NULL.      <br />
+</p></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>name</td><td class='type'>String  </td><td class='summary'><p>A column name or alias used in the SQL query.</p></td></tr><tr><td class='name'>type</td><td class='type'>Number  </td><td class='summary'><p>One of (<a href="Titanium.Database.FIELD_TYPE_STRING-property.html"><code>Titanium.Database.FIELD_TYPE_STRING</code></a> | <a href="Titanium.Database.FIELD_TYPE_INT-property.html"><code>Titanium.Database.FIELD_TYPE_INT</code></a> | <a href="Titanium.Database.FIELD_TYPE_FLOAT-property.html"><code>Titanium.Database.FIELD_TYPE_FLOAT</code></a> | <a href="Titanium.Database.FIELD_TYPE_DOUBLE-property.html"><code>Titanium.Database.FIELD_TYPE_DOUBLE</code></a>)</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>String  Number  Titanium.Blob  </div></div></body></html>

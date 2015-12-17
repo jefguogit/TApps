@@ -1,0 +1,42 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li>Description</li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Map</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>The top level Map module.  The Map module is used for creating in-application native maps.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Map Example</h4><div class='code_example'><p>This is a basic map example that places a custom annotation on the map, and 
+listens for click events on the annotation. </p>
+<p>In this example, a custom property (<code>myid</code>) is added to the annotation objct.
+While adding custom members to a Titanium object is not generally recommended,
+in this case it provides a mechanism for uniquely identifying an annotation. This
+can be useful, for example, if the annotations are dynamically generated 
+and it is not practical to identify them by title.</p>
+<pre><code>var mountainView = Titanium.Map.createAnnotation({
+    latitude:37.390749,
+    longitude:-122.081651,
+    title:"Appcelerator Headquarters",
+    subtitle:'Mountain View, CA',
+    pincolor:Titanium.Map.ANNOTATION_RED,
+    animate:true,
+    leftButton: '../images/appcelerator_small.png',
+    myid:1 // Custom property to uniquely identify this annotation.
+});
+
+var mapview = Titanium.Map.createView({
+    mapType: Titanium.Map.STANDARD_TYPE,
+    region: {latitude:33.74511, longitude:-84.38993, 
+            latitudeDelta:0.01, longitudeDelta:0.01},
+    animate:true,
+    regionFit:true,
+    userLocation:true,
+    annotations:[mountainView]
+});
+
+win.add(mapview);
+// Handle click events on any annotations on this map.
+mapview.addEventListener('click', function(evt) {
+
+    Ti.API.info("Annotation " + evt.title + " clicked, id: " + evt.annotation.myid);
+
+    // Check for all of the possible names that clicksouce
+    // can report for the left button/view.
+    if (evt.clicksource == 'leftButton' || evt.clicksource == 'leftPane' ||
+        evt.clicksource == 'leftView') {
+        Ti.API.info("Annotation " + evt.title + ", left button clicked.");
+    }
+});
+</code></pre></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Map.ANNOTATION_DRAG_STATE_CANCEL-property.html'>ANNOTATION_DRAG_STATE_CANCEL</a></td><td class='type'>Number  </td><td class='summary'><p>Used in the <a href="Titanium.Map.View.pinchangedragstate-event.html">pinchangedragstate</a> event to indicate that the user canceled the drag action.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Map.ANNOTATION_DRAG_STATE_DRAG-property.html'>ANNOTATION_DRAG_STATE_DRAG</a></td><td class='type'>Number  </td><td class='summary'><p>Used in the <a href="Titanium.Map.View.pinchangedragstate-event.html">pinchangedragstate</a> event to indicate that the user moved the annotation.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Map.ANNOTATION_DRAG_STATE_END-property.html'>ANNOTATION_DRAG_STATE_END</a></td><td class='type'>Number  </td><td class='summary'><p>Used in the <a href="Titanium.Map.View.pinchangedragstate-event.html">pinchangedragstate</a> event to indicate that the user finished moving the annotation.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Map.ANNOTATION_DRAG_STATE_NONE-property.html'>ANNOTATION_DRAG_STATE_NONE</a></td><td class='type'>Number  </td><td class='summary'><p>Used in the <a href="Titanium.Map.View.pinchangedragstate-event.html">pinchangedragstate</a> event to indicate that the annotation is not being dragged.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Map.ANNOTATION_DRAG_STATE_START-property.html'>ANNOTATION_DRAG_STATE_START</a></td><td class='type'>Number  </td><td class='summary'><p>Used in the <a href="Titanium.Map.View.pinchangedragstate-event.html">pinchangedragstate</a> event to indicate that the user started dragging the annotation.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Map.ANNOTATION_GREEN-property.html'>ANNOTATION_GREEN</a></td><td class='type'>Number  </td><td class='summary'><p>Color constant used to set a map annotation to green via the <a href="Titanium.Map.Annotation.pincolor-property.html"><code>Titanium.Map.Annotation.pincolor</code></a> property.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Map.ANNOTATION_PURPLE-property.html'>ANNOTATION_PURPLE</a></td><td class='type'>Number  </td><td class='summary'><p>Color constant used to set a map annotation to purple via the <a href="Titanium.Map.Annotation.pincolor-property.html"><code>Titanium.Map.Annotation.pincolor</code></a> property.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Map.ANNOTATION_RED-property.html'>ANNOTATION_RED</a></td><td class='type'>Number  </td><td class='summary'><p>Color constant used to set a map annotation to red via the <a href="Titanium.Map.Annotation.pincolor-property.html"><code>Titanium.Map.Annotation.pincolor</code></a> property.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Map.HYBRID_TYPE-property.html'>HYBRID_TYPE</a></td><td class='type'>Number  </td><td class='summary'><p>Used with <a href="Titanium.Map.View.mapType-property.html">mapType</a> to display a satellite image of the area with road and road name information layered on top.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Map.SATELLITE_TYPE-property.html'>SATELLITE_TYPE</a></td><td class='type'>Number  </td><td class='summary'><p>Used with <a href="Titanium.Map.View.mapType-property.html">mapType</a> to display satellite imagery of the area.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Map.STANDARD_TYPE-property.html'>STANDARD_TYPE</a></td><td class='type'>Number  </td><td class='summary'><p>Used with <a href="Titanium.Map.View.mapType-property.html">mapType</a> to display a street map that shows the position of all roads and some road names.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Map.TERRAIN_TYPE-property.html'>TERRAIN_TYPE</a></td><td class='type'>Number  </td><td class='summary'><p>Used with <a href="Titanium.Map.View.mapType-property.html">mapType</a> to display the terrain that shows the position of all roads and some road names.</p><span class='permission_warning'>read-only</span></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Map.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Map.createAnnotation-method.html'>createAnnotation</a></td><td class='summary'><p>Creates and returns an instance of <a href="Titanium.Map.Annotation-object.html"><code>Titanium.Map.Annotation</code></a>.</p></td></tr><tr><td class='name'><a href='Titanium.Map.createView-method.html'>createView</a></td><td class='summary'><p>Creates and returns an instance of <a href="Titanium.Map.View-object.html"><code>Titanium.Map.View</code></a>.</p></td></tr><tr><td class='name'><a href='Titanium.Map.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.Map.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr></tbody></table></div></body></html>

@@ -1,0 +1,10 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>vibrate</h1><div class='namespace_type'>Function of <a href='Titanium.Media-module.html'>Titanium.Media</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>iPhone</td><td class='description'>0.1</td></tr><tr><td class='name'>iPad</td><td class='description'>0.1</td></tr><tr><td class='name'>Android</td><td class='description'>0.1</td></tr><tr><td class='name'>Mobile Web</td><td class='description'>1.8</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Makes the device vibrate.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>On Android and Mobile Web, a <code>pattern</code> argument can be provided to specify a
+vibration pattern.</p>
+<p>The <code>pattern</code> is an array of Number values.  Each number in the array is 
+interpreted as a duration in milliseconds. The first number is the <em>delay</em> 
+before the pattern starts, and the remaining numbers are interpreted as 
+alternating periods of on and off times. For example, the following pattern:</p>
+<p>[ 0, 500, 100, 500, 100, 500 ] </p>
+<p>Would cause the vibration to start immediately (delay = 0), and perform three
+long vibrations (500 ms) separated by short pauses (100ms).</p>
+<p>On Mobile Web, calling <code>vibrate</code> without a <code>pattern</code> will stop the vibration.</p></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>pattern</td><td class='type'>Array&lt;Number&gt;  </td><td class='summary'><p>Array of values identifying a vibrate pattern (only used on Android).</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>void</div></div></body></html>

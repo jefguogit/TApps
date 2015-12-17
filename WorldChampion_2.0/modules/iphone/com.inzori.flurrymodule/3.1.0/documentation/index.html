@@ -1,0 +1,76 @@
+<h1>flurrymodule Module</h1>
+<h2>Description</h2>
+<p>This module is based on Softgravity Flurry module (sg.flurry).</p>
+<p>See full source code here: <a href="https://github.com/softgravity/titanium_flurry">https://github.com/softgravity/titanium_flurry</a></p>
+<p>Flurry Analytics is the same module as sg.flurry and updated for Flurry's SDK 3.1.0.</p>
+<p>We added Flurry AppCircle ads. (Check out http://dev.flurry.com for details).</p>
+<p>This allows to show other applications that uses Flurry as ads (Publisher role).</p>
+<h2>Installation</h2>
+<p><a href="https://wiki.appcelerator.org/display/tis/Using+Titanium+Modules">http://wiki.appcelerator.org/display/tis/Using+Titanium+Modules</a></p>
+<h2>Changelog</h2>
+<p>See <a href="changelog.html">here</a></p>
+<h2>Accessing the flurrymodule Module</h2>
+<p>To access this module from JavaScript, you would do the following:</p>
+<pre><code>Titanium.Flurry = Ti.Flurry = require("com.inzori.flurrymodule");
+Ti.Flurry.setAppCircleEnabled();
+Ti.Flurry.startSession('YOUR KEY HERE');
+
+You have to call setAppCircleEnabled() BEFORE calling startSession().
+</code></pre>
+<h2>Reference</h2>
+<h2>Documentation for AppCircle</h2>
+<h3>Ti.Flurry.setAppCircleEnabled()</h3>
+<p>Call this method if you want to use AppCirle. This has to be called before Ti.Flurry.startSession(KEY) </p>
+<h3>Ti.Flurry.setCanvas(any_unique_string_hook_name)</h3>
+<p>Call this method to open a full screen canvas (like a modal window from bottom to top)</p>
+<h3>Ti.Flurry.setTakeover(any_unique_string_hook_name)</h3>
+<p>Call this method to open a full screen ad (like a fullscreen view with opacity)</p>
+<h3>Ti.Flurry.setHook(any_unique_string_hook_name)</h3>
+<p>Call this method to create a banner style ad and call it again to refresh the banner</p>
+<h2>Copied from softgravity flurry module documentation: (ANALYTICS)</h2>
+<h3>Ti.Flurry.startSession(apiKey)</h3>
+<h3>Ti.Flurry.reportOnClose(bool)</h3>
+<p>This option is on by default. When enabled, Flurry will attempt to send session data when the app is exited as well as it normally does when the app is started. This will improve the speed at which your application analytics are updated but can prolong the app termination process due to network latency. In some cases, the network latency can cause the app to crash. </p>
+<h3>Ti.Flurry.reportOnPause(bool)</h3>
+<p>This option is off by default. When enabled, Flurry will attempt to send session data when the app is paused as well as it normally does when the app is started. This will improve the speed at which your application analytics are updated but can prolong the app pause process due to network latency. In some cases, the network latency can cause the app to crash. </p>
+<h3>Ti.Flurry.secureTransport(bool)</h3>
+<p>This option is off by default. When enabled, Flurry will send session data over SSL when the app is paused as well as it normally does when the app is started. This has the potential to prolong the app pause process due to added network latency from secure handshaking and encryption. </p>
+<h3>Ti.Flurry.logUncaughtExceptions(bool)</h3>
+<p>Logs uncaught exceptions thrown in the objective-c code</p>
+<h3>Ti.Flurry.logEvent(eventId, parameters)</h3>
+<p>Paramaters is a hash and is optional</p>
+<p>Use logEvent to count the number of times certain events happen during a session of your application. This can be useful for measuring how often users perform various actions, for example. Your application is currently limited to counting occurrences for 300 different event ids (maximum length 255 characters). Maximum of 10 event parameters per event is supported.<br />
+</p>
+<h3>Ti.Flurry.logTimedEvent(eventId, parameters)</h3>
+<p>logEvent but timed.</p>
+<h3>Ti.Flurry.endTimedEvent(eventId, parameters)</h3>
+<p>Use endTimedEvent to end timed event before app exists, otherwise timed events automatically end when app exists. When ending the timed event, a new event parameters object can be used to update event parameters. To keep event parameters the same, don't pass parameters. </p>
+<h3>Ti.Flurry.logPageView()</h3>
+<p>For each user interaction you want to manually log, you can use logPageView to log the page view. </p>
+<h3>Ti.Flurry.logError(errorName, errorMessage)</h3>
+<p>Use this to log exceptions and/or errors that occur in your app. Flurry will report the first 10 errors that occur in each session. </p>
+<h3>Ti.Flurry.setUserID(string)</h3>
+<p>Use this to log the user's assigned ID or username in your system. </p>
+<h3>Ti.Flurry.setAge(int)</h3>
+<p>Use this to log the user's age. Valid inputs are between 1 and 109. </p>
+<h3>Ti.Flurry.setGender(byte)</h3>
+<p>Use this to log the user's gender. Valid inputs are sg.flurry.MALE or sg.flurry.FEMALE</p>
+<h3>Ti.Flurry.setLatitude(latitude, longitude, horizontalAccuracy, verticalAccuracy)</h3>
+<p>Accuracy in meters</p>
+<h2>Constant</h2>
+<h3>Ti.Flurry.MALE</h3>
+<p>Used with the setGender function</p>
+<h3>Ti.Flurry.FEMALE</h3>
+<p>Used with the setGender function</p>
+<h2>Usage</h2>
+<p>Add this to your tiapp.xml</p>
+<pre><code>&lt;modules&gt;
+    &lt;module version="3.1.0"&gt;com.inzori.flurrymodule&lt;/module&gt;
+&lt;/modules&gt;
+</code></pre>
+<p>Check app.js for a fully functional sample</p>
+<h2>Author</h2>
+<p>Inzori
+contact@inzori.com</p>
+<h2>License</h2>
+<p>Free</p>

@@ -1,0 +1,28 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Android.PendingIntent</h1><div class='namespace_type'>object   </div><h3 class='summary'>Summary</h3><div class='summary'><p>The Titanium binding of an Android <code>PendingIntent</code>.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>Use the <a href="Titanium.Android.createPendingIntent-method.html"><code>Titanium.Android.createPendingIntent</code></a> method to create a pending intent.</p>
+<p>The type of <code>Intent</code> you pass to <code>createPendingIntent</code>  determines what kind of 
+<code>PendingIntent</code> is created.  Each type corresponds directly with a get method on 
+Android's PendingIntent:</p>
+<ul>
+<li>
+<p>To create a <code>PendingIntent</code> that starts an activity, pass in an activity intent, 
+    created with <a href="Titanium.Android.createIntent-method.html">createIntent</a>. This is equivalent to
+    calling the native Android <code>PendingIntent.getActivity</code> method. See
+    <a href="http://developer.android.com/reference/android/app/PendingIntent.html#getActivity(android.content.Context, int, android.content.Intent, int)">PendingIntent.getActivity in the Android API Reference</a></p>
+</li>
+<li>
+<p>To create a <code>PendingIntent</code> that starts a service, pass in a service intent,
+    created with <a href="Titanium.Android.createServiceIntent-method.html">createServiceIntent</a>. This is 
+     equivalent to calling the native Android <code>PendingIntent.getService</code> method. See 
+     <a href="http://developer.android.com/reference/android/app/PendingIntent.html#getService(android.content.Context, int, android.content.Intent, int)">PendingIntent.getService in the Android API Reference</a>.</p>
+</li>
+</ul>
+<p>The <code>PendingIntent</code> is always associated with the activity that was the current activity
+when the intent was created.</p>
+<p>Note that this <code>PendingIntent</code> is designed primarily to be used with the 
+<a href="Titanium.Android.Notification-object.html">Notification</a> object. It does not support all features 
+of the native Android <code>PendingIntent</code> -- in particular, 
+broadcast pending intents are not supported.</p>
+<p>See also: </p>
+<ul>
+<li><a href="http://developer.android.com/reference/android/app/PendingIntent.html">PendingIntent in the Android API Reference</a></li>
+</ul></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Android.PendingIntent.flags-property.html'>flags</a></td><td class='type'>Number  </td><td class='summary'><p>Flags used for creating the Pending Intent.</p></td></tr><tr><td class='name'><a href='Titanium.Android.PendingIntent.intent-property.html'>intent</a></td><td class='type'><a href='Titanium.Android.Intent-object.html'><code>Titanium.Android.Intent</code></a>  </td><td class='summary'><p>The intent data to pass to the <a href="Titanium.Android.Activity-object.html">Activity</a> launched by this <code>PendingIntent</code>.</p></td></tr><tr><td class='name'><a href='Titanium.Android.PendingIntent.updateCurrentIntent-property.html'>updateCurrentIntent</a></td><td class='type'>Boolean  </td><td class='summary'><p>If this property is true, flag <a href="Titanium.Android.FLAG_UPDATE_CURRENT-property.html"><code>Titanium.Android.FLAG_UPDATE_CURRENT</code></a> will beappended to <code>flags</code> automatically. Default value is true.</p></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Android.PendingIntent.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Android.PendingIntent.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.Android.PendingIntent.getFlags-method.html'>getFlags</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Android.PendingIntent.flags-property.html">flags</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Android.PendingIntent.getIntent-method.html'>getIntent</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Android.PendingIntent.intent-property.html">intent</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Android.PendingIntent.getUpdateCurrentIntent-method.html'>getUpdateCurrentIntent</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Android.PendingIntent.updateCurrentIntent-property.html">updateCurrentIntent</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Android.PendingIntent.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr></tbody></table></div></body></html>

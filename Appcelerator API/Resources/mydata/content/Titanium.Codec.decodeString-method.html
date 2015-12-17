@@ -1,0 +1,27 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>decodeString</h1><div class='namespace_type'>Function of <a href='Titanium.Codec-module.html'>Titanium.Codec</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>1.7</td></tr><tr><td class='name'>iPhone</td><td class='description'>1.7</td></tr><tr><td class='name'>iPad</td><td class='description'>1.7</td></tr><tr><td class='name'>Mobile Web</td><td class='description'>1.8</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Decodes the source buffer into a String using the supplied character set.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>Takes a set of named parameters in the <code>options</code> argument.</p>
+<p>Bytes are read from the <code>source</code> buffer and decoded as a string.</p>
+<p>Several optional parameters can also be specified in <code>options</code>:</p>
+<ul>
+<li>
+<p>If <code>position</code> is specified, bytes are read from <code>source</code> starting at <code>position</code>.</p>
+</li>
+<li>
+<p>If <code>length</code> is specified, no more than <code>length</code> bytes are read.</p>
+</li>
+<li>
+<p>If <code>charset</code> is specified, it determines the character encoding used to decode the
+    string. Otherwise, UTF-8 is assumed.</p>
+</li>
+</ul>
+<p>Throws an exception if <code>charset</code> is not a valid character set, <code>source</code> is null, 
+or either <code>position</code>, <code>length</code>, or <code>position</code>+<code>length</code> is greater than <code>source.length</code>.</p>
+<p>On Mobile Web, <code>charset</code> is not supported. All strings are treated as UTF-8.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Decode a String</h4><div class='code_example'><p>This sample decodes a string using the default character encoding.</p>
+<pre><code>var buffer = // a buffer containing an encoded string
+var string = Ti.Codec.decodeString({ source: buffer });
+</code></pre></div><h4 class='code_example_title'>Decode a String with a Specified Character Encoding</h4><div class='code_example'><p>This sample decodes a string using the UTF-16 character encoding.</p>
+<pre><code>var buffer = // a buffer containing a UTF-16 encoded string
+var string = Ti.Codec.decodeString({
+  source: buffer,
+  charset: Ti.Codec.CHARSET_UTF16
+});
+</code></pre></div></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>options</td><td class='type'>DecodeStringDict  </td><td class='summary'><p>Named parameters.</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>String</div></div></body></html>

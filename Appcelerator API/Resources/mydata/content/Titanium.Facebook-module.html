@@ -1,0 +1,303 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li><a href='#events'>Events</a></li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Facebook</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>The top level Facebook module.<br /></p></div><br><h3 class='description'>Description</h3><div class='description'><p>The Facebook module is used for connecting your application with 
+Facebook. This module supports the following features:</p>
+<ul>
+<li>
+<p>Logging in to Facebook and authorizing your application.</p>
+</li>
+<li>
+<p>Making requests through the Facebook Graph API using
+  <a href="Titanium.Facebook.requestWithGraphPath-method.html">requestWithGraphPath</a>.</p>
+</li>
+<li>
+<p>Making requests through the legacy Facebook REST API using
+  <a href="Titanium.Facebook.request-method.html">request</a>. </p>
+</li>
+<li>
+<p>Posting Facebook dialogs.</p>
+</li>
+</ul>
+<h4>Facebook Login and Authorization</h4>
+<p>To use Facebook, a user must log in to Facebook and explicitly authorize the
+application to perform certain actions, such as accessing profile information or 
+posting status messages. </p>
+<p>There are two ways to initiate the login process:</p>
+<ul>
+<li>
+<p>Call <a href="Titanium.Facebook.authorize-method.html">authorize</a> prompt the user to login and authorize
+  the application.</p>
+</li>
+<li>
+<p>Create a Facebook <a href="Titanium.Facebook.LoginButton-object.html">LoginButton</a> to allow the user to 
+  log in if desired.</p>
+</li>
+</ul>
+<p>Which approach you take depends on your UI and how central Facebook is to your
+application.</p>
+<p>Before calling <code>authorize</code> or creating a login button, you must set the
+<a href="Titanium.Facebook.appid-property.html">appid</a> and <a href="Titanium.Facebook.permissions-property.html">permissions</a>
+properties. </p>
+<p>To create a Facebook App ID, go to the Facebook Developer App:</p>
+<p><a href="https://developers.facebook.com/apps">developers.facebook.com/apps</a></p>
+<p>For a complete list of permissions, see the 
+<a href="http://developers.facebook.com/docs/reference/api/permissions/">official Facebook Permissions Reference</a></p>
+<h4>Facebook Graph API</h4>
+<p>The Facebook Graph API is the preferred method for getting information about a user's friends, 
+news feed, and so on. Each object in the Facebook social graph is represented by a
+graph API <em>object</em>, such as a user, photo, or status message. </p>
+<p>The Graph API allows you to make requests on behalf of the user, such as posting a
+picture or status message. </p>
+<p>Use the <a href="Titanium.Facebook.requestWithGraphPath-method.html">requestWithGraphPath</a> method to make a 
+request to the Graph API.</p>
+<p>For details on each of the Graph API objects and the supported operations, see the 
+<a href="http://developers.facebook.com/docs/reference/api/">official Facebook Graph API documentation</a>.</p>
+<h4>Facebook REST API</h4>
+<p>The Facebook REST API is in the process of being deprecated, and should not be used 
+unless your application relies on an API that doesn't exist in the Graph API.</p>
+<p>Use the <a href="Titanium.Facebook.request-method.html">request</a> method to make a request to the REST API.</p>
+<p>For details on the REST API, see the 
+<a href="http://developers.facebook.com/docs/reference/rest/">official Facebook REST API documentation</a>.</p>
+<h4>Facebook Dialogs</h4>
+<p>Facebook dialogs are standard user-interface components for used to prompt users to
+interact with Facebook in a specific way, such as:</p>
+<ul>
+<li>
+<p>Sending an application request</p>
+</li>
+<li>
+<p>Sending a status update</p>
+</li>
+<li>
+<p>Adding a friend</p>
+</li>
+</ul>
+<p>Because dialogs require user interaction, they do not require Facebook permissions.</p>
+<p>For details on different dialogs see the 
+<a href="http://developers.facebook.com/docs/reference/dialogs/">official Facebook Dialogs documentation</a>.<br />
+</p>
+<h4>iOS Platform Implementation Notes</h4>
+<p>Due to how the facebook login process works on iOS, your app will need to have the following 
+in your tiapp.xml if you target those platforms:</p>
+<pre><code>&lt;property name="ti.facebook.appid"&gt;your_facebook_app_id_here&lt;/property &gt;
+</code></pre>
+<p>You must still set Ti.Facebook.appid within your app itself to use the facebook module.<br />
+This property is used only for configuring your app to interface with the facebook 
+login process.</p>
+<h4>Previous Versions</h4>
+<p>Titanium Mobile SDK 1.6.0 marked a significant change for this module.  Older versions of 
+the module were not compatible with the new Graph API.  Applications written for the 
+pre-1.6.0 version of this module will <strong>not</strong> work with the 1.6.0 and higher versions.<br />
+Nor is the code shown in the examples here backwards-compatible with pre-1.6.0 Titanium 
+Mobile SDK.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Authorize</h4><div class='code_example'><p>Shows official Facebook dialog for logging in the user and prompting the user to approve your 
+requested permissions.  Listen for the module's <a href="Titanium.Facebook.login-event.html">login</a> event to 
+determine whether the request succeeded.</p>
+<pre><code>Ti.Facebook.appid = '[YOUR APPID]';
+Ti.Facebook.permissions = ['publish_stream']; // Permissions your app needs
+Ti.Facebook.addEventListener('login', function(e) {
+    if (e.success) {
+        alert('Logged In');
+    } else if (e.error) {
+        alert(e.error);
+    } else if (e.cancelled) {
+        alert("Canceled");
+    }
+});
+Ti.Facebook.authorize();
+</code></pre></div><h4 class='code_example_title'>Logout</h4><div class='code_example'><p>Logout the user and forget the authorization token.  The 
+<a href="Titanium.Facebook.logout-method.html">logout</a> event is fired after the user is logged out.</p>
+<pre><code>Ti.Facebook.addEventListener('logout', function(e) {
+    alert('Logged out');
+});
+Ti.Facebook.logout();
+</code></pre></div><h4 class='code_example_title'>Authorize/Logout Using the Facebook LoginButton</h4><div class='code_example'><p>You can use the the Facebook-themed <a href="Titanium.Facebook.LoginButton-object.html">LoginButton</a>
+to allow the user to log in as required. The button updates its state automatically depending 
+on whether the user is logged in or not.  When the user is logged in, then the button 
+will show "Logout", and vice-versa.</p>
+<p>Note that you don't need to set a click listener or anything else on the button. 
+It "just works".  To be notified when the user logs in or out, add event listeners for the 
+<a href="Titanium.Facebook.login-event.html">login</a> and <a href="Titanium.Facebook.logout-method.html">logout</a> events
+provided by the Titanium Facebook module, as in the example below.</p>
+<pre><code>// Don't forget to set your appid and requested permissions, else the login button
+// won't be effective.
+Ti.Facebook.appid = '[your appid]';
+Ti.Facebook.permissions = ['publish_stream'];
+Ti.Facebook.addEventListener('login', function(e) {
+    if (e.success) {
+        alert('Logged in');
+    }
+});
+Ti.Facebook.addEventListener('logout', function(e) {
+    alert('Logged out');
+});
+
+// Add the button.  Note that it doesn't need a click event listener.
+win2.add(Ti.Facebook.createLoginButton({
+    top : 50,
+    style : Ti.Facebook.BUTTON_STYLE_WIDE
+}));
+</code></pre>
+<p>The specified button style ('wide' or <code>BUTTON_STYLE_WIDE</code>) shows a wide version of the 
+button that displays "Connect with Facebook" instead of just "Connect".</p></div><h4 class='code_example_title'>Simple Graph API Call</h4><div class='code_example'><p>This example makes a call to the "me" graph path, which represents the current
+user. The JSON results are simply displayed in an alert.  This example assumes 
+the user is already logged in (you can check this with <a href="Titanium.Facebook.loggedIn-property.html"><code>Titanium.Facebook.loggedIn</code></a>).</p>
+<pre><code>Ti.Facebook.requestWithGraphPath('me', {}, 'GET', function(e) {
+    if (e.success) {
+        alert(e.result);
+    } else if (e.error) {
+        alert(e.error);
+    } else {
+        alert('Unknown response');
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Create an Event Using the Graph API</h4><div class='code_example'><p>This example uses the Graph API to create an event<br />
+in the logged-on user's Facebook account. This requires the "create_event" permission.</p>
+<pre><code>// First make sure this permission exists
+Ti.Facebook.permissions = ['create_event'];
+Ti.Facebook.authorize();
+
+// ...
+// ...
+
+// Now create the event after you've confirmed authorize() was successful.
+var starttime = new Date(2012, 4, 31, 17, 0);
+var endtime = new Date(2012, 4, 31, 19, 0);
+var title = "Barry's Birthday Celebration";
+var description = "Barry will have a great party";
+var data = {
+    start_time: JSON.stringify(starttime), // API expects a JSON stringified date
+    end_time: JSON.stringify(endtime),
+    summary: description,
+    name: title
+};
+Ti.Facebook.requestWithGraphPath('me/events', data, 'POST', function(e) {
+    if (e.success) {
+        alert("Success! Returned from FB: " + e.result);
+    } else {
+        if (e.error) {
+            alert(e.error);
+        } else {
+            alert("Unknown result");
+        }
+    }
+});
+</code></pre>
+<p>For more information on the Event object, see:</p>
+<ul>
+<li><a href="http://developers.facebook.com/docs/reference/api/event/">Event in the Facebook Graph API Reference</a>.</li>
+</ul></div><h4 class='code_example_title'>Set a User's Facebook Status Using the Graph API</h4><div class='code_example'><p>This example uses the Graph API to set the user's Facebook status, which requires the 
+"publish_stream" permission.</p>
+<pre><code>// First make sure this permission exists
+Ti.Facebook.permissions = ['publish_stream'];
+Ti.Facebook.authorize();
+
+// ...
+// ...
+
+// Now create the status message after you've confirmed that authorize() succeeded
+Ti.Facebook.requestWithGraphPath('me/feed', {message: "Trying out FB Graph API and it's fun!"}, 
+         "POST", function(e) {
+    if (e.success) {
+        alert("Success!  From FB: " + e.result);
+    } else {
+        if (e.error) {
+            alert(e.error);
+        } else {
+            alert("Unkown result");
+        }
+    }
+});
+</code></pre>
+<p>For more information on the Staus object, see:</p>
+<ul>
+<li><a href="http://developers.facebook.com/docs/reference/api/status/">Status in the Facebook Graph API Reference</a>.<br />
+</li>
+</ul></div><h4 class='code_example_title'>Post a Photo Using the Graph API</h4><div class='code_example'><p>This example posts a photo to the user's account using the Graph API.
+Another example below shows how to do this with the REST API, if desired. 
+This requires the "publish_stream" permission.</p>
+<pre><code>// First make sure this permission exists
+Ti.Facebook.permissions = ['publish_stream'];
+Ti.Facebook.authorize();
+
+// ...
+// ...
+
+// Now post the photo after you've confirmed that authorize() succeeded
+var f = Ti.Filesystem.getFile('pumpkin.jpg');
+var blob = f.read();
+var data = {
+    message: 'This is a pumpkin',
+    picture: blob
+};
+Ti.Facebook.requestWithGraphPath('me/photos', data, 'POST', function(e){
+    if (e.success) {
+        alert("Success!  From FB: " + e.result);
+    } else {
+        if (e.error) {
+            alert(e.error);
+        } else {
+            alert("Unkown result");
+        }
+    }
+});
+</code></pre>
+<p>For more information on posting photos, see:</p>
+<ul>
+<li><a href="http://developers.facebook.com/docs/reference/api/photo/">Photo in the Facebook Graph API Reference</a> </li>
+</ul></div><h4 class='code_example_title'>Post a photo using the REST API</h4><div class='code_example'><p>This example posts a photo to the user's account using the REST API. Another example above shows 
+how to do this with the Graph API.  This requires the "publish_stream" permission.</p>
+<pre><code>// First make sure this permission exists
+Ti.Facebook.permissions = ['publish_stream'];
+Ti.Facebook.authorize();
+
+// ...
+// ...
+
+// Now post the photo after you've confirmed that authorize() succeeded
+var f = Ti.Filesystem.getFile('pumpkin.jpg');
+var blob = f.read();
+var data = {
+    caption: 'This is a pumpkin',
+    picture: blob
+};
+Ti.Facebook.request('photos.upload', data, function(e){
+    if (e.success) {
+        alert("Success!  From FB: " + e.result);
+    } else {
+        if (e.error) {
+            alert(e.error);
+        } else {
+            alert("Unkown result");
+        }
+    }
+});
+</code></pre>
+<p>For more information on posting photos using the REST API, see:</p>
+<ul>
+<li><a href="http://developers.facebook.com/docs/reference/rest/photos.upload/">photos.upload in the Facebook REST API Reference</a> </li>
+</ul></div><h4 class='code_example_title'>Show the Facebook Feed Dialog</h4><div class='code_example'><p>This example shows how to display the offical Facebook Feed Dialog, for adding a
+post to the user's wall. In this example, we'll prefill some of the feed fields by 
+passing a data dictionary to the <a href="Titanium.Facebook.dialog-method.html">dialog</a> method; this is not required.</p>
+<pre><code>var data = {
+    link : "http://www.appcelerator.com",
+    name : "Appcelerator Titanium Mobile",
+    message : "Checkout this cool open source project for creating mobile apps",
+    caption : "Appcelerator Titanium Mobile",
+    picture : "http://developer.appcelerator.com/assets/img/DEV_titmobile_image.png",
+    description : "You've got the ideas, now you've got the power. Titanium translates " +
+                  "your hard won web skills into native applications..."
+};
+Titanium.Facebook.dialog("feed", data, function(e) {
+    if(e.success &amp;&amp; e.result) {
+        alert("Success! New Post ID: " + e.result);
+    } else {
+        if(e.error) {
+            alert(e.error);
+        } else {
+            alert("User canceled dialog.");
+        }
+    }
+});
+</code></pre>
+<p>For more information on Facebook Dialogs, see:</p>
+<ul>
+<li><a href="http://developers.facebook.com/docs/reference/dialogs/">Facebook Dialog Reference</a> </li>
+</ul></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Facebook.BUTTON_STYLE_NORMAL-property.html'>BUTTON_STYLE_NORMAL</a></td><td class='type'>Number  </td><td class='summary'><p>Use with <a href="Titanium.Facebook.LoginButton.style-property.html">LoginButton.style</a> to specifythe default login button reading "Connect" or "Login".</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Facebook.BUTTON_STYLE_WIDE-property.html'>BUTTON_STYLE_WIDE</a></td><td class='type'>Number  </td><td class='summary'><p>Use with <a href="Titanium.Facebook.LoginButton.style-property.html">LoginButton.style</a> to specifya wide login button reading "Connect with Facebook" or "Login with Facebook".</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Facebook.accessToken-property.html'>accessToken</a></td><td class='type'>String  </td><td class='summary'><p>OAuth token set after a successful <code>authorize</code>.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.appid-property.html'>appid</a></td><td class='type'>String  </td><td class='summary'><p>Your Facebook application id. You need to set this for anything to work.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.expirationDate-property.html'>expirationDate</a></td><td class='type'>Date  </td><td class='summary'><p>Time at which the <code>accessToken</code> expires.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.forceDialogAuth-property.html'>forceDialogAuth</a></td><td class='type'>Boolean  </td><td class='summary'><p>Indicates whether the login should use the traditional dialog-basedauthentication.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.loggedIn-property.html'>loggedIn</a></td><td class='type'>Boolean  </td><td class='summary'><p>Indicates if the user is logged in.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.permissions-property.html'>permissions</a></td><td class='type'>Array&lt;String&gt;  </td><td class='summary'><p>Array of permissions to request for your app.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.uid-property.html'>uid</a></td><td class='type'>String  </td><td class='summary'><p>Unique user ID returned from Facebook.</p></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Facebook.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.authorize-method.html'>authorize</a></td><td class='summary'><p>Prompts the user to log in (if not already logged in) and authorize your application.<br /></p></td></tr><tr><td class='name'><a href='Titanium.Facebook.createLoginButton-method.html'>createLoginButton</a></td><td class='summary'><p>Creates and returns an instance of <a href="Titanium.Facebook.LoginButton-object.html"><code>Titanium.Facebook.LoginButton</code></a>.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.dialog-method.html'>dialog</a></td><td class='summary'><p>Opens a supported Facebook dialog.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.getAccessToken-method.html'>getAccessToken</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Facebook.accessToken-property.html">accessToken</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.getAppid-method.html'>getAppid</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Facebook.appid-property.html">appid</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.getExpirationDate-method.html'>getExpirationDate</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Facebook.expirationDate-property.html">expirationDate</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.getForceDialogAuth-method.html'>getForceDialogAuth</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Facebook.forceDialogAuth-property.html">forceDialogAuth</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.getLoggedIn-method.html'>getLoggedIn</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Facebook.loggedIn-property.html">loggedIn</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.getPermissions-method.html'>getPermissions</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Facebook.permissions-property.html">permissions</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.getUid-method.html'>getUid</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Facebook.uid-property.html">uid</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.logout-method.html'>logout</a></td><td class='summary'><p>Clears the OAuth <code>accessToken</code> and logs out the user.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.request-method.html'>request</a></td><td class='summary'><p>Makes a request to the legacy Facebook REST API.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.requestWithGraphPath-method.html'>requestWithGraphPath</a></td><td class='summary'><p>Makes a Facebook Graph API request.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.setAccessToken-method.html'>setAccessToken</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Facebook.accessToken-property.html">accessToken</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.setAppid-method.html'>setAppid</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Facebook.appid-property.html">appid</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.setExpirationDate-method.html'>setExpirationDate</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Facebook.expirationDate-property.html">expirationDate</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.setForceDialogAuth-method.html'>setForceDialogAuth</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Facebook.forceDialogAuth-property.html">forceDialogAuth</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.setLoggedIn-method.html'>setLoggedIn</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Facebook.loggedIn-property.html">loggedIn</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.setPermissions-method.html'>setPermissions</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Facebook.permissions-property.html">permissions</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.setUid-method.html'>setUid</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Facebook.uid-property.html">uid</a> property.</p></td></tr></tbody></table><br><h3 id='events'>Events</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Facebook.login-event.html.html'>login</a></td><td class='summary'><p>Fired at session login.</p></td></tr><tr><td class='name'><a href='Titanium.Facebook.logout-event.html.html'>logout</a></td><td class='summary'><p>Fired at session logout.</p></td></tr></tbody></table></div></body></html>

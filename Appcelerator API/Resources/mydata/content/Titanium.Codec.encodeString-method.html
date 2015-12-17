@@ -1,0 +1,42 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>encodeString</h1><div class='namespace_type'>Function of <a href='Titanium.Codec-module.html'>Titanium.Codec</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>1.7</td></tr><tr><td class='name'>iPhone</td><td class='description'>1.7</td></tr><tr><td class='name'>iPad</td><td class='description'>1.7</td></tr><tr><td class='name'>Mobile Web</td><td class='description'>1.8</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Encodes a string into a series of bytes in a buffer using the specified character set.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>Takes a set of named parameters in the <code>options</code> argument.</p>
+<p>The string is read from <code>source</code> and written to the buffer <code>dest</code>.</p>
+<p>Several optional parameters can also be specified in <code>options</code>:</p>
+<ul>
+<li>
+<p>If <code>charset</code> is included, the string is encoded using the specified character
+    encoding.</p>
+</li>
+<li>
+<p>If <code>destPosition</code> is included, data is written into the buffer starting at 
+    the specified position. </p>
+</li>
+<li>
+<p>If <code>sourcePosition</code> is included, a substring of the source string starting at the 
+    specified position is encoded.</p>
+</li>
+<li>
+<p>If <code>sourceLength</code> is included, at most the specified numer of characters 
+    are encoded.</p>
+</li>
+</ul>
+<p>Throws an exception if <code>charset</code> is not a valid character set,
+<code>source</code> is null, or either <code>sourcePosition</code>, <code>sourceLength</code>, or
+<code>sourcePosition</code>+<code>sourceLength</code> is greater than <code>source.length</code>.</p>
+<p>On Mobile Web, the <code>charset</code> option is not supported. All strings are treated as UTF-8.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Encode String with Default Character Encoding</h4><div class='code_example'><p>This sample encodes a string using the default character encoding (UTF-8), then trims the 
+buffer to the length of the encoded string.</p>
+<pre><code>var buffer = Ti.createBuffer({ length: 1024 });
+var length = Ti.Codec.encodeString({
+    source: "hello world",
+    dest: buffer
+});
+buffer.length = length;
+</code></pre></div><h4 class='code_example_title'>Encode Substring with Specified Character Encoding</h4><div class='code_example'><p>This sample encodes the first 10 characters of a string using UTF-16 character encoding. </p>
+<pre><code>// (10 * 2) + BOM = 22
+var buffer = Ti.createBuffer({ length: 22 });
+Ti.Codec.encodeString({
+    source: "jack jumped over the candle stick",
+    sourceLength: 10,
+    dest: buffer,
+    charset: Ti.Codec.CHARSET_UTF16
+});
+</code></pre></div></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>options</td><td class='type'>Dictionary&lt;EncodeStringDict&gt;  </td><td class='summary'><p>Named parameters.</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>Number</div></div></body></html>

@@ -1,0 +1,13 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li><a href='#methods'>methods</a></li><li>Properties</li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Proxy</h1><div class='namespace_type'>object   </div><h3 class='summary'>Summary</h3><div class='summary'><p>The base for all Titanium objects.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>On platforms that use native code (Android, iOS, and BlackBerry), the <code>Proxy</code> type represents a
+JavaScript wrapper or <em>proxy</em> around a native object. Setting or getting a property
+on a proxy object results in a method invokation on the native object. Likewise,
+calling a method on the proxy object results in a method invokation on the native
+object.</p>
+<p>In Mobile Web, there is no true <code>Proxy</code> type -- all Titanium objects are ordinary JavaScript
+objects.</p>
+<p>Some Titanium objects are <em>createable</em>: new instances of these objects can be created using
+factory methods. For example, a <a href="Titanium.UI.Window-object.html">Window</a> object can be created using the
+<a href="Titanium.UI.createWindow-method.html"><code>Titanium.UI.createWindow</code></a> method.</p>
+<p>In general, developers should avoid modifying the prototype of a Titanium object, or
+adding methods to a Titanium object. (Adding a simple property such as an ID value is
+generally OK.)</p></div><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Proxy.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Proxy.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.Proxy.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr></tbody></table></div></body></html>

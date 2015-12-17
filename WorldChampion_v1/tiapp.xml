@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ti:app xmlns:ti="http://ti.appcelerator.org">
+    <deployment-targets>
+        <target device="mobileweb">false</target>
+        <target device="iphone">true</target>
+        <target device="ipad">true</target>
+        <target device="android">false</target>
+        <target device="blackberry">false</target>
+    </deployment-targets>
+    <sdk-version>2.1.4.GA</sdk-version>
+    <id>SGT.chess.worldchampions</id>
+    <name>WorldChampion</name>
+    <version>1.0</version>
+    <publisher>user</publisher>
+    <url>http://sunnyglobetech.com</url>
+    <description>not specified</description>
+    <copyright>2013 by Sunny Globe Technology</copyright>
+    <icon>appicon.png</icon>
+    <persistent-wifi>false</persistent-wifi>
+    <prerendered-icon>false</prerendered-icon>
+    <statusbar-style>translucent_black</statusbar-style>
+    <statusbar-hidden>false</statusbar-hidden>
+    <fullscreen>false</fullscreen>
+    <navbar-hidden>true</navbar-hidden>
+    <analytics>false</analytics>
+    <guid>a6b23bc0-83e6-4caa-8211-65b97c1cc583</guid>
+    <property name="ti.ui.defaultunit">system</property>
+    <iphone>
+        <orientations device="iphone">
+            <orientation>Ti.UI.PORTRAIT</orientation>
+        </orientations>
+        <orientations device="ipad">
+            <orientation>Ti.UI.LANDSCAPE_LEFT</orientation>
+        </orientations>
+    </iphone>
+    <android xmlns:android="http://schemas.android.com/apk/res/android"/>
+    <mobileweb>
+        <precache/>
+        <splash>
+            <enabled>true</enabled>
+            <inline-css-images>true</inline-css-images>
+        </splash>
+        <theme>default</theme>
+    </mobileweb>
+    <modules>
+        <module version="1.3.0">ti.flurry</module>
+    </modules>
+</ti:app>

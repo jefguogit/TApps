@@ -1,0 +1,14 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>updateLayout</h1><div class='namespace_type'>Function of <a href='Titanium.UI.TabGroup-object.html'>Titanium.UI.TabGroup</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>2.0.0</td></tr><tr><td class='name'>iPhone</td><td class='description'>2.0.0</td></tr><tr><td class='name'>iPad</td><td class='description'>2.0.0</td></tr><tr><td class='name'>Mobile Web</td><td class='description'>2.0.0</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Performs a batch update of all supplied layout properties and schedules a layout pass after they have been updated.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>This is another way to perform a batch update.  The <code>updateLayout</code> method is called with a 
+dictionary of layout properties to perform the batch update. For example:</p>
+<pre><code>view.updateLayout({top:50, left:50});
+</code></pre>
+<p>This is equivalent to the following:</p>
+<pre><code>view.startLayout();
+view.top = 50;
+view.left = 50;
+view.finishLayout();
+</code></pre>
+<p>See also: <a href="Titanium.UI.View.startLayout-method.html">startLayout</a>, 
+<a href="Titanium.UI.View.finishLayout-method.html">finishLayout</a>, 
+<a href="Titanium.UI.View.postlayout-event.html">postlayout</a> event.</p>
+<p>On Mobile Web, this method is included for parity only, and thus has no effect.</p></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>params</td><td class='type'>Dictionary  </td><td class='summary'><p>Layout properties to be updated.</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>void</div></div></body></html>

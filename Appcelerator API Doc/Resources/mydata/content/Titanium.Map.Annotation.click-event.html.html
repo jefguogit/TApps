@@ -1,0 +1,18 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#properties'>Properties</a></li></ul></div><br><h1 class='namespace' id='apititle'>click</h1><div class='namespace_type'>Event of <a href='Titanium.Map.Annotation-object.html'>Titanium.Map.Annotation</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>iPhone</td><td class='description'>0.9</td></tr><tr><td class='name'>iPad</td><td class='description'>0.9</td></tr><tr><td class='name'>Mobile Web</td><td class='description'>1.8</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Fired when the user selects, deselects, or clicks on this annotation.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>This event is not currently supported on Android. Register for the 
+<a href="Titanium.Map.View.click-event.html">click</a> event on the map view to receive
+events when any of the map's annotations are clicked.</p>
+<p>This event is fired in two circumstances:</p>
+<ul>
+<li>If the user clicks on an annotation.</li>
+<li>The user deselects an annotation.</li>
+</ul>
+<p>On iOS, the user deselects an annotation by clicking in the map view outside of
+the annotation. On Android, the user deselects an annotation by clicking on the 
+annotation pin.</p>
+<p>The <code>click</code> event includes a value, <code>clicksource</code>, which describes the part of the 
+annotation that was clicked. Note that the possible values for <code>clicksource</code> differ between
+platforms.</p>
+<p>On iOS, if the user clicks on the pin or annotation, the <code>clicksource</code> is one of: 
+<code>pin</code>, <code>annotation</code>, <code>leftButton</code>, <code>rightButton</code>, <code>leftView</code>, <code>rightView</code>, 
+<code>title</code>, or <code>subtitle</code>. If the user deselects the annotation by clicking elsewhere
+in the map view, <code>clicksource</code> is <code>null</code>.</p></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>annotation</td><td class='type'>Titanium.Map.Annotation  </td><td class='summary'><p>Annotation source object.</p></td></tr><tr><td class='name'>clicksource</td><td class='type'>String  </td><td class='summary'><p>Source of the click event, such as <code>pin</code>, or <code>leftButton</code>.</p></td></tr><tr><td class='name'>index</td><td class='type'>Number  </td><td class='summary'><p>Index of the annotation in the map view's <a href="Titanium.Map.View.annotations-property.html">annotations</a> array.</p></td></tr><tr><td class='name'>map</td><td class='type'>Titanium.Map.View  </td><td class='summary'><p>The map view instance that this annotation belongs to.</p></td></tr><tr><td class='name'>source</td><td class='type'>Object  </td><td class='summary'><p>Source object that fired the event.</p></td></tr><tr><td class='name'>title</td><td class='type'>String  </td><td class='summary'><p>Title of the annotation.</p></td></tr><tr><td class='name'>type</td><td class='type'>String  </td><td class='summary'><p>Name of the event fired.</p></td></tr></tbody></table></div></body></html>

@@ -1,0 +1,31 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li></ul></div><br><h1 class='namespace' id='apititle'>windowSoftInputMode</h1><div class='namespace_type'>Number   </div><div class='namespace_type'>Property of <a href='Titanium.UI.iPad.SplitWindow-object.html'>Titanium.UI.iPad.SplitWindow</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>1.2</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Determines whether a heavyweight window's soft input area (ie software keyboard) is visible as it receives focus and how the window behaves in order to accomodate it while keeping its contents in view.</p></div><h3 class='type'>Type</h3><div class='type'>Number </div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Soft Input Visibility and Adjustment</h4><div class='code_example'><p>Create a white window and respond to a click of it to open a red window containing a 
+text area. Show the software keyboard automatically as the red window opens.</p>
+<pre><code>var win1 = Ti.UI.createWindow({
+  backgroundColor: 'white',
+  exitOnClose: true,
+  fullscreen: false,
+  title: 'Click window to test'
+});
+
+// use bitwise OR to combine two settings for the windowSoftInputMode property
+var softInput = Ti.UI.Android.SOFT_INPUT_STATE_ALWAYS_VISIBLE | Ti.UI.Android.SOFT_INPUT_ADJUST_PAN;
+
+win1.addEventListener('click', function(){
+var win2 = Ti.UI.createWindow({
+  backgroundColor: 'red',
+  fullscreen: false,
+  windowSoftInputMode: softInput
+});
+
+var textArea = Ti.UI.createTextArea({
+  value : 'I am a textarea',
+  height : 200,
+  width : 300,
+  top : 200
+});
+win2.add(textArea);
+win2.open();
+});
+
+win1.open();
+</code></pre></div></div></div></body></html>

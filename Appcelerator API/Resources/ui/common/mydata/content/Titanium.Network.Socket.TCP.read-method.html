@@ -1,0 +1,15 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>read</h1><div class='namespace_type'>Function of <a href='Titanium.Network.Socket.TCP-object.html'>Titanium.Network.Socket.TCP</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>1.7</td></tr><tr><td class='name'>iPhone</td><td class='description'>1.7</td></tr><tr><td class='name'>iPad</td><td class='description'>1.7</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Reads data from this stream into a buffer.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>If <code>offset</code> and <code>length</code> are specified, data is written into the buffer starting at 
+position <code>offset</code>. Data is read from this stream until one of the following occurs:</p>
+<ul>
+<li>the end of this stream is reached</li>
+<li>the end of the buffer is reached</li>
+<li>a total of <code>length</code> bytes have been read from the stream</li>
+</ul>
+<p>If <code>offset</code> and <code>length</code> are omitted, data is written starting at the beginning
+of the buffer.</p>
+<p>Returns the number of bytes read, or -1 if the end of stream was reached before
+any data was read.</p>
+<p>Throws an exception on error. For example, if the <code>offset</code> value is past
+the last byte of <code>buffer</code>. </p>
+<p>This method is synchronous. To perform an asynchronous read on an <code>IOStream</code>, use
+<a href="Titanium.Stream.read-method.html"><code>Titanium.Stream.read</code></a>.</p></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>buffer</td><td class='type'>Titanium.Buffer  </td><td class='summary'><p>Buffer to read stream data into.</p></td></tr><tr><td class='name'>offset</td><td class='type'>Number  </td><td class='summary'><p>Offset into the buffer to start writing stream data.If specified, <code>length</code> must also be specified.</p></td></tr><tr><td class='name'>length</td><td class='type'>Number  </td><td class='summary'><p>Maximum number of bytes to read.If specified, <code>offset</code> must also be specified.</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>Number</div></div></body></html>

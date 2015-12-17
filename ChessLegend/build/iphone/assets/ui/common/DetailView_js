@@ -1,0 +1,1 @@
+function DetailView(e,s){var i=require("ui/common/GameView"),t=(require("ui/common/IntroView"),Ti.UI.createView({width:e,height:s})),c=new i(e,s-10);return t.add(c),t.addEventListener("opengame",function(e){Ti.API.log("fire detail"+e.game),t.fireEvent("hideIntro",e),c.fireEvent("openAgame",e)}),t}module.exports=DetailView;

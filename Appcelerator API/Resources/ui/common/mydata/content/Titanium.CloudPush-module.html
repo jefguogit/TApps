@@ -1,0 +1,63 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li><a href='#events'>Events</a></li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.CloudPush</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>Provides methods for accessing Android push notifications from ACS using the MQTT protocol.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>The MQTT protocol is a very lightweight, long lived connection to a server. It is perfect for keeping mobile devices
+in connection with a server, while not significantly degrading their battery life.</p>
+<p>In addition to communicating with an MQTT server, this module can also present tray notifications to the user.
+Please refer to the <a href="Titanium.CloudPush.showTrayNotification-property.html">showTrayNotification</a> property to see more information
+about this.</p>
+<p>Note that this module is not included in the Titanium namespace, but it is bundled with the Titanium SDK as of
+version 2.0.0. To use it, you must require it, like this:</p>
+<pre><code>var CloudPush = require('ti.cloudpush');
+</code></pre>
+<p>This module must also be added to the modules section in your tiapp.xml. This can be done using the Modules list in
+the Titanium Studio TiApp Editor, or by editing the XML directly and adding the following line to the modules
+element:</p>
+<pre><code>&lt;module platform="android"&gt;ti.cloudpush&lt;/module&gt;
+</code></pre>
+<p>Your app must prove that it is allowed to talk to ACS. This keeps your data secure by preventing anyone from
+making requests to ACS that impersonate your app.</p>
+<p>Titanium Studio will create a pair of keys (Development and Production) for each Titanium application depending on the
+user preference specified during new project creation. This pair of keys will be stored in <code>tiapp.xml</code> and one of the
+keys will be used during application build depending on the build type (development or production).</p>
+<p>The supported properties in <code>tiapp.xml</code> are:</p>
+<pre><code>&lt;property name="acs-api-key-development" type="string"&gt;YOUR DEVELOPMENT API KEY HERE&lt;/property&gt;
+
+&lt;property name="acs-api-key-production" type="string"&gt;YOUR PRODUCTION API KEY HERE&lt;/property&gt;
+
+&lt;property name="acs-api-key" type="string"&gt;YOUR API KEY HERE&lt;/property&gt;
+</code></pre>
+<p>The value for each setting that will be used is based on the following rules:</p>
+<ul>
+<li>If a deployment-specific setting is provided (production or development) then that value will be used for the current deployment environment.</li>
+</ul>
+<p><em>WARNING</em>: The default properties of this module are used until you set a property for the first time. Because the
+properties are persisted to the device settings (via <a href="Titanium.App.Properties-module.html"><code>Titanium.App.Properties</code></a>), the most recent value you set will
+always be used.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Listening for Push Notifications</h4><div class='code_example'><p>This example lets the user choose if push notifications should be enabled, and listens for several events.
+    var CloudPush = require('ti.cloudpush');
+    CloudPush.retrieveDeviceToken({
+        success: function deviceTokenSuccess(e) {
+            Ti.API.info('Device Token: ' + e.deviceToken);
+        },
+        error: function deviceTokenError(e) {
+            alert('Failed to register for push! ' + e.error);
+        }
+    });
+    var win = Ti.UI.createWindow({
+        layout: 'vertical',
+        backgroundColor: 'white'
+    });
+    var enablePush = Ti.UI.createButton({
+        title: 'Enable Push Notifications'
+    });
+    enablePush.addEventListener('click', function () {
+        CloudPush.enabled = true;
+    });
+    win.add(enablePush);
+    CloudPush.addEventListener('callback', function (evt) {
+        alert(evt.payload);
+    });
+    CloudPush.addEventListener('trayClickLaunchedApp', function (evt) {
+        Ti.API.info('Tray Click Launched App (app was not running)');
+    });
+    CloudPush.addEventListener('trayClickFocusedApp', function (evt) {
+        Ti.API.info('Tray Click Focused App (app was already running)');
+    });
+    win.open();</p></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.CloudPush.enabled-property.html'>enabled</a></td><td class='type'>Boolean  </td><td class='summary'><p>Whether or not this device will receive push notifications.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.focusAppOnPush-property.html'>focusAppOnPush</a></td><td class='type'>Boolean  </td><td class='summary'><p>Whether or not your application is brought to the foreground whenever a new push is received.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.showAppOnTrayClick-property.html'>showAppOnTrayClick</a></td><td class='type'>Boolean  </td><td class='summary'><p>Whether or not clicking the tray notification will bring your application to the foreground.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.showTrayNotification-property.html'>showTrayNotification</a></td><td class='type'>Boolean  </td><td class='summary'><p>Whether or not to show a tray notification when a new push is received.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.showTrayNotificationsWhenFocused-property.html'>showTrayNotificationsWhenFocused</a></td><td class='type'>Boolean  </td><td class='summary'><p>Whether or not to show tray notifications when your application is in the foreground.</p></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.CloudPush.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.getEnabled-method.html'>getEnabled</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.CloudPush.enabled-property.html">enabled</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.getFocusAppOnPush-method.html'>getFocusAppOnPush</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.CloudPush.focusAppOnPush-property.html">focusAppOnPush</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.getShowAppOnTrayClick-method.html'>getShowAppOnTrayClick</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.CloudPush.showAppOnTrayClick-property.html">showAppOnTrayClick</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.getShowTrayNotification-method.html'>getShowTrayNotification</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.CloudPush.showTrayNotification-property.html">showTrayNotification</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.getShowTrayNotificationsWhenFocused-method.html'>getShowTrayNotificationsWhenFocused</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.CloudPush.showTrayNotificationsWhenFocused-property.html">showTrayNotificationsWhenFocused</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.retrieveDeviceToken-method.html'>retrieveDeviceToken</a></td><td class='summary'><p>Asynchronously retrieves the application specific device token.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.setEnabled-method.html'>setEnabled</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.CloudPush.enabled-property.html">enabled</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.setFocusAppOnPush-method.html'>setFocusAppOnPush</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.CloudPush.focusAppOnPush-property.html">focusAppOnPush</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.setShowAppOnTrayClick-method.html'>setShowAppOnTrayClick</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.CloudPush.showAppOnTrayClick-property.html">showAppOnTrayClick</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.setShowTrayNotification-method.html'>setShowTrayNotification</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.CloudPush.showTrayNotification-property.html">showTrayNotification</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.setShowTrayNotificationsWhenFocused-method.html'>setShowTrayNotificationsWhenFocused</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.CloudPush.showTrayNotificationsWhenFocused-property.html">showTrayNotificationsWhenFocused</a> property.</p></td></tr></tbody></table><br><h3 id='events'>Events</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.CloudPush.callback-event.html.html'>callback</a></td><td class='summary'><p>Fired whenever a push notification is received.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.trayClickFocusedApp-event.html.html'>trayClickFocusedApp</a></td><td class='summary'><p>Fired when a tray notification is shown and the application is already running.</p></td></tr><tr><td class='name'><a href='Titanium.CloudPush.trayClickLaunchedApp-event.html.html'>trayClickLaunchedApp</a></td><td class='summary'><p>Fired when a tray notification is shown and the application is not running.</p></td></tr></tbody></table></div></body></html>

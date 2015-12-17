@@ -1,0 +1,15 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>accept</h1><div class='namespace_type'>Function of <a href='Titanium.Network.Socket.TCP-object.html'>Titanium.Network.Socket.TCP</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>1.7</td></tr><tr><td class='name'>iPhone</td><td class='description'>1.7</td></tr><tr><td class='name'>iPad</td><td class='description'>1.7</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Tells a <a href="Titanium.Network.Socket.LISTENING-property.html">LISTENING</a> socket to accept a connection request at the top of a listener's request queue when one becomes available.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>Nonblocking; if there are no connections in the queue, sets a flag so that 
+the socket accepts the next incoming connection immediately. </p>
+<p>Takes an argument, an <a href="AcceptDict-object.html"><code>AcceptDict</code></a> object which assigns options to the new
+connection.  If the socket is already flagged to accept the next connection, 
+the existing accept options will be updated to use the newly specified <code>options</code> 
+object. </p>
+<p>The <code>accepted</code> callback is called when a new connection is accepted as a result of 
+calling <code>accept</code>. The callback argument holds a reference to a new socket,
+representing the accepted connection.</p>
+<p>Note that the connected callback is <strong>not</strong> called on the newly created socket.   <br />
+This is because the socket is created in the 
+<a href="Titanium.Network.Socket.CONNECTED-property.html">CONNECTED</a> state, so it never transitions
+to the <code>CONNECTED</code> state.</p>
+<p>Throws an exception if called on a socket that is not in a 
+<a href="Titanium.Network.Socket.LISTENING-property.html">LISTENING</a> state.</p></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>options</td><td class='type'>AcceptDict  </td><td class='summary'><p>Options to be set on next accepted socket.</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>void</div></div></body></html>

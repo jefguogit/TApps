@@ -1,0 +1,133 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li>Description</li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li>Properties</li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Cloud.Places</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>Provides methods for accessing ACS places.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Create Place</h4><div class='code_example'><p>This example creates a new place and checks the response.</p>
+<pre><code>Cloud.Places.create({
+    name: 'Appcelerator HQ',
+    state: 'California',
+    website: 'http://www.appcelerator.com'
+}, function (e) {
+    if (e.success) {
+        var place = e.places[0];
+        alert('Success:\\\
+' +
+            'id: ' + place.id + '\\\
+' +
+            'name: ' + place.name + '\\\
+' +
+            'updated_at: ' + place.updated_at);
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Show a Place</h4><div class='code_example'><p>This example retrieves information about a place and checks the response.</p>
+<pre><code>Cloud.Places.show({
+    place_id: savedPlaceId
+}, function (e) {
+    if (e.success) {
+        var place = e.places[0];
+        alert('Success:\\\
+' +
+            'id: ' + place.id + '\\\
+' +
+            'name: ' + place.name + '\\\
+' +
+            'updated_at: ' + place.updated_at);
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Search for Places</h4><div class='code_example'><p>This example searches for places and checks the response.</p>
+<pre><code>Cloud.Places.search({
+    latitude: lat,
+    longitude: lon
+}, function (e) {
+    if (e.success) {
+        alert('Success:\\\
+' +
+            'Count: ' + e.places.length);
+        for (var i = 0; i &lt; e.places.length; i++) {
+            var place = e.places[i];
+            alert('id: ' + place.id + '\\\
+' +
+                  'name: ' + place.name + '\\\
+' +
+                  'longitude: ' + place.longitude + '\\\
+' +
+                  'latitude: ' + place.latitude + '\\\
+' +
+                  'updated_at: ' + place.updated_at);
+        }
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Query for Places</h4><div class='code_example'><p>This example requests a list of places and checks the response.</p>
+<pre><code>Cloud.Places.query({
+    page: 1,
+    per_page: 20,
+    where: {
+        lnglat: {
+            '$nearSphere': [-122.23,37.12],
+            '$maxDistance': 0.00126
+        }
+    }
+}, function (e) {
+    if (e.success) {
+        alert('Success:\\\
+' +
+            'Count: ' + e.places.length);
+        for (var i = 0; i &lt; e.places.length; i++) {
+            var place = e.places[i];
+            alert('id: ' + place.id + '\\\
+' +
+                  'name: ' + place.name + '\\\
+' +
+                  'longitude: ' + place.longitude + '\\\
+' +
+                  'latitude: ' + place.latitude + '\\\
+' +
+                  'updated_at: ' + place.updated_at);
+        }
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Update a Place</h4><div class='code_example'><p>This example updates a place and checks the response.</p>
+<pre><code>Cloud.Places.update({
+    place_id: savedPlaceId,
+    city: 'Mountain View'
+}, function (e) {
+    if (e.success) {
+        var place = e.places[0];
+        alert('Success:\\\
+' +
+            'id: ' + place.id + '\\\
+' +
+            'name: ' + place.name + '\\\
+' +
+            'updated_at: ' + place.updated_at);
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Remove a Place</h4><div class='code_example'><p>This example deletes a place and checks the response.</p>
+<pre><code>Cloud.Places.remove({
+    place_id: savedPlaceId
+}, function (e) {
+    if (e.success) {
+        alert('Success');
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div></div><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Cloud.Places.create-method.html'>create</a></td><td class='summary'><p>Create a new place.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Places.query-method.html'>query</a></td><td class='summary'><p>Retrieve a list of places with sorting and pagination.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Places.remove-method.html'>remove</a></td><td class='summary'><p>Delete a place.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Places.search-method.html'>search</a></td><td class='summary'><p>Retrieve a list of places.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Places.show-method.html'>show</a></td><td class='summary'><p>Retrieve information about a place.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Places.update-method.html'>update</a></td><td class='summary'><p>Update information about a place.</p></td></tr></tbody></table></div></body></html>

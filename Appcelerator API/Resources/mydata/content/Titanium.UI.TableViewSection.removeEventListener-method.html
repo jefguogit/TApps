@@ -1,0 +1,10 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>removeEventListener</h1><div class='namespace_type'>Function of <a href='Titanium.UI.TableViewSection-object.html'>Titanium.UI.TableViewSection</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>0.9</td></tr><tr><td class='name'>iPhone</td><td class='description'>0.9</td></tr><tr><td class='name'>iPad</td><td class='description'>0.9</td></tr><tr><td class='name'>Mobile Web</td><td class='description'>1.8</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Removes the specified callback as an event listener for the named event.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>Multiple listeners can be registered for the same event, so the 
+<code>callback</code> parameter is used to determine which listener to remove. </p>
+<p>When adding a listener, you must save a reference to the callback function
+in order to remove the listener later:</p>
+<pre><code>var listener = function() { Ti.API.info("Event listener called."); }
+window.addEventListener('click', listener);
+</code></pre>
+<p>To remove the listener, pass in a reference to the callback function:</p>
+<pre><code>window.removeEventListener('click', listener);
+</code></pre></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>name</td><td class='type'>String  </td><td class='summary'><p>Name of the event.</p></td></tr><tr><td class='name'>callback</td><td class='type'>Callback&lt;Object&gt;  </td><td class='summary'><p>Callback function to remove. Must be the same function passed to <code>addEventListener</code>.</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>void</div></div></body></html>

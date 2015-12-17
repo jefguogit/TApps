@@ -1,0 +1,51 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>stringify</h1><div class='namespace_type'>Function of <a href='Global.JSON-object.html'>Global.JSON</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>0.8</td></tr><tr><td class='name'>iPhone</td><td class='description'>0.8</td></tr><tr><td class='name'>iPad</td><td class='description'>0.8</td></tr><tr><td class='name'>Mobile Web</td><td class='description'>1.8</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Produces a JSON text from a JavaScript value.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>When an object value is found, if the object contains a toJSON
+method, its toJSON method is called and the result is
+stringified. A toJSON method does not serialize: it returns the
+value represented by the name/value pair that should be serialized,
+or undefined if nothing should be serialized. The toJSON method
+is passed the key associated with the value, and <code>this</code> is
+bound to the value.</p>
+<p>For example, this would serialize Dates as ISO strings.</p>
+<pre><code>Date.prototype.toJSON = function (key) {
+    function f(n) {
+        // Format integers to have at least two digits.
+        return n &lt; 10 ? '0' + n : n;
+    }
+
+    return this.getUTCFullYear()   + '-' +
+         f(this.getUTCMonth() + 1) + '-' +
+         f(this.getUTCDate())      + 'T' +
+         f(this.getUTCHours())     + ':' +
+         f(this.getUTCMinutes())   + ':' +
+         f(this.getUTCSeconds())   + 'Z';
+};
+</code></pre>
+<p>You can provide an optional replacer function. It is passed the
+key and value of each member, with <code>this</code> bound to the containing
+object. The value that is returned from your function is
+serialized. If your function returns undefined, then the member will
+be excluded from the serialization.</p>
+<p>If the replacer parameter is an array of strings, then it is
+used to select the members to be serialized. It filters the results
+such that only members with keys listed in the replacer array are
+stringified.</p>
+<p>Values that do not have JSON representations, such as undefined or
+functions, will not be serialized. Such values in objects are
+dropped; in arrays they are replaced with null. You can use
+a replacer function to replace those with JSON values.</p>
+<p>JSON.stringify(undefined) returns undefined.</p>
+<p>The optional space parameter produces a stringification of the
+value that is filled with line breaks and indentation to make it
+easier to read.</p>
+<p>If the space parameter is a non-empty string, then that string is
+used for indentation. If the space parameter is a number, then
+each level is indented by the specified number of spaces. </p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Formatting with a Replacer Function</h4><div class='code_example'><p>The following example produces a readable version of a Titanium event object, 
+omitting the <code>source</code> and <code>type</code> properties and adding whitespace for readability:</p>
+<pre><code>JSON.stringify(evt, function(key, value) {
+    if(key === 'source' || key === 'type') {
+        return undefined;
+    } else {
+        return value;
+    }
+}, 2));
+</code></pre></div></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>value</td><td class='type'>Object  </td><td class='summary'><p>Any JavaScript value, usually an object or array.</p></td></tr><tr><td class='name'>replacer</td><td class='type'>Callback  Array&lt;String&gt;  </td><td class='summary'><p>Determines how object values are stringified for objects. See main text for usage.</p></td></tr><tr><td class='name'>space</td><td class='type'>Number  String  </td><td class='summary'><p>Specifies how nested structures are indented. If it is a number, it specifies the number of spaces to indent at each level. If it is a string (such as '\\t' or '&amp;nbsp;'), it specifies the characters used to indent at each level.</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>String</div></div></body></html>

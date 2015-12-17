@@ -1,0 +1,193 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Android.Calendar</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>The Android.Calendar module provides proxies and methods for accessing the native Android calendar functionality.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>This module supports retrieving information about existing events and creating new events.<br />
+However, modifying or deleting existing events is not yet supported.<br />
+Additionally, recurring events are not yet supported.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>All Calendars vs Selectable Calendars</h4><div class='code_example'><p>Print the names of all calendars known to Android, and the names of calendars that 
+have been selected in the native Android calendar application.</p>
+<pre><code>function showCalendars(calendars) {
+    for (var i = 0; i &lt; calendars.length; i++) {
+        Ti.API.info(calendars[i].name);
+    }
+}
+
+Ti.API.info('ALL CALENDARS:');
+showCalendars(Ti.Android.Calendar.allCalendars);
+Ti.API.info('SELECTABLE CALENDARS:');
+showCalendars(Ti.Android.Calendar.selectableCalendars);
+</code></pre></div><h4 class='code_example_title'>Events in a year</h4><div class='code_example'><p>Create a picker to allow an existing calendar to be selected and, when a button is clicked, 
+generate details of all events in that calendar for the current year .</p>
+<pre><code>var calendars = [];
+var selectedCalendarName;
+var selectedCalendarId;
+var pickerData = [];
+
+var win = Ti.UI.createWindow({
+  backgroundColor: 'white',
+  exitOnClose: true,
+  fullscreen: false,
+  layout: 'vertical',
+  title: 'Calendar Demo'
+});
+
+var scrollView = Ti.UI.createScrollView({
+  backgroundColor: '#eee',
+  height: 500,
+  top: 20
+});
+
+var label = Ti.UI.createLabel({
+  backgroundColor: 'white',
+  text: 'Click on the button to display the events for the selected calendar',
+  textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+  top: 20
+});
+scrollView.add(label);
+
+var selectableCalendars = Ti.Android.Calendar.selectableCalendars;
+for (var i = 0, ilen = selectableCalendars.length; i &lt; ilen; i++) {
+  calendars.push({ name: selectableCalendars[i].name, id: selectableCalendars[i].id });
+  pickerData.push( Ti.UI.createPickerRow({ title: calendars[i].name }) );
+  if(i === 0){
+    selectedCalendarName = selectableCalendars[i].name;
+    selectedCalendarId = selectableCalendars[i].id;
+  }
+}
+var selectableCalendars = null;
+
+if(!calendars.length){
+  label.text = 'No calendars available. Select at least one in the native calendar before using this app';
+} else {
+  label.text = 'Click button to view calendar events';
+
+  var picker = Ti.UI.createPicker({
+    top:20
+  });
+
+  picker.add(pickerData);
+  win.add(picker);
+
+  picker.addEventListener('change', function(e){
+    for (var i = 0, ilen = calendars.length; i &lt; ilen; i++) {
+      if(calendars[i].name === e.row.title){
+        selectedCalendarName = calendars[i].name;
+        selectedCalendarId = calendars[i].id;
+      }
+    }
+  });
+
+  var button = Ti.UI.createButton({
+    title: 'View events',
+    top: 20
+  });
+  win.add(button);
+
+  button.addEventListener('click', function(e){
+    label.text = 'Generating...';
+
+    var currentYear = new Date().getFullYear();
+
+    var consoleString = '';
+
+    function print(s) {
+      if (consoleString.length) {
+        consoleString = consoleString + '\
+';
+      }
+      consoleString = consoleString + s;
+    }
+
+    var calendar = Ti.Android.Calendar.getCalendarById(selectedCalendarId);
+
+    function printReminder(r) {
+      var typetext = '[method unknown]';
+      if (r.method == Ti.Android.Calendar.METHOD_EMAIL) {
+        typetext = 'Email';
+      } else if (r.method == Ti.Android.Calendar.METHOD_SMS) {
+        typetext = 'SMS';
+      } else if (r.method == Ti.Android.Calendar.METHOD_ALERT) {
+        typetext = 'Alert';
+      } else if (r.method == Ti.Android.Calendar.METHOD_DEFAULT) {
+        typetext = '[default reminder method]';
+      }
+      print(typetext + ' reminder to be sent ' + r.minutes + ' minutes before the event');
+    }
+
+    function printAlert(a) {
+      print('Alert id ' + a.id + ' begin ' + a.begin + '; end ' + a.end + '; alarmTime ' + a.alarmTime + '; minutes ' + a.minutes);
+    }
+
+    function printEvent(event) {
+      if (event.allDay) {
+        print('Event: ' + event.title + '; ' + event.begin.toLocaleDateString() + ' (all day)');
+      } else {
+        print('Event: ' + event.title + '; ' + event.begin.toLocaleDateString() + ' ' + event.begin.toLocaleTimeString()+ '-' + event.end.toLocaleTimeString());
+      }
+
+      var reminders = event.reminders;
+      if (reminders &amp;&amp; reminders.length) {
+        print('There is/are ' + reminders.length + ' reminder(s)');
+        for (var i = 0; i &lt; reminders.length; i++) {
+          printReminder(reminders[i]);
+        }
+      }
+
+      print('hasAlarm? ' + event.hasAlarm);
+      var alerts = event.alerts;
+      if (alerts &amp;&amp; alerts.length) {
+        for (var i = 0; i &lt; alerts.length; i++) {
+          printAlert(alerts[i]);
+        }
+      }
+
+      var status = event.status;
+      if (status == Ti.Android.Calendar.STATUS_TENTATIVE) {
+        print('This event is tentative');
+      }
+      if (status == Ti.Android.Calendar.STATUS_CONFIRMED) {
+        print('This event is confirmed');
+      }
+      if (status == Ti.Android.Calendar.STATUS_CANCELED) {
+        print('This event was canceled');
+      }
+    }
+
+    var events = calendar.getEventsInYear(currentYear);
+    if (events &amp;&amp; events.length) {
+      print(events.length + ' event(s) in ' + currentYear);
+      print('');
+      for (var i = 0; i &lt; events.length; i++) {
+        printEvent(events[i]);
+        print('');
+      }
+    } else {
+      print('No events');
+    }
+
+    label.text = consoleString;
+  });
+}
+
+win.add(scrollView);
+
+win.open();
+</code></pre></div><h4 class='code_example_title'>Create an Event and Reminder</h4><div class='code_example'><p>Creates an event and adds an e-mail reminder for 10 minutes before the event.</p>
+<pre><code>var CALENDAR_TO_USE = 3;
+var calendar = Ti.Android.Calendar.getCalendarById(CALENDAR_TO_USE);
+
+// Create the event
+var eventBegins = new Date(2010, 11, 26, 12, 0, 0);
+var eventEnds = new Date(2010, 11, 26, 14, 0, 0);
+var details = {
+    title: 'Do some stuff',
+    description: "I'm going to do some stuff at this time.",
+    begin: eventBegins,
+    end: eventEnds
+};
+
+var event = calendar.createEvent(details);
+
+// Now add a reminder via e-mail for 10 minutes before the event.
+var reminderDetails = {
+    minutes: 10,
+    method: Ti.Android.Calendar.METHOD_EMAIL
+};
+event.createReminder(reminderDetails);
+</code></pre></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Android.Calendar.METHOD_ALERT-property.html'>METHOD_ALERT</a></td><td class='type'>Number  </td><td class='summary'><p>Reminder alert delivery method.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.METHOD_DEFAULT-property.html'>METHOD_DEFAULT</a></td><td class='type'>Number  </td><td class='summary'><p>Reminder default delivery method.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.METHOD_EMAIL-property.html'>METHOD_EMAIL</a></td><td class='type'>Number  </td><td class='summary'><p>Reminder email delivery method.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.METHOD_SMS-property.html'>METHOD_SMS</a></td><td class='type'>Number  </td><td class='summary'><p>Reminder SMS delivery method.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.STATE_DISMISSED-property.html'>STATE_DISMISSED</a></td><td class='type'>Number  </td><td class='summary'><p>Alert dismissed state.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.STATE_FIRED-property.html'>STATE_FIRED</a></td><td class='type'>Number  </td><td class='summary'><p>Alert fired state.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.STATE_SCHEDULED-property.html'>STATE_SCHEDULED</a></td><td class='type'>Number  </td><td class='summary'><p>Alert scheduled status.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.STATUS_CANCELED-property.html'>STATUS_CANCELED</a></td><td class='type'>Number  </td><td class='summary'><p>Event canceled status.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.STATUS_CONFIRMED-property.html'>STATUS_CONFIRMED</a></td><td class='type'>Number  </td><td class='summary'><p>Event confirmed status.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.STATUS_TENTATIVE-property.html'>STATUS_TENTATIVE</a></td><td class='type'>Number  </td><td class='summary'><p>Event tentative status.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.VISIBILITY_CONFIDENTIAL-property.html'>VISIBILITY_CONFIDENTIAL</a></td><td class='type'>Number  </td><td class='summary'><p>Event confidential visibility.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.VISIBILITY_DEFAULT-property.html'>VISIBILITY_DEFAULT</a></td><td class='type'>Number  </td><td class='summary'><p>Event default visibility.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.VISIBILITY_PRIVATE-property.html'>VISIBILITY_PRIVATE</a></td><td class='type'>Number  </td><td class='summary'><p>Event private visibility.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.VISIBILITY_PUBLIC-property.html'>VISIBILITY_PUBLIC</a></td><td class='type'>Number  </td><td class='summary'><p>Event public visibility.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.allAlerts-property.html'>allAlerts</a></td><td class='type'>Array&lt;Titanium.Android.Calendar.Alert&gt;  </td><td class='summary'><p>All alerts in selected calendars.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.allCalendars-property.html'>allCalendars</a></td><td class='type'>Array&lt;Titanium.Android.Calendar.Calendar&gt;  </td><td class='summary'><p>All calendars known to the native calendar app.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.selectableCalendars-property.html'>selectableCalendars</a></td><td class='type'>Array&lt;Titanium.Android.Calendar.Calendar&gt;  </td><td class='summary'><p>All calendars selected within the native calendar app, which may be a subset of <code>allCalendars</code>. </p><span class='permission_warning'>read-only</span></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Android.Calendar.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.getAllAlerts-method.html'>getAllAlerts</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Android.Calendar.allAlerts-property.html">allAlerts</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.getAllCalendars-method.html'>getAllCalendars</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Android.Calendar.allCalendars-property.html">allCalendars</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.getCalendarById-method.html'>getCalendarById</a></td><td class='summary'><p>Gets the calendar with the specified identifier.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.getSelectableCalendars-method.html'>getSelectableCalendars</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Android.Calendar.selectableCalendars-property.html">selectableCalendars</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Calendar.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr></tbody></table></div></body></html>

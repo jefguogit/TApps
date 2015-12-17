@@ -1,0 +1,145 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li><a href='#events'>Events</a></li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Geolocation</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>The top level Geolocation module. The Geolocation module is used for accessing device location based information.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>This module combines two sets of features:</p>
+<ul>
+<li>
+<p>Location services. Determining the location of the device.</p>
+</li>
+<li>
+<p>Geocoding and reverse geocoding. Converting geographic  coordinates into
+    addresses, and converting addresses into geographic  coordinates.</p>
+</li>
+</ul>
+<p>Using location services can have a significant impact on a device's battery life, 
+so it's important to use them in the most efficient manner possible. Power consumption
+is strongly influenced by the accuracy and frequency of location updates required by 
+your application. </p>
+<p>The location services systems of the underlying platforms are very different, so there
+are significant implementation differences between the platforms.</p>
+<p>The basic methods of requesting location information and receiving location updates
+are essentially the same on all platforms. However, the method of configuring the 
+accuracy and frequency of location updates is different for each platform.</p>
+<h4>Getting Location Information</h4>
+<p>There are two ways to get location information:</p>
+<ul>
+<li>
+<p>Make a one-time request with <a href="Titanium.Geolocation.getCurrentPosition-method.html">getCurrentPosition</a>.</p>
+</li>
+<li>
+<p>Register to receive location updates by adding an event listener for the
+    <a href="Titanium.Geolocation.location-event.html">location</a> event.</p>
+</li>
+</ul>
+<p><strong>NOTE:</strong> Location services stay enabled for as long as a listener is registered for the
+<code>location</code> event, so be sure to remove the event listener when you do not require
+location updates.</p>
+<h4>Configurating Location Updates on iOS</h4>
+<p>In iOS, the accuracy (and power consumption) of location services is primarily
+determined by the <a href="Titanium.Geolocation.accuracy-property.html">accuracy</a> setting. This can be set
+to one of the following values:</p>
+<ul>
+<li><a href="Titanium.Geolocation.ACCURACY_BEST-property.html">ACCURACY_BEST</a> (highest accuracy and power consumption)</li>
+<li><a href="Titanium.Geolocation.ACCURACY_HIGH-property.html">ACCURACY_HIGH</a></li>
+<li><a href="Titanium.Geolocation.ACCURACY_NEAREST_TEN_METERS-property.html">ACCURACY_NEAREST_TEN_METERS</a> </li>
+<li><a href="Titanium.Geolocation.ACCURACY_HUNDRED_METERS-property.html">ACCURACY_HUNDRED_METERS</a> </li>
+<li><a href="Titanium.Geolocation.ACCURACY_KILOMETER-property.html">ACCURACY_KILOMETER</a> </li>
+<li><a href="Titanium.Geolocation.ACCURACY_LOW-property.html">ACCURACY_LOW</a></li>
+<li><a href="Titanium.Geolocation.ACCURACY_THREE_KILOMETERS-property.html">ACCURACY_THREE_KILOMETERS</a> (lowest
+    accuracy and power consumption). </li>
+</ul>
+<p>Based on the accuracy you choose, iOS uses its own logic to select location providers
+and filter location updates to provide location updates that meet your accuracy
+requirements.</p>
+<p>You can further limit power consumption on iOS by setting the
+<a href="Titanium.Geolocation.distanceFilter-property.html">distanceFilter</a> property to eliminate position
+updates when the user is not moving.</p>
+<h4>Configurating Location Updates on Android</h4>
+<p>Prior to Titanium Mobile 2.0, Titanium attempted to follow the iOS model on Android,
+but this didn't fit the native Android model well. In Release 2.0, three different
+location service modes are supported on Android: <em>simple</em>, <em>manual</em>, and <em>legacy</em>.</p>
+<ul>
+<li>
+<p><em>Simple mode</em> provides a compromise mode that provides adaquate support for 
+    undemanding location applications without requiring developers to
+    write a lot of Android-specific code. To use simple mode:</p>
+<ol>
+<li>
+<p>Leave the <a href="Titanium.Geolocation.Android.manualMode-property.html"><code>Titanium.Geolocation.Android.manualMode</code></a> flag set to <code>false</code> (the 
+     default value).</p>
+</li>
+<li>
+<p>Set the <a href="Titanium.Geolocation.accuracy-property.html">accuracy</a> property to 
+     either <a href="Titanium.Geolocation.ACCURACY_HIGH-property.html">ACCURACY_HIGH</a> or 
+     <a href="Titanium.Geolocation.ACCURACY_LOW-property.html">ACCURACY_LOW</a>.</p>
+</li>
+</ol>
+</li>
+<li>
+<p><em>Manual mode</em> gives developers low-level control of location updates, including
+    enabling individual location providers and filtering updates, for the best
+    combination of accuracy and battery life. </p>
+<p>Manual mode is used when the <a href="Titanium.Geolocation.Android.manualMode-property.html"><code>Titanium.Geolocation.Android.manualMode</code></a> flag is set
+to <code>true</code>. In manual mode, the <code>accuracy</code> property is not used, and all
+configuration is done through the <a href="Titanium.Geolocation.Android-module.html"><code>Titanium.Geolocation.Android</code></a> module.</p>
+</li>
+<li>
+<p><em>Legacy mode</em> is the mode that existed prior to 2.0. Legacy mode is 
+    used when the <code>manualMode</code> flag is <code>false</code> and the <code>accuracy</code> property is 
+    set to one of the iOS <code>ACCURACY</code> constants:</p>
+<ul>
+<li><a href="Titanium.Geolocation.ACCURACY_BEST-property.html">ACCURACY_BEST</a> (highest accuracy and power consumption)</li>
+<li><a href="Titanium.Geolocation.ACCURACY_NEAREST_TEN_METERS-property.html">ACCURACY_NEAREST_TEN_METERS</a> </li>
+<li><a href="Titanium.Geolocation.ACCURACY_HUNDRED_METERS-property.html">ACCURACY_HUNDRED_METERS</a> </li>
+<li><a href="Titanium.Geolocation.ACCURACY_KILOMETER-property.html">ACCURACY_KILOMETER</a> </li>
+<li><a href="Titanium.Geolocation.ACCURACY_THREE_KILOMETERS-property.html">ACCURACY_THREE_KILOMETERS</a> (lowest
+    accuracy and power consumption). </li>
+</ul>
+<p>This mode is deprecated and should not be used for new development. </p>
+<p>In this mode, the specified <code>accuracy</code> value determines the 
+<em>minimum distance between location updates</em>. If <code>accuracy</code> is set to
+<code>ACCURACY_BEST</code>, no distance filter is used on updates.</p>
+<p>In legacy mode, only a single location provider (GPS, network, or passive) is
+enabled at a time. You can specify a the location provider using the 
+<a href="Titanium.Geolocation.preferredProvider-property.html">preferredProvider</a> property.</p>
+<p>You can also specifying a desired update frequency using the
+<a href="Titanium.Geolocation.frequency-property.html">frequency</a> property. The <code>preferredProvider</code>
+and <code>frequency</code> properties are not used in any other mode.</p>
+</li>
+</ul>
+<h4>Configuring Location Updates on Mobile Web</h4>
+<p>Location services on Mobile Web operate similarly to the <em>simple mode</em> operations on
+Android. Setting <a href="Titanium.Geolocation.accuracy-property.html">accuracy</a> property to 
+<a href="Titanium.Geolocation.ACCURACY_HIGH-property.html">ACCURACY_HIGH</a> yeilds the best available location
+updates, with the hightest power consumption.
+Using <a href="Titanium.Geolocation.ACCURACY_LOW-property.html">ACCURACY_LOW</a> provides lower-quality location
+updates with lower power consumption.</p>
+<p>In addition to the accuracy setting, there are several Mobile Web-specific settings.
+See <a href="Titanium.Geolocation.MobileWeb-module.html"><code>Titanium.Geolocation.MobileWeb</code></a> for details.</p>
+<h4>Using the Compass</h4>
+<p>Both iOS and Android support a receiving heading updates from a hardware compass, if available.
+On Mobile Web, heading updates are supported if the browser supports this feature.
+Currently, this support is only available on Mobile Safari.</p>
+<p>Check the <a href="Titanium.Geolocation.hasCompass-property.html">hasCompass</a> property to see if the current
+device supports a compass.</p>
+<p>To retrieve compass readings, you can either use
+<a href="Titanium.Geolocation.getCurrentHeading-method.html">getCurrentHeading</a> as shown in the
+previous example, or add a listener for the
+<a href="Titanium.Geolocation.heading-event.html">heading</a> event, as shown below:</p>
+<pre><code>var compassHandler = function(e) {
+  if (e.success === undefined || e.success) {
+    Ti.API.info("Heading: " + e.heading.magneticHeading);
+  }
+}
+Ti.Geolocation.addEventListener("heading", compassHandler);
+</code></pre>
+<p>Note that Android does not include a <code>success</code> property in the <code>heading</code> event.
+Heading events are only generated on Android when heading data is available. So if
+<code>success</code> is undefined, we assume that the event contains valid compass data.</p>
+<p>To obtain true heading data for the compass (as opposed to magnetic heading data),
+a current location fix is required. See the notes on
+<a href="HeadingData.trueHeading-property.html">trueHeading</a> for more information.</p>
+<p>As with location updates, the application should unregister for heading updates
+when it is no longer being used, or when it goes into the background. Use
+<code>removeEventListener</code> to stop heading updates:</p>
+<pre><code>Ti.Geolocation.removeEventListener('heading', compassHandler);
+</code></pre>
+<p>Finally, note that neither the Android emulator nor the iOS simulator provide
+compass support. Compass code must be tested on physical devices.</p></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Geolocation.ACCURACY_BEST-property.html'>ACCURACY_BEST</a></td><td class='type'>Number  </td><td class='summary'><p>Use with <a href="Titanium.Geolocation.accuracy-property.html">accuracy</a> to request the bestaccuracy available.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.ACCURACY_HIGH-property.html'>ACCURACY_HIGH</a></td><td class='type'>Number  </td><td class='summary'><p>Use with <a href="Titanium.Geolocation.accuracy-property.html">accuracy</a> to request moreaccurate location updates with higher battery usage.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.ACCURACY_HUNDRED_METERS-property.html'>ACCURACY_HUNDRED_METERS</a></td><td class='type'>Number  </td><td class='summary'><p>Use with <a href="Titanium.Geolocation.accuracy-property.html">accuracy</a> to request locationupdates accurate to the nearest 100 meters.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.ACCURACY_KILOMETER-property.html'>ACCURACY_KILOMETER</a></td><td class='type'>Number  </td><td class='summary'><p>Use with <a href="Titanium.Geolocation.accuracy-property.html">accuracy</a> to request locationupdates accurate to the nearest kilometer.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.ACCURACY_LOW-property.html'>ACCURACY_LOW</a></td><td class='type'>Number  </td><td class='summary'><p>Use with <a href="Titanium.Geolocation.accuracy-property.html">accuracy</a> to request lessaccurate location updates with lower battery usage.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.ACCURACY_NEAREST_TEN_METERS-property.html'>ACCURACY_NEAREST_TEN_METERS</a></td><td class='type'>Number  </td><td class='summary'><p>Use with <a href="Titanium.Geolocation.accuracy-property.html">accuracy</a> to request locationupdates accurate to the nearest 10 meters.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.ACCURACY_THREE_KILOMETERS-property.html'>ACCURACY_THREE_KILOMETERS</a></td><td class='type'>Number  </td><td class='summary'><p>Use with <a href="Titanium.Geolocation.accuracy-property.html">accuracy</a> to request locationupdates accurate to the nearest three kilometers.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.AUTHORIZATION_AUTHORIZED-property.html'>AUTHORIZATION_AUTHORIZED</a></td><td class='type'>Number  </td><td class='summary'><p>A <a href="Titanium.Geolocation.locationServicesAuthorization-property.html">locationServicesAuthorization</a> value indicating that the application is authorized to use location services.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.AUTHORIZATION_DENIED-property.html'>AUTHORIZATION_DENIED</a></td><td class='type'>Number  </td><td class='summary'><p>A <a href="Titanium.Geolocation.locationServicesAuthorization-property.html">locationServicesAuthorization</a> value indicating that the application is not authorized to use location services, <em>or</em>location services are disabled.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.AUTHORIZATION_RESTRICTED-property.html'>AUTHORIZATION_RESTRICTED</a></td><td class='type'>Number  </td><td class='summary'><p>A <a href="Titanium.Geolocation.locationServicesAuthorization-property.html">locationServicesAuthorization</a> value indicating that the application is not authorized to use location servies <em>and</em>the user cannot change this application's status.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.AUTHORIZATION_UNKNOWN-property.html'>AUTHORIZATION_UNKNOWN</a></td><td class='type'>Number  </td><td class='summary'><p>A <a href="Titanium.Geolocation.locationServicesAuthorization-property.html">locationServicesAuthorization</a> value indicating that the authorization state is unknown.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.ERROR_DENIED-property.html'>ERROR_DENIED</a></td><td class='type'>Number  </td><td class='summary'><p>Error code indicating that the user denied access to the location service.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.ERROR_HEADING_FAILURE-property.html'>ERROR_HEADING_FAILURE</a></td><td class='type'>Number  </td><td class='summary'><p>Error code indicating that the heading could not be determined.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.ERROR_LOCATION_UNKNOWN-property.html'>ERROR_LOCATION_UNKNOWN</a></td><td class='type'>Number  </td><td class='summary'><p>Error code indicating that the user's location could not be determined.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.ERROR_NETWORK-property.html'>ERROR_NETWORK</a></td><td class='type'>Number  </td><td class='summary'><p>Error code indicating that the network was unavailable.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.ERROR_REGION_MONITORING_DELAYED-property.html'>ERROR_REGION_MONITORING_DELAYED</a></td><td class='type'>Number  </td><td class='summary'><p>Error code indicating that region monitoring is delayed.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.ERROR_REGION_MONITORING_DENIED-property.html'>ERROR_REGION_MONITORING_DENIED</a></td><td class='type'>Number  </td><td class='summary'><p>Error code indicating that region monitoring is denied.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.ERROR_REGION_MONITORING_FAILURE-property.html'>ERROR_REGION_MONITORING_FAILURE</a></td><td class='type'>Number  </td><td class='summary'><p>Error code indicating a region monitoring failure.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.ERROR_TIMEOUT-property.html'>ERROR_TIMEOUT</a></td><td class='type'>Number  </td><td class='summary'><p>Error indicating a timeout.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.PROVIDER_GPS-property.html'>PROVIDER_GPS</a></td><td class='type'>String  </td><td class='summary'><p>Specifies the GPS location provider.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.PROVIDER_NETWORK-property.html'>PROVIDER_NETWORK</a></td><td class='type'>String  </td><td class='summary'><p>Specifies the network location provider.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.PROVIDER_PASSIVE-property.html'>PROVIDER_PASSIVE</a></td><td class='type'>String  </td><td class='summary'><p>Specifies the passive location provider.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.accuracy-property.html'>accuracy</a></td><td class='type'>Number  </td><td class='summary'><p>Specifies the requested accuracy for location updates.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.distanceFilter-property.html'>distanceFilter</a></td><td class='type'>Number  </td><td class='summary'><p>The minimum change of position (in meters) before a 'location' event is fired.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.frequency-property.html'>frequency</a></td><td class='type'>Number  </td><td class='summary'><p>Requested frequency for location updates, in milliseconds.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.hasCompass-property.html'>hasCompass</a></td><td class='type'>Boolean  </td><td class='summary'><p>Indicates whether the current device supports a compass.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.headingFilter-property.html'>headingFilter</a></td><td class='type'>Number  </td><td class='summary'><p>Minimum heading change (in degrees) before a <code>heading</code> event is fired.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.locationServicesAuthorization-property.html'>locationServicesAuthorization</a></td><td class='type'>Number  </td><td class='summary'><p>Returns an authorization constant indicating if the application has access to location services.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.locationServicesEnabled-property.html'>locationServicesEnabled</a></td><td class='type'>Boolean  </td><td class='summary'><p>Indicates if the user has enabled or disabled location services for the device (not the application).</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Geolocation.preferredProvider-property.html'>preferredProvider</a></td><td class='type'>String  </td><td class='summary'><span class='deprecation_warning'>Deprecated</span><p>Determines the preferred location provider, either<a href="Titanium.Geolocation.PROVIDER_GPS-property.html">PROVIDER_GPS</a>,[PROVIDER_NETWORK](Titanium.Geolocation.PROVIDER_NETWORK],or <a href="Titanium.Geolocation.PROVIDER_PASSIVE-property.html">PROVIDER_PASSIVE</a>.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.purpose-property.html'>purpose</a></td><td class='type'>String  </td><td class='summary'><p>Text to display in the permission dialog when requesting locationservices.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.showCalibration-property.html'>showCalibration</a></td><td class='type'>Boolean  </td><td class='summary'><p>Determines whether the compass calibration UI is shown if needed.</p></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Geolocation.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.forwardGeocoder-method.html'>forwardGeocoder</a></td><td class='summary'><p>Resolves an address to a location.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.getAccuracy-method.html'>getAccuracy</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Geolocation.accuracy-property.html">accuracy</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.getCurrentHeading-method.html'>getCurrentHeading</a></td><td class='summary'><p>Retrieves the current compass heading.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.getCurrentPosition-method.html'>getCurrentPosition</a></td><td class='summary'><p>Retrieves the last known location from the device.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.getDistanceFilter-method.html'>getDistanceFilter</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Geolocation.distanceFilter-property.html">distanceFilter</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.getFrequency-method.html'>getFrequency</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Geolocation.frequency-property.html">frequency</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.getHasCompass-method.html'>getHasCompass</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Geolocation.hasCompass-property.html">hasCompass</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.getHeadingFilter-method.html'>getHeadingFilter</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Geolocation.headingFilter-property.html">headingFilter</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.getLocationServicesAuthorization-method.html'>getLocationServicesAuthorization</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Geolocation.locationServicesAuthorization-property.html">locationServicesAuthorization</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.getLocationServicesEnabled-method.html'>getLocationServicesEnabled</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Geolocation.locationServicesEnabled-property.html">locationServicesEnabled</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.getPreferredProvider-method.html'>getPreferredProvider</a></td><td class='summary'><span class='deprecation_warning'>Deprecated</span><p>Gets the value of the <a href="Titanium.Geolocation.preferredProvider-property.html">preferredProvider</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.getPurpose-method.html'>getPurpose</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Geolocation.purpose-property.html">purpose</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.getShowCalibration-method.html'>getShowCalibration</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Geolocation.showCalibration-property.html">showCalibration</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.reverseGeocoder-method.html'>reverseGeocoder</a></td><td class='summary'><p>Tries to resolve a location to an address.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.setAccuracy-method.html'>setAccuracy</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Geolocation.accuracy-property.html">accuracy</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.setDistanceFilter-method.html'>setDistanceFilter</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Geolocation.distanceFilter-property.html">distanceFilter</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.setFrequency-method.html'>setFrequency</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Geolocation.frequency-property.html">frequency</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.setHeadingFilter-method.html'>setHeadingFilter</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Geolocation.headingFilter-property.html">headingFilter</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.setLocationServicesAuthorization-method.html'>setLocationServicesAuthorization</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Geolocation.locationServicesAuthorization-property.html">locationServicesAuthorization</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.setPreferredProvider-method.html'>setPreferredProvider</a></td><td class='summary'><span class='deprecation_warning'>Deprecated</span><p>Sets the value of the <a href="Titanium.Geolocation.preferredProvider-property.html">preferredProvider</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.setPurpose-method.html'>setPurpose</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Geolocation.purpose-property.html">purpose</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.setShowCalibration-method.html'>setShowCalibration</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Geolocation.showCalibration-property.html">showCalibration</a> property.</p></td></tr></tbody></table><br><h3 id='events'>Events</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Geolocation.calibration-event.html.html'>calibration</a></td><td class='summary'><p>Fired when the device detects interface and requires calibration.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.heading-event.html.html'>heading</a></td><td class='summary'><p>Fired when an heading update is received.</p></td></tr><tr><td class='name'><a href='Titanium.Geolocation.location-event.html.html'>location</a></td><td class='summary'><p>Fired when a location update is received.</p></td></tr></tbody></table></div></body></html>

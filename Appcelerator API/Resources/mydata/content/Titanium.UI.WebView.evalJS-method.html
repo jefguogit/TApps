@@ -1,0 +1,12 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>evalJS</h1><div class='namespace_type'>Function of <a href='Titanium.UI.WebView-object.html'>Titanium.UI.WebView</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>0.8</td></tr><tr><td class='name'>iPhone</td><td class='description'>0.8</td></tr><tr><td class='name'>iPad</td><td class='description'>0.8</td></tr><tr><td class='name'>Mobile Web</td><td class='description'>1.8</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Evaluates a JavaScript expression inside the context of the web view andoptionally, returns a result.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>The JavaScript expression must be passed in as a string. If you are passing in any objects,
+you must serialize them to strings using <a href="Global-object.html">stringify</a>.</p>
+<p>The <code>evalJS</code> method returns a string representing the value of the expression. For
+example, the following call retrieves the <code>document.title</code> element from the
+document currently loaded into the web view.</p>
+<pre><code>var docTitle = myWebView.evalJS('document.title');
+</code></pre>
+<p>It is not necessary to include <code>return</code> in the JavaScript. In fact, the following
+call returns the empty string:</p>
+<pre><code>myWebView.evalJS('return document.title');
+</code></pre>
+<p>For Mobile Web, you can only execute JavaScript when the contents are on the same domain.</p></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>code</td><td class='type'>String  </td><td class='summary'><p>JavaScript code as a string. The code will be evaluated inside the web view context.</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>String</div></div></body></html>

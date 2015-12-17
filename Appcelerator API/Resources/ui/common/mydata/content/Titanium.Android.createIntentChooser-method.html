@@ -1,0 +1,19 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>createIntentChooser</h1><div class='namespace_type'>Function of <a href='Titanium.Android-module.html'>Titanium.Android</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>1.5</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Creates an activity chooser intent, used to allow the user to select a target activityfor an intent.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>Use this method when the user wants to take an action that could use any one of a
+number of applications. For example, when sending a plain text message, the user
+may choose to send a text message, send an email, or post to a social network.</p>
+<p>You pass in an <a href="Titanium.Android.Intent-object.html">Intent</a> representing the action being taken,
+and a title for the chooser. </p>
+<p>The method returns another intent, representing the chooser, which can be used to
+start an activity. See the code example for details on how to display the chooser.</p>
+<p>For more information, see the official Android documentation for
+<a href="http://developer.android.com/reference/android/content/Intent.html#ACTION_CHOOSER">Intent.ACTION_CHOOSER</a></p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Using a Chooser</h4><div class='code_example'><p>The following example uses an activity chooser to send a plain text message.</p>
+<pre><code>var intent = Ti.Android.createIntent( { 
+    action: Ti.Android.ACTION_SEND,
+    type: 'text/plain'
+});
+intent.putExtra(Ti.Android.EXTRA_SUBJECT, "This is the subject.");
+intent.putExtra(Ti.Android.EXTRA_TEXT, "This is some text to send.")
+
+var chooser = Ti.Android.createIntentChooser(intent, "Send Message");
+var activity = Ti.Android.currentActivity.startActivity(chooser);
+</code></pre></div></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>intent</td><td class='type'>Titanium.Android.Intent  </td><td class='summary'><p>The intent to display a chooser for.</p></td></tr><tr><td class='name'>title</td><td class='type'>String  </td><td class='summary'><p>Title to display on the chooser.</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>Titanium.Android.Intent</div></div></body></html>

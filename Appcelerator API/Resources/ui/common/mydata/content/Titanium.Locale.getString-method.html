@@ -1,0 +1,38 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>getString</h1><div class='namespace_type'>Function of <a href='Titanium.Locale-module.html'>Titanium.Locale</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>1.5</td></tr><tr><td class='name'>iPhone</td><td class='description'>1.5</td></tr><tr><td class='name'>iPad</td><td class='description'>1.5</td></tr><tr><td class='name'>Mobile Web</td><td class='description'>1.8</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Returns a string, localized according to the current system locale using the appropriate <code>/i18n/LANG/strings.xml</code> localization file.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>This method is functionaly identical to its alias <a href="Global.L-method.html"><code>Global.L</code></a>. For example, 
+<code>Ti.Locale.getString('thisKey', 'missing key')</code> produces the same result as 
+<code>L('thisKey', 'missing key')</code>.</p>
+<p>When using with <a href="Global.String.format-method.html"><code>Global.String.format</code></a> to localize a phrase with multiple string 
+substitution placeholders, add the <code>formatted="false"</code> directive to the relevant 
+<code>strings.xml</code> element. See example for a demonstration.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>String Localization Demonstration</h4><div class='code_example'><p>Localize two strings, "hello" and "goodbye" (using the keys "greeting" and "signoff") 
+for English and Spanish system locales.<br />
+</p>
+<p>Note: use the device's system settings to change locales and test this code.</p>
+<h4><code>/i18n/en/strings.xml</code></h4>
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;resources&gt;
+  &lt;string name="phrase" formatted="false"&gt;You say %2$s and I say %1$s!&lt;/string&gt;
+  &lt;string name="greeting"&gt;hello&lt;/string&gt;
+  &lt;string name="signoff"&gt;goodbye&lt;/string&gt;
+&lt;/resources&gt;
+</code></pre>
+<h4><code>/i18n/es/strings.xml</code></h4>
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;resources&gt;
+  &lt;string name="phrase" formatted="false"&gt;You say %2$s and I say %1$s!&lt;/string&gt;
+  &lt;string name="greeting"&gt;hola&lt;/string&gt;
+  &lt;string name="signoff"&gt;adios&lt;/string&gt;
+&lt;/resources&gt;
+</code></pre>
+<h4><code>/Resources/app.js</code></h4>
+<pre><code>var i18nMissingMsg = '&lt;no translation available&gt;';
+
+// for English locales, displays "You say goodbye and I say hello!"
+// for Spanish locales, displays "You say adios and I say hola!"
+Ti.API.info('You say ' + Ti.Locale.getString('signoff', i18nMissingMsg) + ' and I say ' + Ti.Locale.getString('greeting', i18nMissingMsg) + '!');
+
+// uses alias L() instead of Ti.Locale.getString()
+// formatted="false" is used in the strings.xml element for multiple string substitution
+// for English locales, displays "You say goodbye and I say hello!"
+// for Spanish locales, displays "You say adios and I say hola!"
+Ti.API.info(String.format(L('phrase'), L('greeting', i18nMissingMsg), L('signoff', i18nMissingMsg)));
+</code></pre></div></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>key</td><td class='type'>String  </td><td class='summary'><p>Key of string.</p></td></tr><tr><td class='name'>hint</td><td class='type'>String  </td><td class='summary'><p>Text to return if key does not exist in the localization file.</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>String</div></div></body></html>

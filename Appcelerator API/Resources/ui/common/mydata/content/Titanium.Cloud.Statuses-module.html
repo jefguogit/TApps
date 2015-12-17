@@ -1,0 +1,65 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li>Description</li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li>Properties</li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Cloud.Statuses</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>Provides methods for accessing ACS Statuses.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Create a Status</h4><div class='code_example'><p>This example creates a status and checks the response.</p>
+<pre><code>Cloud.Statuses.create({
+    place_id: myPlaceId,
+    message: 'What a great view!',
+    photo: Titanium.Filesystem.getFile('photo.jpg')
+}, function (e) {
+    if (e.success) {
+        var status = e.statuses[0];
+        alert('Success:\\\
+' +
+            'id: ' + status.id + '\\\
+' +
+            'place: ' + status.place.name);
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Search Status</h4><div class='code_example'><p>This example requests information about a user's status and checks the response.</p>
+<pre><code>Cloud.Statuses.search({
+    user_id: someUserId
+}, function (e) {
+    if (e.success) {
+        alert('Success:\\\
+' +
+            'Count: ' + e.statuses.length);
+        for (var i = 0; i &lt; e.statuses.length; i++) {
+            var status = e.statuses[i];
+            alert('id: ' + status.id + '\\\
+' +
+                  'message: ' + status.message + '\\\
+' +
+                  'updated_at: ' + status.updated_at);
+        }
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Query Status</h4><div class='code_example'><p>This example requests information about statuses and checks the response.</p>
+<pre><code>Cloud.Statuses.query({
+    page: 1,
+    per_page: 20,
+    order: '-updated_at'
+}, function (e) {
+    if (e.success) {
+        for (var i = 0; i &lt; e.statuses.length; i++) {
+            var status = e.statuses[i];
+            alert('Success:\\\
+' +
+               'id: ' + status.id + '\\\
+' +
+               'message: ' + status.message + '\\\
+' +
+               'updated_at: ' + status.updated_at);
+         }
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div></div><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Cloud.Statuses.create-method.html'>create</a></td><td class='summary'><p>Creates a status for the currently logged in user.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Statuses.query-method.html'>query</a></td><td class='summary'><p>Retrieve a list of statuses with sorting and pagination.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Statuses.search-method.html'>search</a></td><td class='summary'><p>Retrieve the statuses for a user.</p></td></tr></tbody></table></div></body></html>

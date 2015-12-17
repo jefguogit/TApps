@@ -1,0 +1,79 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.App.iOS.BackgroundService</h1><div class='namespace_type'>object   </div><h3 class='summary'>Summary</h3><div class='summary'><p>A service that runs when the application is placed in the background.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>A background service is created by <a href="Titanium.App.iOS.registerBackgroundService-method.html"><code>Titanium.App.iOS.registerBackgroundService</code></a>.<br />
+</p>
+<p>At creation, a local URL to a JavaScript file must be defined. The code it contains is executed 
+each time the application is no longer in the foreground, along with all other services that have 
+been registered in the same way. When this happens, all background services continue to run until 
+one of the following occurs:</p>
+<ul>
+<li>A service is stopped with the <code>stop</code> method.</li>
+<li>The application resumes, at which points all background services are stopped.</li>
+<li>The OS terminates the service for one of the reasons discussed in 
+"Background Service Limitations", below.</li>
+</ul>
+<p>A background service can invoke a <a href="Titanium.App.iOS.LocalNotification-object.html"><code>Titanium.App.iOS.LocalNotification</code></a>, which prompts users via 
+a dialog to return to the application and provides a button that brings it back into the 
+foreground.</p>
+<h4>Background Service Limitations</h4>
+<p>A background service is subject to limitations imposed by the operating system, such as</p>
+<ul>
+<li>The OS limits the total amount of time a background service can run for after the application 
+is paused, typically to no more than 10 minutes.</li>
+<li>The OS may terminate the background service at any point to reclaim resources.</li>
+</ul></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Background Services Example</h4><div class='code_example'><p>Two background services are registered in the following application.</p>
+<p>The first service logs a message every time the application is paused and then is stopped to 
+release the service from memory. The service is not unregistered, and so will continue to be 
+invoked.</p>
+<p>The second creates an application property where it stores a run count value. For the first 4 
+times the application is paused, a local notification is invoked that gives the user the 
+opportunity to bring the application back to the foreground. Once the run count reaches 5, 
+the service is unregistered and is not invoked again until the application is relaunched.</p>
+<h4>app.js</h4>
+<pre><code>var win1 = Ti.UI.createWindow({  
+  title:'Background Services Example',
+  backgroundColor:'#4186cd',
+  modal:true
+});
+
+Ti.API.info('Registering background services');
+var service = Ti.App.iOS.registerBackgroundService({url:'bg-service1.js'});
+var service2 = Ti.App.iOS.registerBackgroundService({url:'bg-service2.js'});
+Ti.API.info('*** Press home button to pause application ***');
+
+win1.open();
+</code></pre>
+<h4>bg-service1.js</h4>
+<pre><code>Ti.API.info('bg-service1: service has been invoked once, and will now be stopped to release it from memory. ');
+Ti.App.currentService.stop();
+
+var listener = Ti.App.currentService.addEventListener('stop',function(){
+  Ti.API.info('bg-service1: Although the service has been stopped, it is still registered and will be executed again on next pause');
+  Ti.API.info('bg-service1: As all background services are automatically stopped on resume, it is not always necessary to explicitly stop a service');
+});
+</code></pre>
+<h4>bg-service2.js</h4>
+<pre><code>var count = Ti.App.Properties.getInt('bg-svc2-count', 0);
+
+if (count &gt; 4){
+  // reset count after 4 invocations
+  count = 0;
+}
+
+count++;
+
+Ti.App.Properties.setInt('bg-svc2-count', count);
+
+Ti.API.info('bg-service2 has been run ' + count + ' times');
+
+if (count &gt; 4){
+  Ti.App.currentService.unregister();
+  var finalNotif = Ti.App.iOS.scheduleLocalNotification({
+    alertBody:'bg-service2: As service has been invoked more than 4 times, it has been unregistered and will NOT run again. Relaunch the app to re-register it',
+    date:new Date(new Date().getTime() + 1000) // 1 second after unregister
+  });   
+} else {
+  var curNotif = Ti.App.iOS.scheduleLocalNotification({
+    alertBody:'bg-service2: has been invoked ' + count + ' times. It is still registered and will run again when the app is transitioned to the background',
+    date:new Date(new Date().getTime() + 1000) // 1 second after pause
+  });   
+}
+</code></pre></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.App.iOS.BackgroundService.url-property.html'>url</a></td><td class='type'>String  </td><td class='summary'><p>A local URL to a JavaScript file containing the code to run in the background.</p></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.App.iOS.BackgroundService.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.App.iOS.BackgroundService.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.App.iOS.BackgroundService.getUrl-method.html'>getUrl</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.App.iOS.BackgroundService.url-property.html">url</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.App.iOS.BackgroundService.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.App.iOS.BackgroundService.stop-method.html'>stop</a></td><td class='summary'><p>Stops the service from running during the current background session to conserve resources.</p></td></tr><tr><td class='name'><a href='Titanium.App.iOS.BackgroundService.unregister-method.html'>unregister</a></td><td class='summary'><p>Unregisters the background service.</p></td></tr></tbody></table></div></body></html>

@@ -1,0 +1,64 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li>Properties</li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Cloud.PushNotifications</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>Provides methods for accessing ACS push notification channels.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>Please refer to <a href="http://cloud.appcelerator.com/docs/ios#pushn">configure push notifications for iOS</a>
+and <a href="http://cloud.appcelerator.com/docs/android#pushn">configure push notifications for Android</a> 
+to set up your app for push notifications. To receive push notifications on Android, please 
+refer to the <a href="Titanium.CloudPush-module.html"><code>Titanium.CloudPush</code></a> module.</p>
+<p>The methods in this module are used to subscribe and unsubscribe from ACS push notification 
+channels, and to generate ACS push notifications. Push notifications are received using 
+platform-specific mechanisms:</p>
+<ul>
+<li>On iOS, push notifications are received through the standard iOS push notification
+    mechanism. When you register for push notifications, incoming push notifications
+    are passed to the <code>callback</code> callback. See
+    <a href="Titanium.Network.registerForPushNotifications-method.html">Network.registerForPushNotifications</a>
+    for details.</li>
+<li>On Android, push notifications are received through the <a href="Titanium.CloudPush-module.html"><code>Titanium.CloudPush</code></a> module.
+    Add a listener for the <a href="Titanium.CloudPush.callback-event.html">callback</a> event to receive push notifications.</li>
+</ul>
+<p>To register for push notifications, you need to obtain an application-specific <em>device
+token</em>. To obtain a device token:</p>
+<ul>
+<li>On iOS, when you successfully register for push notifications, the device token is 
+    passed to the <code>success</code> callback.</li>
+<li>On Android, use
+    <a href="Titanium.CloudPush.retrieveDeviceToken-method.html">CloudPush.retrieveDeviceToken</a> to request
+    a device token. The device token is passed to the <code>success</code> callback.</li>
+</ul></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Subscribe to Channel</h4><div class='code_example'><p>This example subscribes to a push notification channel and checks the response.</p>
+<pre><code>Cloud.PushNotifications.subscribe({
+    channel: 'friend_request',
+    device_token: myPushDeviceToken
+}, function (e) {
+    if (e.success) {
+        alert('Success');
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Unsubscribe to Channel</h4><div class='code_example'><p>This example unsubscribes from a push notification channel and checks the response.</p>
+<pre><code>Cloud.PushNotifications.unsubscribe({
+    channel: 'friend_request',
+    device_token: myPushDeviceToken
+}, function (e) {
+    if (e.success) {
+        alert('Success');
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Notify Channel</h4><div class='code_example'><p>This example sends a push notification to a channel and checks the response.</p>
+<pre><code>Cloud.PushNotifications.notify({
+    channel: 'friend_request',
+    payload: 'Welcome to push notifications'
+}, function (e) {
+    if (e.success) {
+        alert('Success');
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div></div><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Cloud.PushNotifications.notify-method.html'>notify</a></td><td class='summary'><p>Send a push notification to a channel.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.PushNotifications.subscribe-method.html'>subscribe</a></td><td class='summary'><p>Subscribe a mobile device to a push notification channel.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.PushNotifications.unsubscribe-method.html'>unsubscribe</a></td><td class='summary'><p>Unsubscribe a mobile device from a push notification channel.</p></td></tr></tbody></table></div></body></html>

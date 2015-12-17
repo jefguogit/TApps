@@ -1,0 +1,82 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li>Description</li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li>Properties</li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Cloud.KeyValues</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>Provides methods for accessing ACS Key-Values storage.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Set a Key-Value</h4><div class='code_example'><p>This example sets a key-value and checks the response.</p>
+<pre><code>Cloud.KeyValues.set({
+    name: 'welcome_message',
+    value: 'Welcome to Appcelerator Cloud Services'
+}, function (e) {
+    if (e.success) {
+        alert('Success');
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Get a Key-Value</h4><div class='code_example'><p>This example gets a key-value and checks the response.</p>
+<pre><code>Cloud.KeyValues.get({
+    name: 'welcome_message'
+}, function (e) {
+    if (e.success) {
+        var keyvalue = e.keyvalues[0];
+        alert('Success:\\\
+' +
+            'name: ' + keyvalue.name + '\\\
+' +
+            'value: ' + keyvalue.value);
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Append a Key-Value</h4><div class='code_example'><p>This example appends a value to a key-value and checks the response.</p>
+<pre><code>Cloud.KeyValues.append({
+    name: 'welcome_message',
+    value: ', take a look around'
+}, function (e) {
+     if (e.success) {
+         var keyvalue = e.keyvalues[0];
+         alert('Success:\\\
+' +
+             'name: ' + keyvalue.name + '\\\
+' +
+             'value: ' + keyvalue.value);
+     } else {
+         alert('Error:\\\
+' +
+             ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+     }
+
+});
+</code></pre></div><h4 class='code_example_title'>Increment a Key-Value</h4><div class='code_example'><p>This example increments a key-value and checks the response.</p>
+<pre><code>Cloud.KeyValues.increment({
+    name: 'score',
+    value: 1
+}, function (e) {
+     if (e.success) {
+         var keyvalue = e.keyvalues[0];
+         alert('Success:\\\
+' +
+             'name: ' + keyvalue.name + '\\\
+' +
+             'value: ' + keyvalue.value);
+     } else {
+         alert('Error:\\\
+' +
+             ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+     }
+
+});
+</code></pre></div><h4 class='code_example_title'>Remove a Key-Value</h4><div class='code_example'><p>This example deletes a key-value and checks the response.</p>
+<pre><code>Cloud.KeyValues.remove({
+    name: 'welcome_message'
+}, function (e) {
+     if (e.success) {
+         alert('Success');
+     } else {
+         alert('Error:\\\
+' +
+             ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+     }
+
+});
+</code></pre></div></div><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Cloud.KeyValues.append-method.html'>append</a></td><td class='summary'><p>Add the given value to the end of an existing value.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.KeyValues.get-method.html'>get</a></td><td class='summary'><p>Retrieve a string or binary value.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.KeyValues.increment-method.html'>increment</a></td><td class='summary'><p>Increment the value by the given value.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.KeyValues.remove-method.html'>remove</a></td><td class='summary'><p>Delete a value.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.KeyValues.set-method.html'>set</a></td><td class='summary'><p>Sets a string or binary value referenced by the key name.</p></td></tr></tbody></table></div></body></html>

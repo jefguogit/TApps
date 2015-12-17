@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:openSearch="http://a9.com/-/spec/opensearch/1.1/" version="2.0">
+	<channel>
+		<description/>
+		<atom:id>tag:youtube.com,2008:user:yttujg:favorites</atom:id>
+		<lastBuildDate>Mon, 15 Apr 2013 23:08:18 +0000</lastBuildDate>
+		<category domain="http://schemas.google.com/g/2005#kind">http://gdata.youtube.com/schemas/2007#favorite</category>
+		<title>Favorites of yttujg</title>
+		<image>
+			<url>http://www.youtube.com/img/pic_youtubelogo_123x63.gif</url>
+			<title>Favorites of yttujg</title>
+			<link>http://www.youtube.com</link>
+		</image>
+		<link>http://www.youtube.com</link>
+		<atom:link rel="hub" href="http://pubsubhubbub.appspot.com"/>
+		<atom:link rel="self" href="http://gdata.youtube.com/feeds/base/users/yttujg/favorites?alt=rss&amp;start-index=1&amp;max-results=25&amp;v=2"/>
+		<managingEditor>yttujg</managingEditor>
+		<generator>YouTube data API</generator>
+		<openSearch:totalResults>13</openSearch:totalResults>
+		<openSearch:startIndex>1</openSearch:startIndex>
+		<openSearch:itemsPerPage>25</openSearch:itemsPerPage>
+		<item>
+			<guid isPermaLink="false">tag:youtube.com,2008:favorite:FLKaFRc2rjkznf0mwbCPK5CTRreNRDtmEr</guid>
+			<pubDate>Mon, 15 Apr 2013 17:43:25 +0000</pubDate>
+			<atom:updated>2013-04-15T17:43:25.000Z</atom:updated>
+			<category domain="http://schemas.google.com/g/2005#kind">http://gdata.youtube.com/schemas/2007#favorite</category>
+			<title>Appcelerator tutorial 11 : conclusion</title>
+			<link>http://www.youtube.com/watch?v=t1EtYAhQT6c&amp;feature=youtube_gdata</link>
+			<author>yttujg</author>
+		</item>
+		<item>
+			<guid isPermaLink="false">tag:youtube.com,2008:favorite:FLKaFRc2rjkzn6U45dC17hQqH53DuGxTNc</guid>
+			<pubDate>Mon, 15 Apr 2013 17:42:53 +0000</pubDate>
+			<atom:updated>2013-04-15T17:42:53.000Z</atom:updated>
+			<category domain="http://schemas.google.com/g/2005#kind">http://gdata.youtube.com/schemas/2007#favorite</category>
+			<title>Appcelerator tutorial 12 : Titanium.UI - Color</title>
+			<link>http://www.youtube.com/watch?v=JuF5ikobUmk&amp;feature=youtube_gdata</link>
+			<author>yttujg</author>
+		</item>
+		<item>
+			<guid isPermaLink="false">tag:youtube.com,2008:favorite:FLKaFRc2rjkzmzXRGJZI202L_y7P0-9vID</guid>
+			<pubDate>Mon, 15 Apr 2013 17:42:24 +0000</pubDate>
+			<atom:updated>2013-04-15T17:42:24.000Z</atom:updated>
+			<category domain="http://schemas.google.com/g/2005#kind">http://gdata.youtube.com/schemas/2007#favorite</category>
+			<title>Appcelerator tutorial 10 : play sound</title>
+			<link>http://www.youtube.com/watch?v=PxA0YbERtp0&amp;feature=youtube_gdata</link>
+			<author>yttujg</author>
+		</item>
+		<item>
+			<guid isPermaLink="false">tag:youtube.com,2008:favorite:FLKaFRc2rjkzln0gih6Z61hPZWO39OAzaD</guid>
+			<pubDate>Mon, 15 Apr 2013 17:41:53 +0000</pubDate>
+			<atom:updated>2013-04-15T17:41:53.000Z</atom:updated>
+			<category domain="http://schemas.google.com/g/2005#kind">http://gdata.youtube.com/schemas/2007#favorite</category>
+			<title>Appcelerator tutorial 09 : play sound</title>
+			<link>http://www.youtube.com/watch?v=1Avt0FD85mg&amp;feature=youtube_gdata</link>
+			<author>yttujg</author>
+		</item>
+		<item>
+			<guid isPermaLink="false">tag:youtube.com,2008:favorite:FLKaFRc2rjkzl_GDFTv2sPFU19_a8Q-q_V</guid>
+			<pubDate>Mon, 15 Apr 2013 17:41:04 +0000</pubDate>
+			<atom:updated>2013-04-15T17:41:04.000Z</atom:updated>
+			<category domain="http://schemas.google.com/g/2005#kind">http://gdata.youtube.com/schemas/2007#favorite</category>
+			<title>Appcelerator tutorial 08 : Event Listener</title>
+			<link>http://www.youtube.com/watch?v=iFr9W3szj7o&amp;feature=youtube_gdata</link>
+			<author>yttujg</author>
+		</item>
+		<item>
+			<guid isPermaLink="false">tag:youtube.com,2008:favorite:FLKaFRc2rjkzkk6avBIaxeGvg3nLy_TLQL</guid>
+			<pubDate>Mon, 15 Apr 2013 17:40:36 +0000</pubDate>
+			<atom:updated>2013-04-15T17:40:36.000Z</atom:updated>
+			<category domain="http://schemas.google.com/g/2005#kind">http://gdata.youtube.com/schemas/2007#favorite</category>
+			<title>Appcelerator tutorial 07 : scrollview</title>
+			<link>http://www.youtube.com/watch?v=h1-RRYFotYk&amp;feature=youtube_gdata</link>
+			<author>yttujg</author>
+		</item>
+		<item>
+			<guid isPermaLink="false">tag:youtube.com,2008:favorite:FLKaFRc2rjkzlxfxglCvtjLZZigwlO_OxU</guid>
+			<pubDate>Mon, 15 Apr 2013 17:39:40 +0000</pubDate>
+			<atom:updated>2013-04-15T17:39:40.000Z</atom:updated>
+			<category domain="http://schemas.google.com/g/2005#kind">http://gdata.youtube.com/schemas/2007#favorite</category>
+			<title>Appcelerator tutorial 06 : color picker (2)</title>
+			<link>http://www.youtube.com/watch?v=UUqNqmXgQu4&amp;feature=youtube_gdata</link>
+			<author>yttujg</author>
+		</item>
+		<item>
+			<guid isPermaLink="false">tag:youtube.com,2008:favorite:FLKaFRc2rjkzk4GcdC92Rl_FLqu60g1t6c</guid>
+			<pubDate>Mon, 15 Apr 2013 17:38:13 +0000</pubDate>
+			<atom:updated>2013-04-15T17:38:13.000Z</atom:updated>
+			<category domain="http://schemas.google.com/g/2005#kind">http://gdata.youtube.com/schemas/2007#favorite</category>
+			<title>Appcelerator tutorial 05 : color picker (1)</title>
+			<link>http://www.youtube.com/watch?v=NKJc8-Ixjoc&amp;feature=youtube_gdata</link>
+			<author>yttujg</author>
+		</item>
+		<item>
+			<guid isPermaLink="false">tag:youtube.com,2008:favorite:FLKaFRc2rjkznC2yFiIuFLS3jw23viH8yK</guid>
+			<pubDate>Mon, 15 Apr 2013 17:37:49 +0000</pubDate>
+			<atom:updated>2013-04-15T17:37:49.000Z</atom:updated>
+			<category domain="http://schemas.google.com/g/2005#kind">http://gdata.youtube.com/schemas/2007#favorite</category>
+			<title>Appcelerator tutorial 04 : animation</title>
+			<link>http://www.youtube.com/watch?v=emUmAp_PP8Y&amp;feature=youtube_gdata</link>
+			<author>yttujg</author>
+		</item>
+		<item>
+			<guid isPermaLink="false">tag:youtube.com,2008:favorite:FLKaFRc2rjkzmmW_ndFy06pI2Oftl_1PeZ</guid>
+			<pubDate>Mon, 15 Apr 2013 17:37:20 +0000</pubDate>
+			<atom:updated>2013-04-15T17:37:20.000Z</atom:updated>
+			<category domain="http://schemas.google.com/g/2005#kind">http://gdata.youtube.com/schemas/2007#favorite</category>
+			<title>Appcelerator tutorial 03 : create window</title>
+			<link>http://www.youtube.com/watch?v=rXcf642PeqM&amp;feature=youtube_gdata</link>
+			<author>yttujg</author>
+		</item>
+		<item>
+			<guid isPermaLink="false">tag:youtube.com,2008:favorite:FLKaFRc2rjkzmLE3ogHWbA3awISq5dyY-r</guid>
+			<pubDate>Mon, 15 Apr 2013 17:36:56 +0000</pubDate>
+			<atom:updated>2013-04-15T17:36:56.000Z</atom:updated>
+			<category domain="http://schemas.google.com/g/2005#kind">http://gdata.youtube.com/schemas/2007#favorite</category>
+			<title>Appcelerator tutorial 02 : overview</title>
+			<link>http://www.youtube.com/watch?v=QotvI91--n8&amp;feature=youtube_gdata</link>
+			<author>yttujg</author>
+		</item>
+		<item>
+			<guid isPermaLink="false">tag:youtube.com,2008:favorite:FLKaFRc2rjkzn3vhtbR-W6gaFtjff5grHR</guid>
+			<pubDate>Mon, 15 Apr 2013 17:35:34 +0000</pubDate>
+			<atom:updated>2013-04-15T17:35:34.000Z</atom:updated>
+			<category domain="http://schemas.google.com/g/2005#kind">http://gdata.youtube.com/schemas/2007#favorite</category>
+			<title>Appcelerator tutorial 01 : basic</title>
+			<link>http://www.youtube.com/watch?v=5Ntu2WfGli4&amp;feature=youtube_gdata</link>
+			<author>yttujg</author>
+		</item>
+		<item>
+			<guid isPermaLink="false">tag:youtube.com,2008:favorite:FLKaFRc2rjkznTAUbDEoouWBxZdwnGP0w3</guid>
+			<pubDate>Mon, 15 Apr 2013 15:32:28 +0000</pubDate>
+			<atom:updated>2013-04-15T15:32:28.000Z</atom:updated>
+			<category domain="http://schemas.google.com/g/2005#kind">http://gdata.youtube.com/schemas/2007#favorite</category>
+			<title>崔健《歌曲串烧》北京春晚集锦</title>
+			<link>http://www.youtube.com/watch?v=TLaeoHco990&amp;feature=youtube_gdata</link>
+			<author>yttujg</author>
+		</item>
+	</channel>
+</rss>

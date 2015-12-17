@@ -1,0 +1,35 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Stream</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>Stream module containing stream utility methods.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>This module provides a set of methods for interacting with
+<a href="Titanium.IOStream-object.html">IOStream</a> objects, including asynchronous versions of the 
+<code>read</code> and <code>write</code> methods offered by all stream objects. These 
+methods should be used in any place where reading from or writing
+to a stream might block.</p>
+<p>See also:</p>
+<ul>
+<li><a href="Titanium.IOStream-object.html"><code>Titanium.IOStream</code></a></li>
+<li><a href="Titanium.BlobStream-object.html"><code>Titanium.BlobStream</code></a></li>
+<li><a href="Titanium.BufferStream-object.html"><code>Titanium.BufferStream</code></a></li>
+<li><a href="Titanium.Filesystem.FileStream-object.html"><code>Titanium.Filesystem.FileStream</code></a></li>
+<li><a href="Titanium.Network.Socket.TCP-object.html"><code>Titanium.Network.Socket.TCP</code></a></li>
+</ul></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Stream.pump Example</h4><div class='code_example'><p>The following example shows how to use the <a href="Titanium.Stream.pump-method.html">pump</a> method.</p>
+<pre><code>var pumpCallback = function(arg) {
+    if(arg.bytesProcessed == -1) {
+        Ti.API.info("At end of stream.");
+    } else {
+        Ti.API.info(String.format("Received %.0f bytes. Total: %.0f bytes.", 
+                    arg.bytesProcessed, arg.totalBytesProcessed));
+        // do something useful with the data in arg.buffer
+    }
+}
+Ti.Stream.pump(inputStream, pumpCallback, 1024);
+</code></pre></div><h4 class='code_example_title'>Write Stream to File</h4><div class='code_example'><p>The following example uses the <a href="Titanium.Stream.writeStream-method.html">writeStream</a> method
+to copy the contents of an input stream to a file. This can be used for any kind
+of input stream -- <code>BufferStream</code>, <code>FileStream</code>, or <code>Socket.TCP</code>.</p>
+<pre><code>var outFileStream = Ti.Filesystem.getFile('outfile.txt').open(Ti.Filesystem.MODE_WRITE);
+
+// writes all data from inputStream to outFileStream in chunks of 1024 bytes
+var bytesWritten = Ti.Stream.writeStream(inputStream, outFileStream, 1024);
+Ti.API.info('Wrote ' + bytesWritten + ' bytes, closing both streams.');
+
+inputStream.close();
+outFileStream.close();
+</code></pre></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Stream.MODE_APPEND-property.html'>MODE_APPEND</a></td><td class='type'>Number  </td><td class='summary'><p>Use with <a href="Titanium.Stream.createStream-method.html">createStream</a> to open a stream in appendmode.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Stream.MODE_READ-property.html'>MODE_READ</a></td><td class='type'>Number  </td><td class='summary'><p>Use with <a href="Titanium.Stream.createStream-method.html">createStream</a> to open a stream in readmode.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Stream.MODE_WRITE-property.html'>MODE_WRITE</a></td><td class='type'>Number  </td><td class='summary'><p>Use with <a href="Titanium.Stream.createStream-method.html">createStream</a> to open a stream in writemode.</p><span class='permission_warning'>read-only</span></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Stream.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Stream.createStream-method.html'>createStream</a></td><td class='summary'><p>Creates stream from a <code>Buffer</code> or <code>Blob</code> object.</p></td></tr><tr><td class='name'><a href='Titanium.Stream.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.Stream.pump-method.html'>pump</a></td><td class='summary'><p>Reads data from input stream and passes it to a handler method.</p></td></tr><tr><td class='name'><a href='Titanium.Stream.read-method.html'>read</a></td><td class='summary'><p>Asynchronously reads data from an <a href="Titanium.IOStream-object.html">IOStream</a> into a buffer.</p></td></tr><tr><td class='name'><a href='Titanium.Stream.readAll-method.html'>readAll</a></td><td class='summary'><p>Reads all data from the specified <a href="Titanium.IOStream-object.html">IOStream</a>.</p></td></tr><tr><td class='name'><a href='Titanium.Stream.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Stream.write-method.html'>write</a></td><td class='summary'><p>Asynchronously writes data from a buffer to an <a href="Titanium.IOStream-object.html">IOStream</a>.</p></td></tr><tr><td class='name'><a href='Titanium.Stream.writeStream-method.html'>writeStream</a></td><td class='summary'><p>Writes all data from an input stream to an output stream.</p></td></tr></tbody></table></div></body></html>

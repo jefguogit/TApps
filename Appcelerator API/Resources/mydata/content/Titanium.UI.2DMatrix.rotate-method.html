@@ -1,0 +1,34 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>rotate</h1><div class='namespace_type'>Function of <a href='Titanium.UI.2DMatrix-object.html'>Titanium.UI.2DMatrix</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>0.9</td></tr><tr><td class='name'>iPhone</td><td class='description'>0.9</td></tr><tr><td class='name'>iPad</td><td class='description'>0.9</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Returns a matrix constructed by rotating this matrix.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>There are two distinct versions of this method, depending on whether one argument
+or two are specified. </p>
+<ul>
+<li><code>rotate(angle)</code>. The standard <code>rotate</code> method.</li>
+<li><code>rotate(fromAngle, toAngle)</code>. Android only. Used for specifying rotation
+    animations.</li>
+</ul>
+<p>In both cases, a positive value specifies clockwise rotation and a negative value 
+specifies counter-clockwise rotation.<br />
+</p>
+<p>Details for each version are discussed below.</p>
+<h4>rotate(angle)</h4>
+<p>Returns a matrix constructed by rotating this matrix.</p>
+<p>Note that the resulting  matrix only expresses the final transformation, not the 
+direction of the rotation. For example, the matrix produced by <code>m1.rotate(-10)</code>
+is identical to the matrix produced by <code>m1.rotate(350)</code> and <code>m1.rotate(710)</code>.</p>
+<p>Note that if you specify a rotation matrix as the <code>transform</code> property of an
+animation, the animation animates the view from its current rotation to the 
+rotation represented by the matrix by its shortest path. So to rotate a view 
+in a complete circle, the easiest method is to chain together three animations,
+rotating 120 degrees each time.</p>
+<p>For the purposes of animation, it should be noted that the rotation angle is 
+normalized to the range -180 &lt;= angle &lt; 180. In other 
+words, an angle of 180 degrees is normalized to -180. This makes no difference
+except when determining which direction an animation rotates. 179 degrees rotates
+rotate clockwise, but 180 degrees is normalized to -180, so rotates counter-clockwise.</p>
+<h4>rotate(angle, toAngle) -- Android Only</h4>
+<p>This is an Android-specific method used for creating rotation animations.
+Returns a <code>2DMatrix</code> object that represents a rotation from <code>angle</code> to <code>toAngle</code>. </p>
+<p>Angles are specified in degrees. Positive values represent clockwise rotation, and negative values
+represent counter-clockwise rotation. Values are not normalized, so for example an 
+angle of 720 degrees represents two complete clockwise revolutions.</p>
+<p>The resulting object cannot be expressed as an affine transform, but can be used with the 
+<a href="Titanium.UI.Animation.transform-property.html"><code>Titanium.UI.Animation.transform</code></a> property to specify a rotation animation.</p></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>angle</td><td class='type'>Number  </td><td class='summary'><p>Angle to rotate to, in degrees. On Android, if <code>angleTo</code> is specified, this specifiesthe starting angle for a rotation animation.</p></td></tr><tr><td class='name'>toAngle</td><td class='type'>Number  </td><td class='summary'><p>Ending angle for a rotation animation, in degrees. Android only.</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>Titanium.UI.2DMatrix</div></div></body></html>

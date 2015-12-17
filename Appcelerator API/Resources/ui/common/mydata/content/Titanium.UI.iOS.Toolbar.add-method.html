@@ -1,0 +1,90 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>add</h1><div class='namespace_type'>Function of <a href='Titanium.UI.iOS.Toolbar-object.html'>Titanium.UI.iOS.Toolbar</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>iPhone</td><td class='description'>0.8</td></tr><tr><td class='name'>iPad</td><td class='description'>0.8</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Adds a child to this view's hierarchy.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>The child view is added as the last child in this view's hierarchy. </p>
+<p>Although all views inherit from <a href="Titanium.UI.View-object.html"><code>Titanium.UI.View</code></a>, not all views are capable of
+containing other views. In particular:</p>
+<ul>
+<li>Some views are not designed to be containers at all.</li>
+<li>Some views are special-purpose containers that can only contain certain other
+     views.</li>
+<li>Some views are top-level containers that cannot (or should not) be added to other views.</li>
+</ul>
+<h4>Non-Container Views</h4>
+<p>The following views are not intended to act as containers that can hold other
+views:</p>
+<ul>
+<li><a href="Titanium.UI.ActivityIndicator-object.html">ActivityIndicator</a></li>
+<li><a href="Titanium.UI.Button-object.html">Button</a></li>
+<li><a href="Titanium.UI.ImageView-object.html">ImageView</a></li>
+<li><a href="Titanium.UI.Label-object.html">Label</a></li>
+<li><a href="Titanium.UI.ProgressBar-object.html">ProgressBar</a></li>
+<li><a href="Titanium.UI.SearchBar-object.html">SearchBar</a></li>
+<li><a href="Titanium.UI.Slider-object.html">Slider</a></li>
+<li><a href="Titanium.UI.Switch-object.html">Switch</a></li>
+<li><a href="Titanium.UI.TableView-object.html">TableView</a></li>
+<li><a href="Titanium.UI.TextArea-object.html">TextArea</a></li>
+<li><a href="Titanium.UI.TextField-object.html">TextField</a></li>
+<li><a href="Titanium.UI.WebView-object.html">WebView</a></li>
+</ul>
+<p>Adding children to the these views <em>may</em> be supported on some platforms,
+but is not guaranteed to work across platforms. Where it is supported, it may not
+work as expected.</p>
+<p>For maximum portability, these views should be treated as if they do not support children.<br />
+Instead of adding children to these views, applications can positon other views as
+siblings. For example, instead of adding a button as a child of a <code>WebView</code>, you can add
+the button to the web view's parent such that it appears on top of the web view. </p>
+<h4>Special-Purpose  Containers</h4>
+<p>A few view objects act as special-purpose containers--that is, they only manage
+certain types of children, and many of them support a special means of adding
+these children, instead of the general <code>add</code> method. These containers include:</p>
+<ul>
+<li>
+<p><a href="Titanium.UI.ButtonBar-object.html">ButtonBar</a> and <a href="Titanium.UI.iOS.TabbedBar-object.html">TabbedBar</a> are designed 
+    to hold their own internally-created buttons, assigned by adding strings to the "labels" array.
+    Views added using the <code>add</code> method are displayed on top of these buttons.</p>
+</li>
+<li>
+<p><a href="Titanium.UI.Picker-object.html">Picker</a>. Can only hold <code>PickerRows</code> and <code>PickerColumns</code>, which
+    are added using the <code>add</code> method. Adding other types of views to a <code>Picker</code> is not
+    supported.</p>
+</li>
+<li>
+<p><a href="Titanium.UI.TableView-object.html">TableView</a> is a specialized container for
+    <code>TableViewSection</code> and <code>TableViewRow</code> objects. These objects must be
+    added using the properties and methods that <code>TableView</code> provides 
+    for adding and removing sectons and rows.</p>
+<p>On some platforms, it is possible to add arbitrary child views to a table view 
+using the <code>add</code> method. However, this is not guaranteed to work on all platforms, 
+and in general, should be avoided.</p>
+</li>
+<li>
+<p><a href="Titanium.UI.TableViewSection-object.html">TableViewSection</a> is a specialized container
+    for <code>TableViewRow</code> objects, which <em>are</em> added using the <code>add</code> method. The <code>add</code> method
+    on <code>TableViewSection</code> can only be used to add <code>TableViewRow</code> objects.</p>
+</li>
+<li>
+<p><a href="Titanium.UI.iOS.Toolbar-object.html">Toolbar</a> is designed to hold buttons and certain
+    other controls, added to its <code>items</code> array. Views added using the <code>add</code> method are
+    displayed on top of the controls in the <code>items</code> array.</p>
+</li>
+<li>
+<p>The <code>Tab</code>, <code>TabGroup</code>, <code>NavigationGroup</code> and <code>SplitWindow</code> objects are 
+    special containers that manage windows. These are discussed in the 
+    "Top-Level Containers" section.</p>
+</li>
+</ul>
+<h4>Top-Level Containers</h4>
+<p>There are certain top-level containers that are not intended to be added 
+as the children of other views. These top-level containers include 
+<a href="Titanium.UI.Window-object.html">Window</a>, <a href="Titanium.UI.iPad.SplitWindow-object.html">SplitWindow</a>,
+and <a href="Titanium.UI.TabGroup-object.html">TabGroup</a>.  Other types of views must be added 
+to a top-level container in order to be displayed on screen.</p>
+<p>The special containers <a href="Titanium.UI.iPhone.NavigationGroup-object.html">NavigationGroup</a>, 
+<a href="Titanium.UI.iPad.SplitWindow-object.html">SplitWindow</a>, <a href="Titanium.UI.Tab-object.html">Tab</a>, and 
+<a href="Titanium.UI.TabGroup-object.html">TabGroup</a>
+manage windows. These managed windows may be referred to as <em>children</em> of the 
+container, but they are not added using the <code>add</code> method.</p>
+<p>Note that although a <code>NavigationGroup</code>
+manages windows, it is not itself top-level container.  It must be added to a 
+<code>Window</code> in order to be displayed. </p>
+<p><code>Tab</code> is another kind of special container: it is not itself a top-level container, 
+but can only be used within a <code>TabGroup</code>. You cannot <code>add</code> a <code>Tab</code> to an arbitrary
+container.</p></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>view</td><td class='type'>Titanium.UI.View  </td><td class='summary'><p>View to add to this view's hierarchy.</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>void</div></div></body></html>

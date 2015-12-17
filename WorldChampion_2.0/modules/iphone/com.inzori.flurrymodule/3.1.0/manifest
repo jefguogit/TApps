@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 3.1.0
+apiversion: 2
+description: Flurry Analytics + AppCircle
+author: Inzori
+license: Inzori Free License
+copyright: � Inzori 2012
+
+
+# these should not be edited
+name: flurrymodule
+moduleid: com.inzori.flurrymodule
+guid: 5276f70e-e4aa-435e-b835-06acf7e6ceb6
+platform: iphone
+minsdk: 1.7.5

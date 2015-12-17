@@ -1,0 +1,217 @@
+<html>
+<head>
+	<link href="resources/bootstrap.css" rel="stylesheet">
+    <link href="resources/ptStyle.css" rel="stylesheet" type="text/css">
+	<script src="resources/jquery.min.js"></script>
+    <script src="resources/audio.js"></script>
+	<script src="resources/answer.js"></script>
+
+    
+<style>
+#page{
+	display:none;
+}	
+.audiojs .play{
+	display:none;
+}
+.audiojs .pause{
+	display:none;
+}		
+</style>
+
+ <script>
+	   		var testcount=0;
+			var username = "";
+			var activeMenu;
+			var myAns = new Array(74);
+			
+			function setAnswer(id, str){
+//				alert(id+":"+str);
+				var istr = id.substring(1);
+				var i = parseInt(istr);
+				myAns[i-1] = str;
+//				alert(myAns);
+			}
+			
+			function startTest(){
+			
+				username=$('#username').val();
+				
+				if(username.length>0){
+					testcount = 1;
+					$('#p0').css("display","none");
+					$('#page').css("display","block");
+					refresh();
+					$("#uname").html(username);
+				//	$("#footer").css("display","block");
+				}	
+			}
+			
+			function finishTest(){
+				var d = new Date();
+				var dstr = d.getFullYear()+"_"+(d.getMonth()+1)+"_"+d.getDate()+"_"+username.split(' ').join('-')+"-Test2";
+//				alert(myAns);
+				$.post( "answer.jsp", {'name':dstr,'ans':myAns, 'tid':2});
+			}
+			
+	   		function refresh(){
+	   			
+				$.get('getContent.jsp?tid=2&pid='+testcount, function(data) {
+
+					$('#testContent').html(data);
+/*				
+					$("li").click(function(){
+						$("li").removeClass("selected");
+						$(this).addClass("selected");
+						answers[testcount] = this.innerHTML;
+					});		
+*/					
+					$(".multipleChoices li").click(function(){
+						
+							$(this).parent().children().removeClass("selected");
+							$(this).addClass("selected");
+							setAnswer($(this).parent().attr('id'),$(this).html());
+					
+					});	
+					
+/*					audiojs.events.ready(function() {
+	       				 var as = audiojs.createAll();
+	      			});
+*/	      			
+	      			$(document.body).click(function () {
+						$(".dd").each(function (i) {
+							if (i != activeMenu) {
+								$(this).find(".ddMenu").hide();
+								$(this).removeClass('active');
+							}
+						});
+					});
+					$(".dd").mouseover(function () {
+						activeMenu = $(".dd").index(this);
+					}).mouseout(function () {
+						activeMenu = null;
+					});
+					$(".ddToggle").click(function () {
+							var parent = $(this).parent();
+							parent.toggleClass("active");
+							var ddMenu = parent.find(".ddMenu");
+							ddMenu.animate({ height: 'toggle', opacity: 'toggle' }, 100);
+							var left = $(this).position().left;
+							ddMenu.css("left", Math.round(left) + "px");
+				
+							//place the dropDown menu 20px below the box
+							var top = parent.position().top;
+							ddMenu.css("top", Math.round(top) + 20 + "px");
+				
+					});
+					$('.dd li').click(function () {
+						$(this).parent().find("li").removeClass("selected");
+						$(this).addClass("selected");
+						var parent = $(this).parent().parent().parent();
+						var ddToggle = parent.find(".ddToggle");
+						ddToggle.html($(this).html());
+						ddToggle.addClass("ddToggle1");
+						parent.find(".ddMenu").animate({ height: 'toggle', opacity: 'toggle' }, 400);
+						parent.removeClass('active');
+						var ul = $(this).parent();
+						setAnswer(ul.attr('id'), $(this).html());
+	//					paragon.pt.uploadMultipleChoicesValue(url, sectionId, ul.data("id"), $(this).data("id"));
+					});
+			
+
+				})
+
+//				$('#page').css("display","block");
+//				$("#p"+testcount).css("display","block");
+				
+				$(".btnBack").css("display","block");
+				$(".btnNext").css("display","block");
+				if(testcount==1){
+					$(".btnBack").css("display","none");
+				}else if(testcount==49){
+					$(".btnNext").css("display","none");
+					finishTest();
+					alert("answer submitted");
+				}
+	   		}		
+			
+			$(document).ready(function($) {
+				audiojs.events.ready(function() {
+       				 var as = audiojs.createAll();
+      			});
+      			
+				$(".btnNext").click(function(){
+					testcount ++;
+				//	alert(testcount);
+					refresh();
+					return false;
+				});
+				
+				$(".btnBack").click(function(){
+					testcount --;
+					if(testcount < 0){
+						testcount = 0;
+					}
+					refresh();
+					return false;
+				});
+
+
+
+				refresh();
+/*				
+				$( ".multipleChoices li" ).each(function() {
+					idstr = $(this).parent().attr("id");
+					answer = answers[idstr];
+
+					//$(this).parent().children().removeClass("selected");
+					if($(this).html() == answer){						
+						$(this).addClass("selected");
+					}	
+				});
+*/				
+			});	
+	   </script>
+</head>
+<body>
+
+<noscript>
+    <div id="noscript">
+		<div>Please turn on javascript to continue.</div>
+	</div>
+</noscript>
+
+<header>
+	<div class="navbar">
+		<div class="navbar-inner" style="text-align:center">
+			<span style="float:right" id="uname"></span>
+			<h1>Practice Test 2</h1>
+			
+		</div>
+   </div>   
+</header>
+
+
+	<div id="p0" style="text-align:center;">		
+			<h1 class="text-center login-title">Sign in to start test</h1>
+			<form class="text-center">
+				<input type="text" id="username" placeholder="Full Name" value="" autofocus>
+				<br/>
+				<button onclick="startTest();return false;">Start ...</button>
+			</form>
+	</div>	  
+   
+<div id="page">
+	<div class="span1 pull-left" style="float: left;">
+       <a class="btn btn-primary" href="javascript:finishTest();">Finish</a>
+	</div>
+	<div class="span1 pull-right" style="float: right;">
+       <a class="btn btn-primary btnNext" href="#">NEXT</a>
+	</div>
+	<div id="testContent">Test</div>
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li>Description</li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li>Properties</li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Cloud.PhotoCollections</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>Provides methods for ACS photo collections.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Create Photo Collection</h4><div class='code_example'><p>This example creates a new photo collection and checks the response.</p>
+<pre><code>Cloud.PhotoCollections.create({
+    name: 'Party Pictures'
+}, function (e) {
+    if (e.success) {
+        var collection = e.collections[0];
+        alert('Success:\\\
+' +
+            'id: ' + collection.id + '\\\
+' +
+            'name: ' + collection.name + '\\\
+' +
+            'count: ' + collection.counts.total_photos + '\\\
+'
+            'updated_at: ' + collection.updated_at);
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Show a Photo Collection</h4><div class='code_example'><p>This example retrieves information about a photo collection and checks the response.</p>
+<pre><code>Cloud.PhotoCollections.show({
+    collection_id: savedPhotoCollectionId
+}, function (e) {
+    if (e.success) {
+        var collection = e.collections[0];
+        alert('Success:\\\
+' +
+            'id: ' + collection.id + '\\\
+' +
+            'name: ' + collection.name + '\\\
+' +
+            'count: ' + collection.counts.total_photos + '\\\
+'
+            'updated_at: ' + collection.updated_at);
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Search for Photo Collections</h4><div class='code_example'><p>This example searches for collections and checks the response.</p>
+<pre><code>Cloud.PhotoCollections.search({
+    user_id: savedUserId
+}, function (e) {
+    if (e.success) {
+        alert('Success:\\\
+' +
+            'Count: ' + e.collections.length);
+        for (var i = 0; i &lt; e.collections.length; i++) {
+            var collection = e.collections[i];
+            alert('Success:\\\
+' +
+                'id: ' + collection.id + '\\\
+' +
+                'name: ' + collection.name + '\\\
+' +
+                'count: ' + collection.counts.total_photos + '\\\
+'
+                'updated_at: ' + collection.updated_at);
+        }
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Show Photo Subcollections</h4><div class='code_example'><p>This example requests a list of photo subcollections and checks the response.</p>
+<pre><code>Cloud.PhotoCollections.showSubcollections({
+    page: 1,
+    per_page: 20,
+    collection_id: savedCollectionId
+}, function (e) {
+    if (e.success) {
+        alert('Success:\\\
+' +
+            'Count: ' + e.collections.length);
+        for (var i = 0; i &lt; e.collections.length; i++) {
+            var collection = e.collections[i];
+            alert('Success:\\\
+' +
+                'id: ' + collection.id + '\\\
+' +
+                'name: ' + collection.name + '\\\
+' +
+                'count: ' + collection.counts.total_photos + '\\\
+'
+                'updated_at: ' + collection.updated_at);
+        }
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Show Photo Collection Photos</h4><div class='code_example'><p>This example requests a list of photos in a photo collections and checks the response.</p>
+<pre><code>Cloud.PhotoCollections.showPhotos({
+    page: 1,
+    per_page: 20,
+    collection_id: savedCollectionId
+}, function (e) {
+    if (e.success) {
+        if (!e.photos) {
+            alert('Success: No photos');
+        } else {
+            alert('Success:\\\
+' +
+                'Count: ' + e.collections.length);
+            for (var i = 0; i &lt; e.collections.length; i++) {
+                var collection = e.collections[i];
+                alert('Success:\\\
+' +
+                    'id: ' + collection.id + '\\\
+' +
+                    'name: ' + collection.name + '\\\
+' +
+                    'count: ' + collection.counts.total_photos + '\\\
+'
+                    'updated_at: ' + collection.updated_at);
+            }
+        }
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Update a Photo Collection</h4><div class='code_example'><p>This example updates a photo collection and checks the response.</p>
+<pre><code>Cloud.PhotoCollections.update({
+    collection_id: savedPhotoCollectionId,
+    cover_photo_id: savedPhotoId
+}, function (e) {
+    if (e.success) {
+        var collection = e.collections[0];
+        alert('Success:\\\
+' +
+            'id: ' + collection.id + '\\\
+' +
+            'name: ' + collection.name + '\\\
+' +
+            'count: ' + collection.counts.total_photos + '\\\
+'
+            'updated_at: ' + collection.updated_at);
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Remove a Photo Collection</h4><div class='code_example'><p>This example deletes a photo collection and checks the response.</p>
+<pre><code>Cloud.PhotoCollections.remove({
+    collection_id: savedPhotoCollectionId
+}, function (e) {
+    if (e.success) {
+        alert('Success');
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div></div><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Cloud.PhotoCollections.create-method.html'>create</a></td><td class='summary'><p>Creates a photo collection.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.PhotoCollections.remove-method.html'>remove</a></td><td class='summary'><p>Deletes an empty collection.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.PhotoCollections.search-method.html'>search</a></td><td class='summary'><p>Retrieves a list of top-level collections owned by a user.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.PhotoCollections.show-method.html'>show</a></td><td class='summary'><p>Retrieves details about a photo collection.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.PhotoCollections.showPhotos-method.html'>showPhotos</a></td><td class='summary'><p>Retrieves photos in a collection.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.PhotoCollections.showSubCollections-method.html'>showSubCollections</a></td><td class='summary'><p>Retrieves a list of subcollections of a collection.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.PhotoCollections.update-method.html'>update</a></td><td class='summary'><p>Updates a photo collection.</p></td></tr></tbody></table></div></body></html>

@@ -1,0 +1,303 @@
+<link href="resources/bootstrap.css" rel="stylesheet">
+<link href="resources/ptStyle.css" rel="stylesheet" type="text/css">
+<script src="resources/jquery.min.js"></script>
+<script>
+	function countWords() {
+            s = this.value;
+            s = s.replace(/(^\s*)|(\s*$)/gi, "");
+            s = s.replace(/[ ]{2,}/gi, " ");
+            s = s.replace(/\n /, "\n");
+            if (s.split(' ').length == 1) {
+                document.getElementById("wordCount").innerHTML = s.split(' ').length + " word";
+
+            }
+            else document.getElementById("wordCount").innerHTML = s.split(' ').length + " words";
+
+            if (this.value == "") {
+                document.getElementById("wordCount").innerHTML = " ";
+            }
+    }        
+            
+	$(document).ready(function($) {
+		$(".writtenTextAreaBox").keyup(countWords);
+	}	            
+            
+            
+</script>
+
+
+Practice Test1 
+
+<h1>Writing Task 1: Writing an Email</h1>
+<div style="height: 725px;padding:10px;" class="container" id="main-container">
+	Read the following information. 
+	<h3>Family Trip </h3>
+	<div style="margin-bottom: 15px;" class="instruction">You have a large extended family, and every year you all get together to go on a big family trip for a week. Your brother is in charge of the plans this year, and you would like to suggest a place you''ve visited before. </div>
+	<div class="instruction" style="margin-bottom: 15px;">
+		In about 150-200 words, write an email to your brother. Your email should do the following things: 
+		<ul>
+	        <li>Name the destination you have in mind.</li>    
+	        <li>Briefly describe your previous experience in this place.</li>    
+	        <li>Talk about some of this place''s features. </li> 
+	    </ul>    
+    <div>
+    <div>
+		<textarea rows="19" class="span6 writtenTextAreaBox"></textarea>
+	</div>
+    <div id="updateCount" style="padding-bottom:5px;">
+        <div id="wordCount" style="text-align: center">
+        </div>
+    </div>
+</div>
+
+
+
+<h1>Writing Task 2: Responding to Survey Questions</h1>
+<div style="height: 725px;padding:10px;" class="container" id="main-container">
+	Read the following information. 
+	<h3>Physical Activity Survey</h3>
+	<div style="margin-bottom: 15px;" class="instruction">
+		Your company blames a number of work-related accidents on employees' low level of physical fitness. The Human Resources Department of your company is surveying your opinion on how to promote a healthier lifestyle amongst its employees. The major question is whether the company should build a large gym facility in the company''s premises, or pay for employees to sign up for physical activities wherever they choose.
+Choose the option that you prefer. Explain the reasons for your choice. Why do you prefer your choice? What problems are there with the other choice? Write about 150-200 words.
+	</div>
+	<div class="instruction" style="margin-bottom: 15px;">
+		<b>Option A</b>: Company Gym: Large gym located in the company building. Employees will have 24-hour access to a large variety of fitness equipment and personal trainers.<br> 
+		<b>Option B</b>: Neighbourhood Gym or Activity: Monthly cash allowance for any physical activity of their choice. 
+	</div>
+    <div>
+		<textarea rows="19" class="span6 writtenTextAreaBox"></textarea>
+	</div>
+    <div id="updateCount" style="padding-bottom:5px;">
+        <div id="wordCount" style="text-align: center">
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<h1>Writing Task 1: Writing an Email</h1>
+<div style="height: 725px;padding:10px;" class="container" id="main-container">
+	Read the following information. 
+	<h3>Gym Membership </h3>
+	<div style="margin-bottom: 15px;" class="instruction">You recently purchased a 2-year membership to an expensive gym. After using it for 2 months you realized many of the services advertised are not being delivered. You spoke to the gym manager, but nothing changed. </div>
+	<div class="instruction" style="margin-bottom: 15px;">
+		In about 150-200 words, write an email to your brother. Your email should do the following things: 
+		<ul>
+	        <li>Describe what services were advertised and are not being delivered. </li>    
+	        <li>Complain about the manager’s response. </li>    
+	        <li>Describe how you want the company to resolve the problem to your satisfaction. </li> 
+	    </ul>    
+    <div>
+    <div>
+		<textarea rows="19" class="span6 writtenTextAreaBox"></textarea>
+	</div>
+    <div id="updateCount" style="padding-bottom:5px;">
+        <div id="wordCount" style="text-align: center">
+        </div>
+    </div>
+</div>
+
+
+
+<h1>Writing Task 2: Responding to Survey Questions</h1>
+<div style="height: 725px;padding:10px;" class="container" id="main-container">
+	Read the following information. 
+	<h3>Food Survey</h3>
+	<div style="margin-bottom: 15px;" class="instruction">
+		Students at your college have indicated that the food options available on campus are not satisfactory. In order to improve the food services on campus, university officials are consulting students about two possibilities.
+	</div>
+	<div class="instruction" style="margin-bottom: 15px;">
+		<b>Option A</b>: Cafeteria: This large cafeteria serves multiple food options ranging from vegetarian to ethnic dishes. Features buffet-style service and low prices. <br> 
+		<b>Option B</b>: Restaurants: A large variety of well-known restaurants to open their stores on campus. Features a wide variety of food in different places with competitive prices.  
+	</div>
+    <div>
+		<textarea rows="19" class="span6 writtenTextAreaBox"></textarea>
+	</div>
+    <div id="updateCount" style="padding-bottom:5px;">
+        <div id="wordCount" style="text-align: center">
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+Practice Test 3
+
+
+
+<h1>Writing Task 1: Writing an Email</h1>
+<div style="height: 725px;padding:10px;" class="container" id="main-container">
+	Read the following information. 
+	<h3>Noisy Teenagers </h3>
+	<div style="margin-bottom: 15px;" class="instruction">
+		You live in a house near a park. Recently, a lot of teenagers have been meeting in the park at night. They are very noisy.
+	</div>
+	<div class="instruction" style="margin-bottom: 15px;">
+		In about 150-200 words, write an email to your brother. Your email should do the following things: 
+		<ul>
+	        <li>Provide information about where you live.</li>    
+	        <li>Explain the problem and how it affects your life.</li>    
+	        <li>Suggest a way to solve the problem.</li> 
+	    </ul>    
+    <div>
+    <div>
+		<textarea rows="19" class="span6 writtenTextAreaBox"></textarea>
+	</div>
+    <div id="updateCount" style="padding-bottom:5px;">
+        <div id="wordCount" style="text-align: center">
+        </div>
+    </div>
+</div>
+
+
+
+<h1>Writing Task 2: Responding to Survey Questions</h1>
+<div style="height: 725px;padding:10px;" class="container" id="main-container">
+	Read the following information. 
+	<h3>Field Trip Transportation</h3>
+	<div style="margin-bottom: 15px;" class="instruction">
+		Your children’s grade 5 class teacher likes to take the children on field trips to museums or parks. Sometimes the teacher takes the children on public buses. Some parents are unhappy. They say the school should always use school buses even though it is more expensive. You have been asked to respond to an opinion survey.
+	</div>
+	<div class="instruction" style="margin-bottom: 15px;">
+		<ol>
+			<li>Choose the option you prefer. Explain the reasons for your choice. Why do you prefer your choice? What problems are there with the other choice? Write about 150-200 words.
+					<b>Option A</b>: Public Transit: I think it’s okay for children to travel on public transit.
+					<b>Option B</b>: School Buses: I would prefer children only travel on school buses.
+			</li>			
+		</ol>
+	</div>
+    <div>
+		<textarea rows="19" class="span6 writtenTextAreaBox"></textarea>
+	</div>
+    <div id="updateCount" style="padding-bottom:5px;">
+        <div id="wordCount" style="text-align: center">
+        </div>
+    </div>
+</div>
+
+
+
+
+Practice Test 4
+
+<h1>Writing Task 1: Writing an Email</h1>
+<div style="height: 725px;padding:10px;" class="container" id="main-container">
+	You are a high school teacher. A student of yours has just graduated with excellent marks from high school. This person wants to find work. 
+	<h3>Your Student </h3>
+	<div style="margin-bottom: 15px;" class="instruction">
+		You live in a house near a park. Recently, a lot of teenagers have been meeting in the park at night. They are very noisy.
+	</div>
+	<div class="instruction" style="margin-bottom: 15px;">
+		In about 150-200 words, write an email to your brother. Your email should do the following things: 
+		<ul>
+	        <li>Explain how you feel about her high school grades.</li>    
+	        <li>Explain why a college education is good.</li>    
+	        <li>Explain why going to work instead of college is unwise.</li> 
+	    </ul>    
+    <div>
+    <div>
+		<textarea rows="19" class="span6 writtenTextAreaBox"></textarea>
+	</div>
+    <div id="updateCount" style="padding-bottom:5px;">
+        <div id="wordCount" style="text-align: center">
+        </div>
+    </div>
+</div>
+
+
+
+<h1>Writing Task 2: Responding to Survey Questions</h1>
+<div style="height: 725px;padding:10px;" class="container" id="main-container">
+	Read the following information. 
+	<h3>Child Care at Work Survey</h3>
+	<div style="margin-bottom: 15px;" class="instruction">
+		You work in a very big office. There is a popular and cheap restaurant in the building. The boss is thinking of removing the restaurant and replacing it with a child care facility for the working mothers in the office. Your company has asked you to respond to an opinion survey.
+	</div>
+	<div class="instruction" style="margin-bottom: 15px;">
+		<ol>
+			<li>Choose the option you prefer. Explain the reasons for your choice. Why do you prefer your choice? What problems are there with the other choice? Write about 150-200 words.
+					<b>Option A</b>: Restaurant: I think we should keep the restaurant. 
+					<b>Option B</b>: Child Care Facility: I think we should replace the restaurant with a child care facility. 
+			</li>
+		</ol>
+	</div>
+    <div>
+		<textarea rows="19" class="span6 writtenTextAreaBox"></textarea>
+	</div>
+    <div id="updateCount" style="padding-bottom:5px;">
+        <div id="wordCount" style="text-align: center">
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+Interactive
+
+
+
+<h1>Writing Task 1: Writing an Email</h1>
+<div style="height: 725px;padding:10px;" class="container" id="main-container">
+	Read the following information. 
+	<div style="margin-bottom: 15px;" class="instruction">
+		You recently returned from your honeymoon in Mexico. The staff at the resort really exceeded your expectations, providing you and your spouse with a number of complimentary services you didn’t anticipate. Write an email to the company in about 150-200 words to thank them. Your email should do the following things:
+	</div>
+	<div class="instruction" style="margin-bottom: 15px;">
+		In about 150-200 words, write an email to your brother. Your email should do the following things: 
+		<ul>
+	        <li>Describe the services received, and how they exceeded your expectations.</li>    
+	        <li>Explain how the services affected your experience.</li>    
+	        <li>Express your gratitude for the services received. </li> 
+	    </ul>    
+    <div>
+    <div>
+		<textarea rows="19" class="span6 writtenTextAreaBox"></textarea>
+	</div>
+    <div id="updateCount" style="padding-bottom:5px;">
+        <div id="wordCount" style="text-align: center">
+        </div>
+    </div>
+</div>
+
+
+
+<h1>Writing Task 2: Responding to Survey Questions</h1>
+<div style="height: 725px;padding:10px;" class="container" id="main-container">
+	Read the following information. 
+	<h3>Activity Survey</h3>
+	<div style="margin-bottom: 15px;" class="instruction">
+		You work at a medium-sized company. In order to bring everyone together and boost employee motivation, the company has decided to organize a collective activity to foster team building. They are consulting the employees about two possible activity options.
+	</div>
+	<div class="instruction" style="margin-bottom: 15px;">
+		<ol>
+			<li>Choose the option you prefer. Explain the reasons for your choice. Why do you prefer your choice? What problems are there with the other choice? Write about 150-200 words.
+					<b>Activity A</b>: A whitewater rafting adventure and overnight stay at Sunset Resort. This includes an exciting two-hour ride down the Coquihalla River with experienced guides; no prior experience is needed. In the evening there will be a buffet dinner at Sunset Resort. 
+					<b>Activity B</b>: A gathering at the city park. Families are welcome. There will be team sports (soccer, baseball, etc.) in the morning, a barbecue lunch, and then live music and dancing in the afternoon.
+			</li>
+			<li>Explain the reasons for your choice. Write about 150–200 words.</li>			
+		</ol>
+	</div>
+    <div>
+		<textarea rows="19" class="span6 writtenTextAreaBox"></textarea>
+	</div>
+    <div id="updateCount" style="padding-bottom:5px;">
+        <div id="wordCount" style="text-align: center">
+        </div>
+    </div>
+</div>

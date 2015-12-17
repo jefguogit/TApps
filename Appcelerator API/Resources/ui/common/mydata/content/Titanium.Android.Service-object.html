@@ -1,0 +1,57 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li><a href='#events'>Events</a></li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Android.Service</h1><div class='namespace_type'>object   </div><h3 class='summary'>Summary</h3><div class='summary'><p>The Titanium binding of an Android service.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>This object can be used to start or stop a service directly and listen for service-specific events.<br />
+</p>
+<p>From a JavaScript-based service, this can be referenced with <a href="Titanium.Android.currentService-property.html"><code>Titanium.Android.currentService</code></a>.<br />
+</p>
+<p>Use the <a href="Titanium.Android.createService-method.html"><code>Titanium.Android.createService</code></a> method to create an instance of a service.</p>
+<p>See also <a href="http://developer.android.com/reference/android/app/Service.html">Service</a>
+in the Android Developer Reference.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Hello World Service</h4><div class='code_example'><p>This example shows how to create a service in JavaScript.
+Your service code is included in its own JavaScript file.<br />
+</p>
+<p>In this example, the service reads data from the <a href="Titanium.Android.Intent-object.html"><code>Titanium.Android.Intent</code></a> which created it, 
+to see what it should say besides "Hello World".</p>
+<p>File: myservice.js:</p>
+<pre><code>var service = Titanium.Android.currentService;
+var intent = service.intent;
+var message = intent.getStringExtra("message_to_echo");
+Titanium.API.info("Hello World!  I am a Service.  I have this to say: " + message);
+</code></pre>
+<p>Register the service in tiapp.xml:</p>
+<pre><code>&lt;android xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+    &lt;services&gt;
+        &lt;service url="myservice.js" type="interval"/&gt;
+    &lt;/services&gt;
+&lt;/android&gt;
+</code></pre>
+<p>Code in "regular" Titanium file to launch the service and listen for pause/resume events.<br />
+Code also stops the service after its code runs 3 times.</p>
+<pre><code>var intent = Titanium.Android.createServiceIntent( { url: 'myservice.js' } );
+// Service should run its code every 2 seconds.
+intent.putExtra('interval', 2000);
+// A message that the service should 'echo'
+intent.putExtra('message_to_echo', 'Titanium rocks!');
+
+var service = Titanium.Android.createService(intent);
+service.addEventListener('resume', function(e) {
+    Titanium.API.info('Service code resumes, iteration ' + e.iteration);
+});
+service.addEventListener('pause', function(e) {
+    Titanium.API.info('Service code pauses, iteration ' + e.iteration);
+    if (e.iteration === 3) {
+        Titanium.API.info('Service code has run 3 times, will now stop it.');
+        service.stop();
+    }
+});
+service.start();
+</code></pre>
+<p>Console Output:</p>
+<pre><code>[INFO] [29,1942] Service code resumes, iteration 1
+[INFO] [70,2029] Hello World! I am a Service. I have this to say: Titanium rocks!
+[INFO] [3,2070] Service code pauses, iteration 1
+[INFO] [2,3915] Service code resumes, iteration 2
+[INFO] [31,3961] Hello World! I am a Service. I have this to say: Titanium rocks!
+[INFO] [5,3968] Service code pauses, iteration 2
+[INFO] [2,5917] Service code resumes, iteration 3
+[INFO] [27,5961] Hello World! I am a Service. I have this to say: Titanium rocks!
+[INFO] [16,5980] Service code pauses, iteration 3
+[INFO] [1,5981] Service code has run 3 times, will now stop it.
+</code></pre></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Android.Service.intent-property.html'>intent</a></td><td class='type'><a href='Titanium.Android.Intent-object.html'><code>Titanium.Android.Intent</code></a>  </td><td class='summary'><p>The intent used to start or bind to the Service.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Service.serviceInstanceId-property.html'>serviceInstanceId</a></td><td class='type'>Number  </td><td class='summary'><p>A service can be started more than once -- this number (based on an incrementing integer) indicates which "start number" in the sequence the current service instance is.</p><span class='permission_warning'>read-only</span></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Android.Service.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Service.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Service.getIntent-method.html'>getIntent</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Android.Service.intent-property.html">intent</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Service.getServiceInstanceId-method.html'>getServiceInstanceId</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Android.Service.serviceInstanceId-property.html">serviceInstanceId</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Service.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Service.start-method.html'>start</a></td><td class='summary'><p>Starts the Service.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Service.stop-method.html'>stop</a></td><td class='summary'><p>Stops this running instance of the Service.</p></td></tr></tbody></table><br><h3 id='events'>Events</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Android.Service.pause-event.html.html'>pause</a></td><td class='summary'><p>For Javascript-based services that you create, <code>pause</code> fires after each time the JavaScript code executes.<br /></p></td></tr><tr><td class='name'><a href='Titanium.Android.Service.resume-event.html.html'>resume</a></td><td class='summary'><p>For JavaScript-based Services which you create, <code>resume</code> fires each time the JavaScript code executes. </p></td></tr><tr><td class='name'><a href='Titanium.Android.Service.start-event.html.html'>start</a></td><td class='summary'><p>Fired when the bound service instance starts.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Service.stop-event.html.html'>stop</a></td><td class='summary'><p>Fired when the bound service instance stops.</p></td></tr></tbody></table></div></body></html>

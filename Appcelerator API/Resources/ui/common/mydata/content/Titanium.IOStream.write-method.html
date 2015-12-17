@@ -1,0 +1,11 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>write</h1><div class='namespace_type'>Function of <a href='Titanium.IOStream-object.html'>Titanium.IOStream</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>1.7</td></tr><tr><td class='name'>iPhone</td><td class='description'>1.7</td></tr><tr><td class='name'>iPad</td><td class='description'>1.7</td></tr><tr><td class='name'>Mobile Web</td><td class='description'>1.8</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Writes data from a buffer to this stream.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>If <code>offset</code> and <code>length</code> are specified, data is read from the buffer starting at
+<code>offset</code>. Bytes are read from the buffer and written to the stream until:</p>
+<ul>
+<li>the end of the buffer is reached</li>
+<li><code>length</code> bytes have been written</li>
+<li>the stream returns an error</li>
+</ul>
+<p>If <code>offset</code> and <code>length</code> are omitted, all of the data in the buffer is written to
+this stream.</p>
+<p>Returns the number of bytes actually written.</p>
+<p>Throws an exception if an error is encountered.</p></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>buffer</td><td class='type'>Titanium.Buffer  </td><td class='summary'><p>Buffer to write to this stream.</p></td></tr><tr><td class='name'>offset</td><td class='type'>Number  </td><td class='summary'><p>Offset in the buffer of the first byte to write to the stream.If specified, <code>length</code> must also be specified.</p></td></tr><tr><td class='name'>length</td><td class='type'>Number  </td><td class='summary'><p>Maximum number of bytes to write to the stream.If specified, <code>offset</code> must also be specified.</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>Number</div></div></body></html>

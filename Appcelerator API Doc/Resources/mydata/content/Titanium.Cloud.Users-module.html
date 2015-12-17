@@ -1,0 +1,187 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li>Description</li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li>Properties</li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Cloud.Users</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>Provides methods for accessing ACS user objects.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Create User</h4><div class='code_example'><p>This example creates a new user and checks the response.</p>
+<pre><code>Cloud.Users.create({
+    email: 'test@mycompany.com',
+    first_name: 'test_firstname',
+    last_name: 'test_lastname',
+    password: 'test_password',
+    password_confirmation: 'test_password'
+}, function (e) {
+    if (e.success) {
+        var user = e.users[0];
+        alert('Success:\\\
+' +
+            'id: ' + user.id + '\\\
+' +
+            'first name: ' + user.first_name + '\\\
+' +
+            'last name: ' + user.last_name);
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Log in User</h4><div class='code_example'><p>This example logs a user in and checks the response.</p>
+<pre><code>Cloud.Users.login({
+    login: 'test@mycompany.com',
+    password: 'test_password'
+}, function (e) {
+    if (e.success) {
+        var user = e.users[0];
+        alert('Success:\\\
+' +
+            'id: ' + user.id + '\\\
+' +
+            'first name: ' + user.first_name + '\\\
+' +
+            'last name: ' + user.last_name);
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Show User</h4><div class='code_example'><p>This example requests information about a user and checks the response.</p>
+<pre><code>Cloud.Users.show({
+    user_id: savedUserInfo.id
+}, function (e) {
+    if (e.success) {
+        var user = e.users[0];
+        alert('Success:\\\
+' +
+            'id: ' + user.id + '\\\
+' +
+            'first name: ' + user.first_name + '\\\
+' +
+            'last name: ' + user.last_name);
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Show Current User</h4><div class='code_example'><p>This example requests information about the currently logged in user and checks the response.</p>
+<pre><code>Cloud.Users.showMe(function (e) {
+    if (e.success) {
+        var user = e.users[0];
+        alert('Success:\\\
+' +
+            'id: ' + user.id + '\\\
+' +
+            'first name: ' + user.first_name + '\\\
+' +
+            'last name: ' + user.last_name);
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Search for Users</h4><div class='code_example'><p>This example requests information about particular users and checks the response.</p>
+<pre><code>Cloud.Users.search({
+    q: 'test'
+}, function (e) {
+    if (e.success) {
+        alert('Success:\\\
+' +
+            'Count: ' + e.users.length);
+        for (var i = 0; i &lt; e.users.length; i++) {
+            var user = e.users[i];
+            alert('id: ' + user.id + '\\\
+' +
+                'first name: ' + user.first_name + '\\\
+' +
+                'last name: ' + user.last_name);
+         }
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Query for Users</h4><div class='code_example'><p>This example requests information about specific users and checks the response.</p>
+<pre><code>Cloud.Users.query({
+    page: 1,
+    per_page: 10,
+    where: {
+        age: { '$gt': 28 },
+        favorite_color: 'blue',
+        first_name: 'joe'
+    }
+}, function (e) {
+    if (e.success) {
+        alert('Success:\\\
+' +
+            'Count: ' + e.users.length);
+        for (var i = 0; i &lt; e.users.length; i++) {
+            var user = e.users[i];
+            alert('id: ' + user.id + '\\\
+' +
+                'first name: ' + user.first_name + '\\\
+' +
+                'last name: ' + user.last_name);
+         }
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Update User</h4><div class='code_example'><p>This example updates information about the currently logged in user and checks the response.</p>
+<pre><code>Cloud.Users.update({
+    email: 'joeuser@mycompany.com',
+    first_name: 'joe',
+    last_name: 'user',
+    custom_fields: {
+        favorite_color: 'blue',
+        age: 25
+    }
+}, function (e) {
+    if (e.success) {
+        var user = e.users[0];
+        alert('Success:\\\
+' +
+            'id: ' + user.id + '\\\
+' +
+            'first name: ' + user.first_name + '\\\
+' +
+            'last name: ' + user.last_name);
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Logout User</h4><div class='code_example'><p>This example logs out the current user and checks the response.</p>
+<pre><code>Cloud.Users.logout(function (e) {
+    if (e.success) {
+        alert('Success: Logged out');
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Remove User</h4><div class='code_example'><p>This example deletes the current user and checks the response.</p>
+<pre><code>Cloud.Users.remove(function (e) {
+    if (e.success) {
+        alert('Success: Removed');
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Request Reset Password User</h4><div class='code_example'><p>This example requests a password reset for a user and checks the response.</p>
+<pre><code>Cloud.Users.requestResetPassword({
+    email: 'joeuser@mycompany.com'
+}, function (e) {
+    if (e.success) {
+        alert('Success: Reset Request Sent');
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div></div><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Cloud.Users.create-method.html'>create</a></td><td class='summary'><p>Create a new user.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Users.login-method.html'>login</a></td><td class='summary'><p>Log in a user.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Users.logout-method.html'>logout</a></td><td class='summary'><p>Log out the current user.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Users.query-method.html'>query</a></td><td class='summary'><p>Retrieve a list of users with sorting and pagination.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Users.remove-method.html'>remove</a></td><td class='summary'><p>Delete the current user.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Users.requestResetPassword-method.html'>requestResetPassword</a></td><td class='summary'><p>Send an email to user to recover lost password.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Users.search-method.html'>search</a></td><td class='summary'><p>Retrieve a list of users based on the specified search criteria.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Users.show-method.html'>show</a></td><td class='summary'><p>Show public user information.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Users.showMe-method.html'>showMe</a></td><td class='summary'><p>Show both public and private information about the user currently logged in.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Users.update-method.html'>update</a></td><td class='summary'><p>Update the current user.</p></td></tr></tbody></table></div></body></html>

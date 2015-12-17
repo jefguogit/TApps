@@ -1,0 +1,49 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Android.RemoteViews</h1><div class='namespace_type'>object   </div><h3 class='summary'>Summary</h3><div class='summary'><p>The Titanium binding of <a href="http://developer.android.com/reference/android/widget/RemoteViews.html">Android RemoteViews</a>. </p></div><br><h3 class='description'>Description</h3><div class='description'><p><code>RemoteViews</code> is an API for referencing and updating a remote view hierarchy that
+lives in another process, for example, in a <a href="Titanium.Android.Notification-object.html">Notification</a>.</p>
+<p>To create a remote view hierarchy, you must define an Android XML layout for the views
+you want to display, and place the XML file in the <code>platform/android/res/layout</code> inside your
+project folder. See the examples for a sample XML layout and sample code for creating a
+remote view.</p>
+<p>To use a remote view hierarchy in a notification, see
+<a href="Titanium.Android.Notification.contentView-property.html">Notification.contentView</a>.</p>
+<p>Because the remote view hierarchy belongs to another process, you cannot call methods on it
+directly, but you can call methods on the <code>RemoteViews</code> object to update views in the
+heirarchy by ID. To reference a view inside the layout, use the
+<a href="Titanium.App.Android.R-object.html"><code>Titanium.App.Android.R</code></a> object to reference the view's ID. For example, if you have a 
+view with the ID <code>notify_imageview</code>, you can refer to it using:</p>
+<pre><code>Ti.App.Android.R.id.notify_imageview
+</code></pre>
+<p>See also: </p>
+<ul>
+<li>
+<p><a href="http://developer.android.com/reference/android/widget/RemoteViews.html">RemoteViews</a>
+    in the Android Developer Reference.</p>
+</li>
+<li>
+<p><a href="http://developer.android.com/guide/topics/ui/declaring-layout.html">XML Layouts</a>
+    in the Android Developer Guide.</p>
+</li>
+</ul></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Create a Remote View</h4><div class='code_example'><p>The following code excerpt creates a <code>RemoteViews</code> object based on a custom layout 
+called <code>custom_layout.xml</code>, and set a label's text.</p>
+<pre><code>var AppR = Ti.App.Android.R;
+var customLayout = Ti.Android.createRemoteViews({ layoutId: AppR.layout.custom_layout });
+customLayout.setTextViewText(AppR.id.custom_text, "Click Me!");
+</code></pre>
+<p>This example uses a simple custom layout:</p>
+<pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent" 
+        android:layout_height="fill_parent" 
+        android:orientation="vertical" &gt;
+    &lt;TextView android:id="@+id/custom_text"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#ffffff"
+            android:textColor="#aaff0000"
+            android:textStyle="italic"
+            android:gravity="center"
+            android:text="Hello, I am a TextView" /&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
+<p>The layout file for this example must be placed in
+<code>platform/android/res/layout/custom_layout.xml</code>. </p></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.layoutId-property.html'>layoutId</a></td><td class='type'>Number  </td><td class='summary'><p>Android layout resource ID for the view to display. Required.</p></td></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.packageName-property.html'>packageName</a></td><td class='type'>String  </td><td class='summary'><p>Package name that the resource ID lives in. Optional.</p></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.getLayoutId-method.html'>getLayoutId</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Android.RemoteViews.layoutId-property.html">layoutId</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.getPackageName-method.html'>getPackageName</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Android.RemoteViews.packageName-property.html">packageName</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.setBoolean-method.html'>setBoolean</a></td><td class='summary'><p>Calls a method taking a single <code>boolean</code> argument on a view in the remote viewhierarchy.  See Android's documentation for<a href="http://developer.android.com/reference/android/widget/RemoteViews.html#setBoolean(int, java.lang.String, boolean)">setBoolean</a>.</p></td></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.setChronometer-method.html'>setChronometer</a></td><td class='summary'><p>Sets the base time, format string, and started flag for a chronometerin the remote view hierarchy.</p></td></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.setDouble-method.html'>setDouble</a></td><td class='summary'><p>Calls a method taking a single <code>double</code> argument on a view in the remote viewhierarchy.</p></td></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.setImageViewResource-method.html'>setImageViewResource</a></td><td class='summary'><p>Sets the image for an image view in the remote view hierarchy using an Android drawable resource.</p></td></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.setImageViewUri-method.html'>setImageViewUri</a></td><td class='summary'><p>Sets the image for an image view in the remote view hierarchy using a URI.</p></td></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.setInt-method.html'>setInt</a></td><td class='summary'><p>Calls a method taking a single <code>int</code> argument on a view in the remote view hierarchy.</p></td></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.setOnClickPendingIntent-method.html'>setOnClickPendingIntent</a></td><td class='summary'><p>Launches a <a href="Titanium.Android.PendingIntent-object.html"><code>Titanium.Android.PendingIntent</code></a> when the specified view is clicked.</p></td></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.setProgressBar-method.html'>setProgressBar</a></td><td class='summary'><p>Sets the progress, max value, and indeterminate flag of a progress bar in theremote view hierarchy.</p></td></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.setString-method.html'>setString</a></td><td class='summary'><p>Calls a method taking a single String argument on a view in the remote viewhierarchy.</p></td></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.setTextColor-method.html'>setTextColor</a></td><td class='summary'><p>Sets the text color of a view in the remote view hierarchy.</p></td></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.setTextViewText-method.html'>setTextViewText</a></td><td class='summary'><p>Sets the text of a text view in the remote view hierarchy.</p></td></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.setUri-method.html'>setUri</a></td><td class='summary'><p>Calls a method taking one URI on a view in the remote view hierarchy.</p></td></tr><tr><td class='name'><a href='Titanium.Android.RemoteViews.setViewVisibility-method.html'>setViewVisibility</a></td><td class='summary'><p>Sets the visibility of a view in the remote view hierarchy.</p></td></tr></tbody></table></div></body></html>

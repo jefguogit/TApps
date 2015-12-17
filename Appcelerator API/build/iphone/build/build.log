@@ -1,0 +1,36 @@
+================================================================================
+Appcelerator Titanium Diagnostics Build Log
+The contents of this file are useful to send to Appcelerator Support if
+reporting an issue to help us understand your environment, build settings
+and aid in debugging. Please attach this log to any issue that you report.
+================================================================================
+
+Starting build at 03/13/14 08:11
+
+Build details:
+
+   timestamp=06/28/12 12:16
+   module_apiversion=2
+   version=2.1.0
+   githash=6e3cab6
+
+
+Script arguments:
+   /Users/user/Library/Application Support/Titanium/mobilesdk/osx/2.1.0.GA/iphone/builder.py
+   simulator
+   7.1
+   /Users/user/Documents/Titanium_Studio_Workspace/Appcelerator API
+   sgt.aad
+   Appcelerator API
+   universal
+   retina
+
+Building from: /Users/user/Library/Application Support/Titanium/mobilesdk/osx/2.1.0.GA/iphone
+Platform: Darwin Kernel Version 13.0.0: Thu Sep 19 22:22:27 PDT 2013; root:xnu-2422.1.72~6/RELEASE_X86_64
+
+Xcode path is: /Applications/Xcode.app/Contents/Developer
+
+[INFO] Detected third-party module: com.revmob.titanium/0.1.1[INFO] Detected third-party module: com.revmob.titanium/0.1.1
+githash=6e3cab6, existing_git_hash=None
+forcing rebuild since libhash (None) not matching (6b039db50f01934ab31311c911af38db)
+Performing full rebuild

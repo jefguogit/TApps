@@ -1,0 +1,63 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li>Methods</li><li><a href='#properties'>Properties</a></li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Font</h1><div class='namespace_type'>object   </div><h3 class='summary'>Summary</h3><div class='summary'><p>An abstract datatype for specifying a text font.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>Available fonts vary by platform and device. On iOS, font support depends on the OS
+version. On Android, font support depends on the OS version <strong>and</strong> device manufacturer.</p>
+<p>Note that to update the font used by a UI component, you must set the object's <code>font</code>
+property, like this:</p>
+<pre><code>myLabel.font = { fontSize: 24, font: myFontName }
+</code></pre>
+<p>Changing the <code>font</code> object after assigning it does not reliably affect the underlying UI
+component:</p>
+<pre><code>// This may not work as expected
+myLabel.font.fontSize = 24;
+</code></pre>
+<h4>Custom Fonts</h4>
+<p>Custom TrueType (.ttf) or OpenType (.otf) fonts may be embedded in an application on iOS and
+Android. (Note that you must have redistribution rights on the fonts you ship.)</p>
+<p>Custom fonts must be placed in the <code>Resources/fonts</code> directory. Note that the steps
+for referring to the fonts are slightly different by platform.</p>
+<ul>
+<li>
+<p>On Android, use the font file name, minus the <code>.otf</code> or <code>.ttf</code> extension.
+  For example, if you are using the Chantelli Antiqua font and the file is
+  named <code>Chantelli_Antiqua.ttf</code>, specify <code>fontFamily: 'Chantelli_Antiqua'</code> 
+  on Android.</p>
+</li>
+<li>
+<p>On iOS, use the official font name--this name is embedded in the font file and 
+  does not change if you rename the file. For example, for Chantelli Antiqua, 
+  you'd specify: <code>fontFamily: 'Chantelli Antiqua'</code> (with a space).
+  On OS X, double-clicking on the font file will launch the Font Book application, 
+  which shows the official font name.</p>
+</li>
+</ul>
+<p>iOS requires one more step to embed a custom font in an application. The font must be 
+added to the application's <code>Info.plist</code> file:</p>
+<ol>
+<li>
+<p>Build the project at least once (the font won't work yet).</p>
+</li>
+<li>
+<p>Copy <em>yourproject</em><code>/build/iphone/Info.plist</code> to the <em>yourproject</em> folder.</p>
+</li>
+<li>
+<p>Double-click <code>Info.plist</code> to open it in Xcode.</p>
+</li>
+<li>
+<p>Right-click a blank area in the list of keys and choose <strong>Add Row</strong>. </p>
+<p>From the resulting list, choose <strong>Fonts provided by application</strong>.</p>
+</li>
+<li>
+<p>Expand <strong>Fonts provided by application</strong> and click in the Value field. </p>
+<p>Enter the full path of the font file, for example, <code>/fonts/Chantelli_Antiqua.ttf</code>.</p>
+</li>
+<li>
+<p>Save the file and close Xcode.</p>
+</li>
+<li>
+<p>In Studio, clean the project then build it again. Your custom font should
+    show up.</p>
+</li>
+</ol>
+<p>For more information on embedding custom fonts, see:</p>
+<ul>
+<li><a href="http://docs.appcelerator.com/titanium/#!/guide/Custom_Fonts">Custom Fonts in the Titanium Mobile Guides</a></li>
+</ul></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Font.fontFamily-property.html'>fontFamily</a></td><td class='type'>String  </td><td class='summary'><p>Name of a font family, for example, "Helvetica" or "DroidSans".</p></td></tr><tr><td class='name'><a href='Font.fontSize-property.html'>fontSize</a></td><td class='type'>Number  String  </td><td class='summary'><p>Font size, in platform-dependent units.</p></td></tr><tr><td class='name'><a href='Font.fontStyle-property.html'>fontStyle</a></td><td class='type'>String  </td><td class='summary'><p>Font style. Valid values are "italic" or "normal".</p></td></tr><tr><td class='name'><a href='Font.fontWeight-property.html'>fontWeight</a></td><td class='type'>String  </td><td class='summary'><p>Font weight. Valid values are "bold" or "normal".</p></td></tr></tbody></table></div></body></html>

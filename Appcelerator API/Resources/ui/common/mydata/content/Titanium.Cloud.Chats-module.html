@@ -1,0 +1,67 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li>Description</li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li>Properties</li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Cloud.Chats</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>Provides methods for accessing ACS chat messages.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Create Chat Message</h4><div class='code_example'><p>This example sends a chat message to a list of users and checks the response.</p>
+<pre><code>Cloud.Chats.create({
+    to_ids: ids.join(','),
+    message: 'Good morning'
+}, function (e) {
+    if (e.success) {
+        for (var i = 0; i &lt; e.chats.length; i++) {
+            var chat = e.chats[i];
+            alert('Success:\\\
+' +
+                'From: ' + chat.from.first_name + ' ' + chat.from.last_name + '\\\
+' +
+                'Updated: ' + chat.updated_at + '\\\
+' +
+                'Message: ' + chat.message);
+        }
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Query for Chat Message</h4><div class='code_example'><p>This example requests a list of chat messages and checks the response.</p>
+<pre><code>Cloud.Chats.query({
+    participate_ids: ids.join(','),
+    where: {
+        updated_at: { '$gt': last_update_time }
+    }
+}, function (e) {
+    if (e.success) {
+        for (var i = 0; i &lt; e.chats.length; i++) {
+            var chat = e.chats[i];
+            alert('Success:\\\
+' +
+                'From: ' + chat.from.first_name + ' ' + chat.from.last_name + '\\\
+' +
+                'Updated: ' + chat.updated_at + '\\\
+' +
+                'Message: ' + chat.message);
+        }
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Get Chat Groups</h4><div class='code_example'><p>This example requests a lists of chat groups that the current user belongs to and checks 
+the response.</p>
+<pre><code>Cloud.Chats.getChatGroups(function (e) {
+    if (e.success) {
+        for (var i = 0; i &lt; e.chats.length; i++) {
+            var group = e.chat_groups[i];
+            alert('Success:\\\
+' +
+                'id: ' + group.id + '\\\
+' +
+                'created_at: ' + group.created_at + '\\\
+' +
+                'number of users: ' + group.participate_users.length);
+        }
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div></div><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Cloud.Chats.create-method.html'>create</a></td><td class='summary'><p>Send a chat message to another user or a group of users.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Chats.getChatGroups-method.html'>getChatGroups</a></td><td class='summary'><p>Retrieve a list of chat groups the current user belongs to.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Chats.query-method.html'>query</a></td><td class='summary'><p>Retrieve a list of chat messages with sorting and pagination.</p></td></tr></tbody></table></div></body></html>

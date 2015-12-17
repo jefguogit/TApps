@@ -1,0 +1,57 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Android.Intent</h1><div class='namespace_type'>object   </div><h3 class='summary'>Summary</h3><div class='summary'><p>The Titanium binding of an Android <code>Intent</code>.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>See also: 
+<a href="http://developer.android.com/reference/android/content/Intent.html">Intent</a> in the
+Android Developer Reference.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Create an Intent for Launching an Activity</h4><div class='code_example'><p>This example creates an intent and uses it to launch a new activity.</p>
+<pre><code>var intent = Ti.Android.createIntent({
+    action: Ti.Android.ACTION_MAIN,
+    url: 'activity1.js'
+});
+intent.addCategory(Ti.Android.CATEGORY_LAUNCHER);
+Ti.Android.currentActivity.startActivity(intent);
+</code></pre></div><h4 class='code_example_title'>Create an Intent to get a Contact URI</h4><div class='code_example'><p>This example creates an intent to retrieve contact information from the user's
+contacts. </p>
+<pre><code>var intent = Ti.Android.createIntent({
+    action: Ti.Android.ACTION_GET_CONTENT,
+    type: "vnd.android.cursor.item/phone"
+});
+</code></pre></div><h4 class='code_example_title'>Pick a Photo from the Photo Gallery</h4><div class='code_example'><p>This example creates an intent to pick an image from the photo gallery.
+    var intent = Ti.Android.createIntent({
+        action: Ti.Android.ACTION_PICK,
+        type: "image/*"
+    });
+    intent.addCategory(Ti.Android.CATEGORY_DEFAULT);</p></div><h4 class='code_example_title'>Create an ImageView from an Image Send Intent</h4><div class='code_example'><p>This example requires that an intent filter be set up in a
+custom AndroidManifest.xml. The following intent filter should
+be added to your app's main activity. You can trigger this 
+intent filter by long pressing on an image in the Android gallery
+and selecting "share".</p>
+<p>AndroidManifest.xml</p>
+<pre><code> &lt;intent-filter&gt;
+     &lt;action android:name="android.intent.action.SEND" /&gt;
+     &lt;category android:name="android.intent.category.DEFAULT" /&gt;
+     &lt;data android:mimeType="image/*" /&gt;
+ &lt;/intent-filter&gt;
+</code></pre>
+<p>Sample code</p>
+<pre><code> var win = Ti.UI.createWindow({
+     backgroundColor: '#fff',
+     fullscreen: false,
+     exitOnClose: true
+ });
+ win.addEventListener('open', function(e) {
+     var intent = Ti.Android.currentActivity.getIntent();
+     var iname = Ti.Android.EXTRA_STREAM;
+     if (intent &amp;&amp; intent.hasExtra(iname)) {
+         // Create ImageView from TiBlob
+         var blob = intent.getBlobExtra(iname);
+         win.add(Ti.UI.createImageView({
+             image: blob,
+             height: 300,
+             width: 300,
+             left: 0,
+             top: 0
+         }));
+     } else {
+         Ti.API.info('No extra named "' + iname + '" found in Intent');
+     }
+ });        
+ win.open();
+</code></pre></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Android.Intent.action-property.html'>action</a></td><td class='type'>String  </td><td class='summary'><p>The action associated with this intent.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.className-property.html'>className</a></td><td class='type'>String  </td><td class='summary'><p>The Java class name of the activity associated with this intent(<a href="Titanium.Android.Intent.packageName-property.html">packageName</a> must also be set).</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.data-property.html'>data</a></td><td class='type'>String  </td><td class='summary'><p>The Intent's Data URI.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.flags-property.html'>flags</a></td><td class='type'>Number  </td><td class='summary'><p>Intent flags. See the <code>FLAG_</code> constants in <a href="Titanium.Android-module.html"><code>Titanium.Android</code></a>.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.packageName-property.html'>packageName</a></td><td class='type'>String  </td><td class='summary'><p>The fully-qualified Java package name of the activity.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.type-property.html'>type</a></td><td class='type'>String  </td><td class='summary'><p>The MIME type for this Intent.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.url-property.html'>url</a></td><td class='type'>String  </td><td class='summary'><p>The URL to a Titanium JavaScript Activity.</p></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Android.Intent.addCategory-method.html'>addCategory</a></td><td class='summary'><p>Adds a category to this Intent. See the <code>CATEGORY</code> constants in <a href="Titanium.Android-module.html"><code>Titanium.Android</code></a>.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.addFlags-method.html'>addFlags</a></td><td class='summary'><p>Adds to the existing flags on the <code>Intent</code>.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.getAction-method.html'>getAction</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Android.Intent.action-property.html">action</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.getBlobExtra-method.html'>getBlobExtra</a></td><td class='summary'><p>Get a <a href="Titanium.Blob-object.html"><code>Titanium.Blob</code></a> property from this <code>Intent</code>.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.getBooleanExtra-method.html'>getBooleanExtra</a></td><td class='summary'><p>Get a boolean property from this Intent.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.getClassName-method.html'>getClassName</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Android.Intent.className-property.html">className</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.getData-method.html'>getData</a></td><td class='summary'><p>Get the Data URI from this <code>Intent</code>.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.getDoubleExtra-method.html'>getDoubleExtra</a></td><td class='summary'><p>Get a double property from this <code>Intent</code>.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.getFlags-method.html'>getFlags</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Android.Intent.flags-property.html">flags</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.getIntExtra-method.html'>getIntExtra</a></td><td class='summary'><p>Get an int property from this <code>Intent</code>.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.getLongExtra-method.html'>getLongExtra</a></td><td class='summary'><p>Get a long property from this <code>Intent</code>.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.getPackageName-method.html'>getPackageName</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Android.Intent.packageName-property.html">packageName</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.getStringExtra-method.html'>getStringExtra</a></td><td class='summary'><p>Get a string property from this <code>Intent</code>.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.getType-method.html'>getType</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Android.Intent.type-property.html">type</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.getUrl-method.html'>getUrl</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Android.Intent.url-property.html">url</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.hasExtra-method.html'>hasExtra</a></td><td class='summary'><p>Returns <code>true</code> if this <code>Intent</code> has the specified property.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.putExtra-method.html'>putExtra</a></td><td class='summary'><p>Puts an extra property on this <code>Intent</code>.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.putExtraUri-method.html'>putExtraUri</a></td><td class='summary'><p>Put a URI property on this <code>Intent</code> (useful for <a href="Titanium.Android.EXTRA_STREAM-property.html"><code>Titanium.Android.EXTRA_STREAM</code></a>).</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Android.Intent.setFlags-method.html'>setFlags</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Android.Intent.flags-property.html">flags</a> property.</p></td></tr></tbody></table></div></body></html>

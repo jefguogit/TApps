@@ -1,0 +1,148 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Network.Socket.TCP</h1><div class='namespace_type'>object   </div><h3 class='summary'>Summary</h3><div class='summary'><p>TCP socket that implements the <code>Titanium.IOStream</code> interface.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>Most socket operations are asynchronous. When you create a socket, you can define
+callback funtions to receive the results of API calls, as well as to handle incoming
+data.</p>
+<p>For example, for a client-side socket, you define 
+<a href="Titanium.Network.Socket.TCP.connected-property.html">connected</a> and
+<a href="Titanium.Network.Socket.TCP.error-property.html">error</a> callback functions.</p>
+<p>To connect to a remote host, call the socket's
+<a href="Titanium.Network.Socket.TCP.connect-method.html">connect</a> method. If the socket connects
+successfully, your <code>connected</code> callback is invoked, and you can send and receive data
+on the socket. If the socket connection fails, your <code>error</code> callback is invoked. </p>
+<p>After a socket is connected, you can access it like any other <a href="Titanium.IOStream-object.html"><code>Titanium.IOStream</code></a>.
+Note that the socket's <code>read</code> and <code>write</code> methods may block, so in most cases
+you should use the asynchronous <a href="Titanium.Stream.read-method.html">read</a>, <a href="Titanium.Stream.write-method.html">write</a> 
+and <a href="Titanium.Stream.pump-method.html">pump</a> methods provided by the <a href="Titanium.Stream-module.html"><code>Titanium.Stream</code></a> module,
+rather than using the socket object's <code>read</code> and <code>write</code> methods directly.</p>
+<p>A familiarity with the basics of BSD socket programming is a recommended before using 
+sockets with Titanium.</p>
+<p>Use the <a href="Titanium.Network.Socket.createTCP-method.html"><code>Titanium.Network.Socket.createTCP</code></a> method to create a TCP socket.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Simple Socket IO using Stream.pump</h4><div class='code_example'><p>The following example uses the <a href="Titanium.Stream.pump-method.html">pump</a> method from the <a href="Titanium.Stream-module.html"><code>Titanium.Stream</code></a> 
+module to read data from a socket. The <code>pump</code> method registers a callback that is 
+called repeatedly to process incoming data from the socket.</p>
+<pre><code>var socket = Ti.Network.Socket.createTCP({
+    host: 'blog.example.com', port: 80,
+    connected: function (e) {
+        Ti.API.info('Socket opened!');
+        Ti.Stream.pump(e.socket, readCallback, 1024, true);
+        Ti.Stream.write(socket, Ti.createBuffer({
+            value: 'GET http://blog.example.com/index.html HTTP/1.1\\r\
+\\r\
+'
+        }), writeCallback);
+    },
+        error: function (e) {
+        Ti.API.info('Error (' + e.errorCode + '): ' + e.error);
+    },
+});
+socket.connect();
+
+function writeCallback(e) {
+    Ti.API.info('Successfully wrote to socket.');
+}
+
+function readCallback(e) {
+    if (e.bytesProcessed == -1)
+    {
+        // Error / EOF on socket. Do any cleanup here.
+        ...
+    }
+    try {
+        if(e.buffer) {
+            var received = e.buffer.toString();
+            Ti.API.info('Received: ' + received);
+        } else {
+            Ti.API.error('Error: read callback called with no buffer!');
+        }
+    } catch (ex) {
+        Ti.API.error(ex);
+    }
+}
+</code></pre></div><h4 class='code_example_title'>Listening Socket Example</h4><div class='code_example'><p>The following sample shows a trivial example of using a listening 
+socket. In this case, the application simply sends messages to itself,
+using the loopback address.</p>
+<pre><code>// Hostname to listen on/connect to. Here we use the loopback
+// address. iOS also supports Ti.Platform.address (the address of
+// the WiFi interface).
+// Android supports only the loopback address.
+
+var hostname = '127.0.0.1';
+
+var clientSocket = Ti.Network.Socket.createTCP({
+    host : hostname,
+    port : 40404,
+    connected : function(e) {
+        Ti.API.info('Client socket connected!');
+        Ti.Stream.pump(e.socket, pumpCallback, 1024, true);
+        e.socket.write(Ti.createBuffer({
+            value : 'A message from a connecting socket.'
+        }));
+    },
+    error : function(e) {
+        Ti.API.info('Error (' + e.errorCode + '): ' + e.error);
+    }
+});
+
+function writeCallback(e) {
+    Ti.API.info('Successfully wrote to socket.');
+}
+
+function pumpCallback(e) {
+    // Has the remote socket closed its end?
+    if (e.bytesProcessed &lt; 0) {
+        Ti.API.info("Closing client socket.");
+        clientSocket.close();
+        return;
+    }
+    try {
+        if(e.buffer) {
+            var received = e.buffer.toString();
+            Ti.API.info('Received: ' + received);
+        } else {
+            Ti.API.error('Error: read callback called with no buffer!');
+        }
+    } catch (ex) {
+        Ti.API.error(ex);
+    }
+}
+
+//Create a socket and listen for incoming connections
+var listenSocket = Ti.Network.Socket.createTCP({
+    host : hostname,
+    port : 40404,
+    accepted : function(e) {
+        // This where you would usually store the newly-connected socket, e.inbound
+        // so it can be used for read / write operations elsewhere in the app.
+        // In this case, we simply send a message then close the socket.
+        Ti.API.info("Listening socket &lt;" + e.socket + "&gt; accepted incoming connection &lt;" + e.inbound + "&gt;");
+        e.inbound.write(Ti.createBuffer({
+            value : 'You have been connected to a listening socket.\\r\
+'
+        }));
+        e.inbound.close();
+        // close the accepted socket
+
+    },
+    error : function(e) {
+        Ti.API.error("Socket &lt;" + e.socket + "&gt; encountered error when listening");
+        Ti.API.error(" error code &lt;" + e.errorCode + "&gt;");
+        Ti.API.error(" error description &lt;" + e.error + "&gt;");
+    }
+});
+// Starts the socket listening for connections, does not accept them
+listenSocket.listen();
+Ti.API.info("Listening now...");
+
+// Tells socket to accept the next inbound connection. listenSocket.accepted gets
+// called when a connection is accepted via accept()
+Ti.API.info("Calling accept.");
+listenSocket.accept({
+    timeout : 10000
+});
+
+// Call connect after a short timeout to ensure the listening socket is ready to go.
+Ti.API.info("Setting timer to connect.");
+setTimeout(function(e)
+{
+    Ti.API.info("Calling connect on client socket.");
+   clientSocket.connect();
+}, 500);
+</code></pre></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.accepted-property.html'>accepted</a></td><td class='type'>Callback&lt;AcceptedCallbackArgs&gt;  </td><td class='summary'><p>Callback to be fired when a listener accepts a connection.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.connected-property.html'>connected</a></td><td class='type'>Callback&lt;ConnectedCallbackArgs&gt;  </td><td class='summary'><p>Callback to be fired when the socket enters the "connected" state.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.error-property.html'>error</a></td><td class='type'>Callback&lt;ErrorCallbackArgs&gt;  </td><td class='summary'><p>Callback to be fired when the socket enters the <a href="Titanium.Network.Socket.ERROR-property.html">ERROR</a> state.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.host-property.html'>host</a></td><td class='type'>String  </td><td class='summary'><p>The host to connect to or listen on.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.listenQueueSize-property.html'>listenQueueSize</a></td><td class='type'>Number  </td><td class='summary'><p>Max number of pending incoming connections to be allowed when the socket is in the <a href="Titanium.Network.Socket.LISTENING-property.html">LISTENING</a> state.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.port-property.html'>port</a></td><td class='type'>Number  </td><td class='summary'><p>The port to connect to or listen on.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.state-property.html'>state</a></td><td class='type'>Number  </td><td class='summary'><p>Current state of the socket.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.timeout-property.html'>timeout</a></td><td class='type'>Number  </td><td class='summary'><p>Timeout, in milliseconds, for <code>connect</code> and all <code>write</code> operations.</p></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.accept-method.html'>accept</a></td><td class='summary'><p>Tells a <a href="Titanium.Network.Socket.LISTENING-property.html">LISTENING</a> socket to accept a connection request at the top of a listener's request queue when one becomes available.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.close-method.html'>close</a></td><td class='summary'><p>Closes a socket.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.connect-method.html'>connect</a></td><td class='summary'><p>Attempts to connect the socket to its host/port.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.getAccepted-method.html'>getAccepted</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Network.Socket.TCP.accepted-property.html">accepted</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.getConnected-method.html'>getConnected</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Network.Socket.TCP.connected-property.html">connected</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.getError-method.html'>getError</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Network.Socket.TCP.error-property.html">error</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.getHost-method.html'>getHost</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Network.Socket.TCP.host-property.html">host</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.getListenQueueSize-method.html'>getListenQueueSize</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Network.Socket.TCP.listenQueueSize-property.html">listenQueueSize</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.getPort-method.html'>getPort</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Network.Socket.TCP.port-property.html">port</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.getState-method.html'>getState</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Network.Socket.TCP.state-property.html">state</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.getTimeout-method.html'>getTimeout</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Network.Socket.TCP.timeout-property.html">timeout</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.isReadable-method.html'>isReadable</a></td><td class='summary'><p>Indicates whether this stream is readable.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.isWriteable-method.html'>isWriteable</a></td><td class='summary'><p>Indicates whether this stream is writeable.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.listen-method.html'>listen</a></td><td class='summary'><p>Attempts to start listening on the socket's host/port.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.read-method.html'>read</a></td><td class='summary'><p>Reads data from this stream into a buffer.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.setAccepted-method.html'>setAccepted</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Network.Socket.TCP.accepted-property.html">accepted</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.setConnected-method.html'>setConnected</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Network.Socket.TCP.connected-property.html">connected</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.setError-method.html'>setError</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Network.Socket.TCP.error-property.html">error</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.setHost-method.html'>setHost</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Network.Socket.TCP.host-property.html">host</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.setListenQueueSize-method.html'>setListenQueueSize</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Network.Socket.TCP.listenQueueSize-property.html">listenQueueSize</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.setPort-method.html'>setPort</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Network.Socket.TCP.port-property.html">port</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.setTimeout-method.html'>setTimeout</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.Network.Socket.TCP.timeout-property.html">timeout</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Network.Socket.TCP.write-method.html'>write</a></td><td class='summary'><p>Writes data from a buffer to this stream.</p></td></tr></tbody></table></div></body></html>

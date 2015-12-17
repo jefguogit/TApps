@@ -1,0 +1,17 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>scrollToTop</h1><div class='namespace_type'>Function of <a href='Titanium.UI.TableView-object.html'>Titanium.UI.TableView</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>0.8</td></tr><tr><td class='name'>iPhone</td><td class='description'>0.8</td></tr><tr><td class='name'>iPad</td><td class='description'>0.8</td></tr><tr><td class='name'>Mobile Web</td><td class='description'>1.8</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Scrolls the table to a specific top position where 0 is the topmost y position in the table view.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>The behavior of this method is platform-specific.</p>
+<p>On Android, the <code>top</code> value is interpreted as a row index that should be scrolled 
+to the top of the screen. The table will not scroll the last row of data higher than
+the bottom of the screen. If there is less than one screenful of data below the 
+specified row, the table doesn't scroll the specified row all the way to the top.
+If the table has less than one screenful of data total, it does not scroll at all.</p>
+<p>On iOS, the <code>top</code> value is interpreted as a pixel offset between the top of the top
+row of data and the top of the table view. So a <code>top</code> value of 0 scrolls the list to
+the top. A positive value scrolls it down, and a negative value scrolls the list up
+above the first item.</p>
+<p>On Mobile Web, the <code>top</code> value is interpreted as a pixel offset between the top of the top
+row of data and the top of the table view. So a <code>top</code> value of 0 scrolls the list to
+the top. A positive value scrolls it down. Values outside the scrollable range are clipped
+so that negative numbers scroll the list to the top, and large positive values scroll the
+list to the bottom.</p>
+<p>On iOS, specify a <a href="TableViewAnimationProperties-object.html"><code>TableViewAnimationProperties</code></a> object with <code>animated</code> set to <code>false</code> to 
+disable the scrolling animation.</p></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>top</td><td class='type'>Number  </td><td class='summary'><p>Y position for the top of the table view.</p></td></tr><tr><td class='name'>animation</td><td class='type'>TableViewAnimationProperties  </td><td class='summary'><p>Animation properties. (iOS only.)</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>void</div></div></body></html>

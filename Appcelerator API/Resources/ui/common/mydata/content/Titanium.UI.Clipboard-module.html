@@ -1,0 +1,27 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li>Properties</li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.UI.Clipboard</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>A module used for accessing clipboard data.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>The Clipboard is a temporary data store, used to save a single item of data that may then 
+be accessed by the user using UI copy and paste interactions within an app or between apps.</p>
+<p>On iOS and Mobile Web, the module's <code>*Data()</code> methods enable multiple representations of the 
+same data item to be stored together with their respective 
+<a href="http://en.wikipedia.org/wiki/Internet_media_type">MIME type</a> to describe their format. For 
+example, <code>'text'</code> and <code>'text/plain'</code> for text, and <code>'image/jpg'</code> and <code>'image/png'</code> for an image.</p>
+<p>When working with text, either the <code>*Data()</code> methods may be used with a <code>'text/plain'</code> type, or 
+the <code>*Text()</code> methods without the need to specify the type.</p>
+<p>Android currently only supports text type of data to be stored. </p>
+<h4>Clipboard Data Types</h4>
+<p>The <code>*Text()</code> methods are equivalent to calling <code>*Data()</code> with a <code>'text'</code> or <code>'text/plain'</code> 
+type. These work with plain Unicode strings. </p>
+<p>An image is stored using the <code>'image'</code> type, or an explicit image MIME type, and is returned as 
+a <a href="Titanium.Blob-object.html"><code>Titanium.Blob</code></a> (binary) type. </p>
+<p>A URL is stored with the <code>'url'</code> or <code>'text/uri-list'</code> type, and is returned as a string. </p>
+<p>Any data type that is specified but not correctly mapped to a clipboard type by the system is 
+retrieved as a <a href="Titanium.Blob-object.html"><code>Titanium.Blob</code></a> type. </p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Copy Text to the Clipboard</h4><div class='code_example'><p>Clear the clipboard and output the resulting empty clipboard to console. </p>
+<p>Then, store the string, "hello", to the clipboard and output it from the clipboard to the 
+console. </p>
+<pre><code>Ti.API.log('Deleting all text in Clipboard');
+Ti.UI.Clipboard.clearText();
+Ti.API.log('Clipboard.getText(): ' + Ti.UI.Clipboard.getText()); // returns empty string on Android and undefined on iOS
+Ti.API.log('Set text Clipboard to hello');
+Ti.UI.Clipboard.setText('hello');
+Ti.API.log('Clipboard.hasText(), should be true: ' + Ti.UI.Clipboard.hasText()); // returns true on Android and 1 on iOS
+Ti.API.log('Clipboard.getText(), should be hello: ' + Ti.UI.Clipboard.getText());
+</code></pre></div></div><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.UI.Clipboard.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Clipboard.clearData-method.html'>clearData</a></td><td class='summary'><p>Deletes data of the specified MIME type stored in the clipboard. If MIME type omitted, all data is deleted.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Clipboard.clearText-method.html'>clearText</a></td><td class='summary'><p>Deletes all text data stored in the clipboard.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Clipboard.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Clipboard.getData-method.html'>getData</a></td><td class='summary'><p>Gets data of the specified MIME type stored in the clipboard.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Clipboard.getText-method.html'>getText</a></td><td class='summary'><p>Gets text data stored in the clipboard.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Clipboard.hasData-method.html'>hasData</a></td><td class='summary'><p>Indicates whether any data of the specified MIME type is stored in the clipboard.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Clipboard.hasText-method.html'>hasText</a></td><td class='summary'><p>Indicates whether any text data is stored in the clipboard.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Clipboard.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Clipboard.setData-method.html'>setData</a></td><td class='summary'><p>Stores data of the specified MIME type in the clipboard.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Clipboard.setText-method.html'>setText</a></td><td class='summary'><p>Stores text data in the clipboard.</p></td></tr></tbody></table></div></body></html>

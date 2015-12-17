@@ -1,0 +1,17 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>getFile</h1><div class='namespace_type'>Function of <a href='Titanium.Filesystem-module.html'>Titanium.Filesystem</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>0.1</td></tr><tr><td class='name'>iPhone</td><td class='description'>0.1</td></tr><tr><td class='name'>iPad</td><td class='description'>0.1</td></tr><tr><td class='name'>Mobile Web</td><td class='description'>1.8</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Returns a <code>File</code> object representing the file identified by the path arguments.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>Note that <code>getFile</code> does not create a file if one does not exist at the specified
+path. It returns a new <code>File</code> object referring to the specified file path. The 
+application can create a file at that path by calling 
+<a href="Titanium.Filesystem.File.write-method.html">write</a> or create a directory by calling
+<a href="Titanium.Filesystem.File.createDirectory-method.html">createDirectory</a> on the <code>File</code> object.</p>
+<p>This method takes a variable number of arguments, where each argument is treated
+as a path component. All of the arguments are joined together using the
+platform-specific path separator to make the final path.</p>
+<p>If a relative path is passed, the full path should be interpreted relative
+to the current file. For example, if the file <code>Resources/login/login.js</code> 
+contains the following code:</p>
+<pre><code>var icon = Titanium.Filesystem.getFile('icon.png');
+</code></pre>
+<p>The path is interpreted as <code>Resources/login/icon.png</code>. </p>
+<p>On iOS, all relative paths are currently interpreted as relative to the
+<code>Resources</code> directory, <strong>not</strong> to the current context. This is a known issue
+that will be addressed in a future release.</p></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>path</td><td class='type'>String  </td><td class='summary'><p>One or more path components. Path arguments are joined together using the platform specific path separator to form the full path.</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>Titanium.Filesystem.File</div></div></body></html>

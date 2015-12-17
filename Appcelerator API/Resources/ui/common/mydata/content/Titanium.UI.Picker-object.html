@@ -1,0 +1,117 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li><a href='#events'>Events</a></li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.UI.Picker</h1><div class='namespace_type'>object   </div><h3 class='summary'>Summary</h3><div class='summary'><p>A control used to select one or more fixed values.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>Use the <a href="Titanium.UI.createPicker-method.html"><code>Titanium.UI.createPicker</code></a> method to create a picker control.</p>
+<p>On Android, the <code>useSpinner</code> property must be enabled to support multiple columns.</p>
+<p>Adding views to picker rows is only supported on iOS.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Basic Single Column Picker</h4><div class='code_example'><p>Create a one-column, platform-specific style, picker and automatically select a row.</p>
+<pre><code>Ti.UI.backgroundColor = 'white';
+var win = Ti.UI.createWindow({
+  exitOnClose: true,
+  layout: 'vertical'
+});
+
+var picker = Ti.UI.createPicker({
+  top:50
+});
+
+var data = [];
+data[0]=Ti.UI.createPickerRow({title:'Bananas'});
+data[1]=Ti.UI.createPickerRow({title:'Strawberries'});
+data[2]=Ti.UI.createPickerRow({title:'Mangos'});
+data[3]=Ti.UI.createPickerRow({title:'Grapes'});
+
+picker.add(data);
+picker.selectionIndicator = true;
+
+win.add(picker);
+win.open();
+
+// must be after picker has been displayed
+picker.setSelectedRow(0, 2, false); // select Mangos
+</code></pre></div><h4 class='code_example_title'>Multi-Column Picker</h4><div class='code_example'><p>Create a two-column, platform-specific style, picker and automatically select a row in 
+each column.</p>
+<pre><code>Ti.UI.backgroundColor = 'white';
+var win = Ti.UI.createWindow({
+  exitOnClose: true,
+  layout: 'vertical'
+});
+
+var picker = Ti.UI.createPicker({
+  top:50
+});
+picker.selectionIndicator = true;
+
+var fruit = [ 'Bananas', 'Strawberries', 'Mangos', 'Grapes' ];
+var color = [ 'red', 'green', 'blue', 'orange' ];
+
+var column1 = Ti.UI.createPickerColumn();
+
+for(var i=0, ilen=fruit.length; i&lt;ilen; i++){
+  var row = Ti.UI.createPickerRow({
+    title: fruit[i]
+  });
+  column1.addRow(row);
+}
+
+var column2 = Ti.UI.createPickerColumn();
+
+for(var i=0, ilen=color.length; i&lt;ilen; i++){
+  var row = Ti.UI.createPickerRow({ title: color[i] });
+  column2.addRow(row);
+}
+
+picker.add([column1,column2]);
+
+win.add(picker);
+
+win.open();
+
+// must be after picker has been displayed
+picker.setSelectedRow(0, 2, false); // select Mangos
+picker.setSelectedRow(1, 3, false); // select Orange
+</code></pre></div><h4 class='code_example_title'>Date Picker</h4><div class='code_example'><p>Create a date picker and handle the subsequent user action.</p>
+<pre><code>Ti.UI.backgroundColor = 'white';
+var win = Ti.UI.createWindow({
+  exitOnClose: true,
+  layout: 'vertical'
+});
+
+var picker = Ti.UI.createPicker({
+  type:Ti.UI.PICKER_TYPE_DATE,
+  minDate:new Date(2009,0,1),
+  maxDate:new Date(2014,11,31),
+  value:new Date(2014,3,12),
+  top:50
+});
+
+win.add(picker);
+win.open();
+
+picker.addEventListener('change',function(e){
+  Ti.API.info("User selected date: " + e.value.toLocaleString());
+});
+</code></pre></div><h4 class='code_example_title'>Date Picker using showDatePickerDialog() (Android only)</h4><div class='code_example'><p>Create a date picker that is automatically displayed as a modal dialog and handle the 
+subsequent user action.</p>
+<pre><code>Ti.UI.backgroundColor = 'white';
+var win = Ti.UI.createWindow({
+  exitOnClose: true,
+  layout: 'vertical'
+});
+
+var picker = Ti.UI.createPicker({
+  type:Ti.UI.PICKER_TYPE_DATE,
+  minDate:new Date(2009,0,1),
+  maxDate:new Date(2014,11,31),
+  value:new Date(2014,3,12)
+});
+
+win.open();
+
+picker.showDatePickerDialog({
+  value: new Date(2010,8,1),
+  callback: function(e) {
+    if (e.cancel) {
+      Ti.API.info('User canceled dialog');
+    } else {
+      Ti.API.info('User selected date: ' + e.value);
+    }
+  }
+});
+</code></pre></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.UI.Picker.columns-property.html'>columns</a></td><td class='type'>Array&lt;Titanium.UI.PickerColumn&gt;  </td><td class='summary'><p>Columns used for this picker, as an array of <a href="Titanium.UI.PickerColumn-object.html"><code>Titanium.UI.PickerColumn</code></a> objects.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.countDownDuration-property.html'>countDownDuration</a></td><td class='type'>Number  </td><td class='summary'><p>Duration in milliseconds used for a Countdown Timer picker.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.format24-property.html'>format24</a></td><td class='type'>Boolean  </td><td class='summary'><p>Determines whether the Time pickers display in 24-hour or 12-hour clock format.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.locale-property.html'>locale</a></td><td class='type'>String  </td><td class='summary'><p>Locale used when displaying Date and Time picker values.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.maxDate-property.html'>maxDate</a></td><td class='type'>Date  </td><td class='summary'><p>Maximum date displayed when a Date picker is in use.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.minDate-property.html'>minDate</a></td><td class='type'>Date  </td><td class='summary'><p>Minimum date displayed when a Date picker is in use.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.minuteInterval-property.html'>minuteInterval</a></td><td class='type'>Number  </td><td class='summary'><p>Interval in minutes displayed when one of the Time types of pickers is in use.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.selectionIndicator-property.html'>selectionIndicator</a></td><td class='type'>Boolean  </td><td class='summary'><p>Determines whether the visual selection indicator is shown. On iPhone, this is a blue bar.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.type-property.html'>type</a></td><td class='type'>Number  </td><td class='summary'><p>Determines the type of picker displayed</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.useSpinner-property.html'>useSpinner</a></td><td class='type'>Boolean  </td><td class='summary'><p>Determines whether the non-native Android control, with a spinning wheel that looks and behaves like the iOS picker, is invoked rather than the default native "dropdown" style.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.value-property.html'>value</a></td><td class='type'>Date  </td><td class='summary'><p>Date and time value for Date pickers.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.visibleItems-property.html'>visibleItems</a></td><td class='type'>Number  </td><td class='summary'><p>Number of visible rows to display. This is only applicable to a plain picker and when the <code>useSpinner</code> is <code>true</code>.</p></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.UI.Picker.add-method.html'>add</a></td><td class='summary'><p>Adds rows or columns to the picker.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.getColumns-method.html'>getColumns</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Picker.columns-property.html">columns</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.getCountDownDuration-method.html'>getCountDownDuration</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Picker.countDownDuration-property.html">countDownDuration</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.getFormat24-method.html'>getFormat24</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Picker.format24-property.html">format24</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.getLocale-method.html'>getLocale</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Picker.locale-property.html">locale</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.getMaxDate-method.html'>getMaxDate</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Picker.maxDate-property.html">maxDate</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.getMinDate-method.html'>getMinDate</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Picker.minDate-property.html">minDate</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.getMinuteInterval-method.html'>getMinuteInterval</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Picker.minuteInterval-property.html">minuteInterval</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.getSelectedRow-method.html'>getSelectedRow</a></td><td class='summary'><p>Gets the selected row for a column, or <code>null</code> if none exists.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.getSelectionIndicator-method.html'>getSelectionIndicator</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Picker.selectionIndicator-property.html">selectionIndicator</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.getType-method.html'>getType</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Picker.type-property.html">type</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.getUseSpinner-method.html'>getUseSpinner</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Picker.useSpinner-property.html">useSpinner</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.getValue-method.html'>getValue</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Picker.value-property.html">value</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.getVisibleItems-method.html'>getVisibleItems</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Picker.visibleItems-property.html">visibleItems</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.reloadColumn-method.html'>reloadColumn</a></td><td class='summary'><p>Repopulates values for a column.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.setColumns-method.html'>setColumns</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Picker.columns-property.html">columns</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.setCountDownDuration-method.html'>setCountDownDuration</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Picker.countDownDuration-property.html">countDownDuration</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.setFormat24-method.html'>setFormat24</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Picker.format24-property.html">format24</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.setLocale-method.html'>setLocale</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Picker.locale-property.html">locale</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.setMaxDate-method.html'>setMaxDate</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Picker.maxDate-property.html">maxDate</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.setMinDate-method.html'>setMinDate</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Picker.minDate-property.html">minDate</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.setMinuteInterval-method.html'>setMinuteInterval</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Picker.minuteInterval-property.html">minuteInterval</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.setSelectedRow-method.html'>setSelectedRow</a></td><td class='summary'><p>Selects a column's row.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.setSelectionIndicator-method.html'>setSelectionIndicator</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Picker.selectionIndicator-property.html">selectionIndicator</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.setType-method.html'>setType</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Picker.type-property.html">type</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.setUseSpinner-method.html'>setUseSpinner</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Picker.useSpinner-property.html">useSpinner</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.setValue-method.html'>setValue</a></td><td class='summary'><p>Sets the date and time value property for Date pickers.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.setVisibleItems-method.html'>setVisibleItems</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Picker.visibleItems-property.html">visibleItems</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.showDatePickerDialog-method.html'>showDatePickerDialog</a></td><td class='summary'><p>Shows Date picker as a modal dialog.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Picker.showTimePickerDialog-method.html'>showTimePickerDialog</a></td><td class='summary'><p>Shows Time picker as a modal dialog.</p></td></tr></tbody></table><br><h3 id='events'>Events</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.UI.Picker.change-event.html.html'>change</a></td><td class='summary'><p>Fired when the value of any column's row is changed.</p></td></tr></tbody></table></div></body></html>

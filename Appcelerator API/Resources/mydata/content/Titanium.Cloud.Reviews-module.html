@@ -1,0 +1,113 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li>Description</li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li>Properties</li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Cloud.Reviews</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>Provides methods for accessing ACS reviews.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Create Review</h4><div class='code_example'><p>This example creates a new review and checks the response.</p>
+<pre><code>Cloud.Reviews.create({
+    post_id: savedPostId,
+    rating: 1,
+    content: 'Good'
+}, function (e) {
+    if (e.success) {
+        var review = e.reviews[0];
+        alert('Success:\\\
+' +
+            'id: ' + review.id + '\\\
+' +
+            'rating: ' + review.rating + '\\\
+' +
+            'content: ' + review.content + '\\\
+' +
+            'updated_at: ' + review.updated_at);
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Show a Review</h4><div class='code_example'><p>This example retrieves information about a review and checks the response.</p>
+<pre><code>Cloud.Reviews.show({
+    post_id: savedPostId,
+    review_id: savedReviewId
+}, function (e) {
+    if (e.success) {
+        var review = e.reviews[0];
+        alert('Success:\\\
+' +
+            'id: ' + review.id + '\\\
+' +
+            'rating: ' + review.rating + '\\\
+' +
+            'content: ' + review.content + '\\\
+' +
+            'updated_at: ' + review.updated_at);
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Query for Reviews</h4><div class='code_example'><p>This example requests a list of reviews and checks the response.</p>
+<pre><code>Cloud.Reviews.query({
+    page: 1,
+    per_page: 20,
+    where: {
+        rating: { '$gt': 5.0 }
+    }
+}, function (e) {
+    if (e.success) {
+        alert('Success:\\\
+' +
+            'Count: ' + e.reviews.length);
+        for (var i = 0; i &lt; e.reviews.length; i++) {
+            var review = e.reviews[i];
+            alert('id: ' + review.id + '\\\
+' +
+                'id: ' + review.id + '\\\
+' +
+                'rating: ' + review.rating + '\\\
+' +
+                'content: ' + review.content + '\\\
+' +
+                'updated_at: ' + review.updated_at);
+        }
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Update a Review</h4><div class='code_example'><p>This example updates a review and checks the response.</p>
+<pre><code>Cloud.Reviews.update({
+    post_id: savedPostId,
+    review_id: savedReviewId,
+    rating: 100,
+    content: 'Very good!'
+}, function (e) {
+    if (e.success) {
+        var review = e.reviews[0];
+        alert('Success:\\\
+' +
+            'id: ' + review.id + '\\\
+' +
+            'rating: ' + review.rating + '\\\
+' +
+            'content: ' + review.content + '\\\
+' +
+            'updated_at: ' + review.updated_at);
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div><h4 class='code_example_title'>Remove a Review</h4><div class='code_example'><p>This example deletes a review and checks the response.</p>
+<pre><code>Cloud.Reviews.remove({
+    post_id: savedPostId,
+    review_id: savedReviewId
+}, function (e) {
+    if (e.success) {
+        alert('Success');
+    } else {
+        alert('Error:\\\
+' +
+            ((e.error &amp;&amp; e.message) || JSON.stringify(e)));
+    }
+});
+</code></pre></div></div><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Cloud.Reviews.create-method.html'>create</a></td><td class='summary'><p>Add a review, comment, rating, or like.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Reviews.query-method.html'>query</a></td><td class='summary'><p>Retrieve a list of reviews with sorting and pagination.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Reviews.remove-method.html'>remove</a></td><td class='summary'><p>Delete a review.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Reviews.show-method.html'>show</a></td><td class='summary'><p>Retrieve details of a review.</p></td></tr><tr><td class='name'><a href='Titanium.Cloud.Reviews.update-method.html'>update</a></td><td class='summary'><p>Update a review.</p></td></tr></tbody></table></div></body></html>

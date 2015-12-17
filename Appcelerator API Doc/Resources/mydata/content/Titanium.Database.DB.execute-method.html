@@ -1,0 +1,27 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li>Description</li><li><a href='#examples'>Examples</a></li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>execute</h1><div class='namespace_type'>Function of <a href='Titanium.Database.DB-object.html'>Titanium.Database.DB</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>0.1</td></tr><tr><td class='name'>iPhone</td><td class='description'>0.1</td></tr><tr><td class='name'>iPad</td><td class='description'>0.1</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Executes an SQL statement against the database and returns a <code>ResultSet</code>.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Executing a Query</h4><div class='code_example'><p>The following code will install a database using 
+<a href="Titanium.Database.install-method.html">Titanium.Database.install</a> and execute SQL statements that will 
+create a table, insert data and query the table.</p>
+<pre><code>var db = Ti.Database.install('mydb1', 'mydb1Installed');
+db.execute('DELETE FROM people');
+db.execute('CREATE TABLE IF NOT EXISTS people (name TEXT, phone_number TEXT, city TEXT)');
+
+var thisName = 'Arthur';
+var thisPhoneNo = '1-617-000-0000';
+var thisCity = 'Mountain View';
+db.execute('INSERT INTO people (name, phone_number, city) VALUES (?, ?, ?)', thisName, thisPhoneNo, thisCity);
+
+var personArray = ['Paul','020 7000 0000', 'London'];
+db.execute('INSERT INTO people (name, phone_number, city) VALUES (?, ?, ?)', personArray);
+
+var rows = db.execute('SELECT rowid,name,phone_number,city FROM people');
+db.close();
+
+while (rows.isValidRow())
+{
+  Ti.API.info('Person ---&gt; ROWID: ' + rows.fieldByName('rowid') + ', name:' + rows.field(1) + ', phone_number: ' + rows.fieldByName('phone_number') + ', city: ' + rows.field(3));
+  rows.next();
+}
+rows.close();
+</code></pre>
+<p>Note that the above <code>SELECT</code> query contains the <a href="http://www.sqlite.org/lang_createtable.html#rowid">rowid</a>
+column, which is a SQLite-specific column that stores the unique identifier for each row.</p></div></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>sql</td><td class='type'>String  </td><td class='summary'><p>SQL to execute. May include placeholders for parameter substitution.</p></td></tr><tr><td class='name'>vararg</td><td class='type'>String  Array&lt;String&gt;  Object  Array&lt;Object&gt;  </td><td class='summary'><p>Either a variable ordered list of zero or more values, or an array of values,to be substituted with the respective <code>?</code> placeholder of the query.</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>Titanium.Database.ResultSet</div></div></body></html>

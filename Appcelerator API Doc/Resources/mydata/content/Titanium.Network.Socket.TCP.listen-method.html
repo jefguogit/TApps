@@ -1,0 +1,10 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li>Arguments</li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>listen</h1><div class='namespace_type'>Function of <a href='Titanium.Network.Socket.TCP-object.html'>Titanium.Network.Socket.TCP</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>1.7</td></tr><tr><td class='name'>iPhone</td><td class='description'>1.7</td></tr><tr><td class='name'>iPad</td><td class='description'>1.7</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Attempts to start listening on the socket's host/port.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>The <code>listen</code> call will attempt to listen on the specified host and/or port 
+property for the socket if they are set.<br />
+</p>
+<p>Nonblocking; may return before the socket is fully open and listening.</p>
+<p>If the socket is already in a <a href="Titanium.Network.Socket.LISTENING-property.html">LISTENING</a> or
+<a href="Titanium.Network.Socket.CONNECTED-property.html">CONNECTED</a> state, <code>listen</code> throws an exception
+and sets the socket state to <a href="Titanium.Network.Socket.ERROR-property.html">ERROR</a>, but does 
+<strong>not</strong> fire the error callback.</p>
+<p>Any error encountered after the socket starts listening results in the error
+callback being fired.</p></div><br><h3 id='returns'>Return Type</h3><div>void</div></div></body></html>

@@ -1,0 +1,30 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>include</h1><div class='namespace_type'>Function of <a href='Titanium-module.html'>Titanium</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>0.1</td></tr><tr><td class='name'>iPhone</td><td class='description'>0.1</td></tr><tr><td class='name'>iPad</td><td class='description'>0.1</td></tr><tr><td class='name'>Mobile Web</td><td class='description'>1.8</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Includes JavaScript code from one or more files.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>The <code>include</code> method has several interesting quirks:</p>
+<ul>
+<li>
+<p>The included JavaScript is interpreted in the current root execution
+context -- that is, either <code>app.js</code> or in the root context of a window
+opened with the <code>url</code> property. For example, in the following code
+snippet, the included code in <code>some_module.js</code> has access to
+<code>globalVar</code>, but <em>not</em> to the local variable, <code>localVar</code>:</p>
+<pre><code>var globalVar = {};
+function loadModule() {
+    var localVar = "A local value.";
+    Ti.include('some_module.js');
+};
+loadModule();
+</code></pre>
+</li>
+<li>
+<p>The included filename is interpreted <em>local to the current file</em>. For 
+example, suppose <code>a.js</code> includes <code>dir/b.js.</code> If <code>b.js</code> includes another file, 
+<code>c.js</code>, this is interpreted as <code>dir/c.js</code>.</p>
+</li>
+<li>
+<p>Calling <code>include</code> from an event handler does not work consistently across 
+platforms.</p>
+</li>
+<li>
+<p>Calling <code>include</code> on a non-existent file causes a runtime error.
+See also <a href="Global.require-method.html">CommonJS Require</a>.</p>
+</li>
+</ul></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>name</td><td class='type'>String  </td><td class='summary'><p>Filename(s) to include.</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>void</div></div></body></html>

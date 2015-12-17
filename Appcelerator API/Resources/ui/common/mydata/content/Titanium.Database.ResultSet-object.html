@@ -1,0 +1,47 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Database.ResultSet</h1><div class='namespace_type'>object   </div><h3 class='summary'>Summary</h3><div class='summary'><p>The ResultSet instance returned by <a href="Titanium.Database.DB.execute-method.html"><code>Titanium.Database.DB.execute</code></a>.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>A result set represents the results returned by a database query.</p>
+<p>The <a href="Titanium.Database.ResultSet.rowCount-property.html">rowCount</a> property identifies the number of
+rows in the result set. The <code>ResultSet</code> object maintains an internal record of the 
+current row. As shown in the example, you can use the 
+<a href="Titanium.Database.ResultSet.next-method.html">next</a> method to iterate through the rows in the set.</p>
+<p>Use the <a href="Titanium.Database.ResultSet.field-method.html">field</a> or
+<a href="Titanium.Database.ResultSet.fieldByName-method.html">fieldByName</a> methods to query the fields for
+the current row.</p>
+<h4>Platform Implementation Notes</h4>
+<p>Note that <code>fieldCount</code> is exposed as a <em>method</em> on iOS, but as a <em>property</em> on
+Android. This is a known parity issue
+(<a href="https://jira.appcelerator.org/browse/TIMOB-2945">TIMOB-2945</a>).</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Using ResultSet</h4><div class='code_example'><p>The following code will create a database and execute SQL statements that will create a 
+table, insert data into it, query the table and iterate through the returned
+<code>ResultSet</code>.</p>
+<pre><code>var db = Ti.Database.open('mydb1Installed');
+db.execute('CREATE TABLE IF NOT EXISTS people (name TEXT, phone_number TEXT, city TEXT)');
+db.execute('DELETE FROM people');
+
+var thisName = 'Arthur';
+var thisPhoneNo = '1-617-000-0000';
+var thisCity = 'Mountain View';
+db.execute('INSERT INTO people (name, phone_number, city) VALUES (?, ?, ?)', thisName, thisPhoneNo, thisCity);
+
+var personArray = ['Paul','020 7000 0000', 'London'];
+db.execute('INSERT INTO people (name, phone_number, city) VALUES (?, ?, ?)', personArray);
+
+var rows = db.execute('SELECT rowid,name,phone_number,city FROM people');
+db.close();
+
+Ti.API.info('Row count: ' + rows.rowCount);
+var fieldCount;
+// fieldCount is a property on Android.
+if (Ti.Platform.name === 'android') {
+    fieldCount = rows.fieldCount;
+} else {
+    fieldCount = rows.fieldCount();
+}
+Ti.API.info('Field count: ' + fieldCount);
+
+while (rows.isValidRow()){
+  Ti.API.info('Person ---&gt; ROWID: ' + rows.fieldByName('rowid') + ', name:' + rows.field(1) + ', phone_number: ' + rows.fieldByName('phone_number') + ', city: ' + rows.field(3));
+  rows.next();
+}
+rows.close();
+</code></pre>
+<p>Note that the above <code>SELECT</code> query contains the <a href="http://www.sqlite.org/lang_createtable.html#rowid">rowid</a>
+field, which contains an SQLite-specific unique identifier for each row.</p></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Database.ResultSet.fieldCount-property.html'>fieldCount</a></td><td class='type'>Number  </td><td class='summary'><p>The number of columns in this result set.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Database.ResultSet.rowCount-property.html'>rowCount</a></td><td class='type'>Number  </td><td class='summary'><p>The number of rows in this result set.</p><span class='permission_warning'>read-only</span></td></tr><tr><td class='name'><a href='Titanium.Database.ResultSet.validRow-property.html'>validRow</a></td><td class='type'>Boolean  </td><td class='summary'><p>Indicates whether the current row is valid.</p><span class='permission_warning'>read-only</span></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Database.ResultSet.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Database.ResultSet.close-method.html'>close</a></td><td class='summary'><p>Closes this result set and release resources. Once closed, the result set must no longer be used.</p></td></tr><tr><td class='name'><a href='Titanium.Database.ResultSet.field-method.html'>field</a></td><td class='summary'><p>Retrieves the value for the specified field in the current row, and casts it to the specified type (String, Integer, Float or Double.)</p></td></tr><tr><td class='name'><a href='Titanium.Database.ResultSet.fieldByName-method.html'>fieldByName</a></td><td class='summary'><p>Retrieves the value for the specified field in the current row, and casts it to the specified type (String, Integer, Float or Double.)</p></td></tr><tr><td class='name'><a href='Titanium.Database.ResultSet.fieldCount-method.html'>fieldCount</a></td><td class='summary'><p>Returns the number of columns in this result set.</p></td></tr><tr><td class='name'><a href='Titanium.Database.ResultSet.fieldName-method.html'>fieldName</a></td><td class='summary'><p>Returns the field name for the specified field index.</p></td></tr><tr><td class='name'><a href='Titanium.Database.ResultSet.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.Database.ResultSet.getFieldCount-method.html'>getFieldCount</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Database.ResultSet.fieldCount-method.html">fieldCount</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Database.ResultSet.getFieldName-method.html'>getFieldName</a></td><td class='summary'><p>Returns the field name for the specified field index.</p></td></tr><tr><td class='name'><a href='Titanium.Database.ResultSet.getRowCount-method.html'>getRowCount</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Database.ResultSet.rowCount-property.html">rowCount</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Database.ResultSet.getValidRow-method.html'>getValidRow</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.Database.ResultSet.validRow-property.html">validRow</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.Database.ResultSet.isValidRow-method.html'>isValidRow</a></td><td class='summary'><p>Returns whether the current row is valid.</p></td></tr><tr><td class='name'><a href='Titanium.Database.ResultSet.next-method.html'>next</a></td><td class='summary'><p>Advances to the next row in the result set and returns <code>true</code> if one exists, or <code>false</code> otherwise.</p></td></tr><tr><td class='name'><a href='Titanium.Database.ResultSet.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr></tbody></table></div></body></html>

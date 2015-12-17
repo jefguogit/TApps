@@ -1,0 +1,16 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li>Examples</li><li>Methods</li><li>Properties</li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Dictionary</h1><div class='namespace_type'>object   </div><h3 class='summary'>Summary</h3><div class='summary'><p>Plain JavaScript object.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>The type <code>Dictionary</code> is used to describe a plain JavaScript object used to pass a 
+set of properties.</p>
+<p>The type <code>Dictionary&lt;</code> <em>Type</em> <code>&gt;</code> is used to describe a dictionary
+where the properties correspond to the properties of the named <em>Type</em>. So 
+<code>Dictionary&lt;</code> <code>Titanium.UI.Window</code> <code>&gt;</code> refers to a dictionary of <code>Window</code>
+properties. </p>
+<p>Property dictionaries are used extensively in the Titanium API, especially when 
+creating objects. For example, You can specify the initial properties for 
+a new window by passing a <code>Dictionary&lt;</code> <code>Titanium.UI.Window</code> <code>&gt;</code> object to the 
+<a href="Titanium.UI.createWindow-method.html">createWindow</a> method:</p>
+<pre><code>var window = Ti.UI.createWindow({
+    title: "Test", 
+    fullscreen: true, 
+    backgroundColor: '#aea'
+});
+</code></pre></div></div></body></html>

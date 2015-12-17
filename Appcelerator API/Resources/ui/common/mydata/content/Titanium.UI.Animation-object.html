@@ -1,0 +1,135 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li><a href='#events'>Events</a></li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.UI.Animation</h1><div class='namespace_type'>object   </div><h3 class='summary'>Summary</h3><div class='summary'><p>The <code>Animation</code> object defines an animation that can be applied to a view.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>An animation object describes the properties of an animation. At its most basic, an animation 
+object represents a single-phase animation with an end state and a duration. </p>
+<p>When <a href="Titanium.UI.View.animate-method.html">animate</a> is called on a <a href="Titanium.UI.View-object.html">View</a>, the view is 
+animated from its current state to the state described by the animation object. The properties 
+that can be animated include the view's position, size, colors, transformation matrix and opacity. </p>
+<p>Animations can be set to reverse themselves automatically on completion, and to repeat a given 
+number of times. For more complicated effects, multiple animations can be combined in sequence, 
+starting one animation when the previous animation completes.</p>
+<p>Use the <a href="Titanium.UI.createAnimation-method.html"><code>Titanium.UI.createAnimation</code></a> method to create an animation object.</p>
+<p>Note that when you animate a view's size or position, the actual layout properties (such as 
+<code>top</code>, <code>left</code>, <code>width</code>, <code>height</code>) are not changed by the animation. See the description of the 
+<a href="Titanium.UI.View.animate-method.html">animate</a> method for more information.</p>
+<h4>iOS Platform Notes</h4>
+<p>iOS supports both 2D and 3D matrix transformations in animations.</p>
+<p>In iOS, you can also specify an animation curve or <em>easing function</em> to control the pace of the 
+animation. To use an easing function, set the animation's <code>curve</code> property to one of the 
+<code>ANIMATION_CURVE</code> constants defined in <a href="Titanium.UI-module.html"><code>Titanium.UI</code></a>. For example, 
+<a href="Titanium.UI.ANIMATION_CURVE_EASE_IN-property.html">ANIMATION_CURVE_EASE_IN</a> specifies an animation that 
+starts slowly and then speeds up.</p>
+<p>Finally, iOS also supports <em>transitions</em> between windows or views. You can create a transition 
+by creating an animation object and setting the <code>view</code> property to the view you want to 
+transition to. The <code>transition</code> property specifies the transition effect to apply. Use one of 
+the transition style constants defined in <a href="Titanium.UI.iPhone.AnimationStyle-object.html"><code>Titanium.UI.iPhone.AnimationStyle</code></a>.</p>
+<h4>Android Platform Notes</h4>
+<p>Android supports 2D matrix transformations. Note that the 
+<a href="Titanium.UI.2DMatrix.rotate-method.html">2DMatrix.rotate</a> method operates differently on Android. Called 
+with a single argument, it rotates from zero to the specified angle. That is, it ignores any 
+existing rotation. Called with two arguments, it interprets the first argument as a "from" 
+angle and the second argument as a "to" angle. </p>
+<p>Android doesn't support any animation curves or easing functions. Animations always interpolate 
+linearly between the start state and the end state.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Simple Animation Applied to a View</h4><div class='code_example'><p>Create a simple animation and apply it to the view.  In this example, the view will animate 
+from red to black to orange over 2 seconds.</p>
+<pre><code>var view = Titanium.UI.createView({
+  backgroundColor:'red'
+});
+var animation = Titanium.UI.createAnimation();
+animation.backgroundColor = 'black';
+animation.duration = 1000;
+var animationHandler = function() {
+  animation.removeEventListener('complete',animationHandler);
+  animation.backgroundColor = 'orange';
+  view.animate(animation);
+};
+animation.addEventListener('complete',animationHandler);
+view.animate(animation);
+</code></pre></div><h4 class='code_example_title'>Animation Using Matrix Transforms</h4><div class='code_example'><p>The following example uses a transformation matrix to animate
+a view when the view is clicked. The animation rotates and scales
+the view, then returns it to its original size and position. The
+entire animation is repeated three times.</p>
+<pre><code>var box = Ti.UI.createView({
+  backgroundColor : 'red',
+  height : '100',
+  width : '100'
+});
+win.add(box);
+
+box.addEventListener('click', function() {
+  var matrix = Ti.UI.create2DMatrix()
+  matrix = matrix.rotate(180);
+  matrix = matrix.scale(2, 2);
+  var a = Ti.UI.createAnimation({
+    transform : matrix,
+    duration : 2000,
+    autoreverse : true,
+    repeat : 3
+  });
+  box.animate(a);
+});
+</code></pre></div><h4 class='code_example_title'>Using an anchorPoint (Android and iOS)</h4><div class='code_example'><p>Create a button and a blue square view. For each click of the button, apply a 90 degree 
+rotation animation pivoted at one of a series of anchor points. In particular, note that 
+an anchor point is configured using the <a href="Titanium.UI.Animation.anchorPoint-property.html"><code>Titanium.UI.Animation.anchorPoint</code></a> property for 
+Android and the <a href="Titanium.UI.View.anchorPoint-property.html"><code>Titanium.UI.View.anchorPoint</code></a> property for iOS.</p>
+<pre><code>var animationType = [
+  { name: 'Top Left', anchorPoint: {x:0, y:0} },
+  { name: 'Top Right', anchorPoint: {x:1, y:0} },
+  { name: 'Bottom Left', anchorPoint: {x:0, y:1} },
+  { name: 'Bottom Right', anchorPoint: {x:1, y:1} },
+  { name: 'Center', anchorPoint: {x:0.5, y:0.5} }
+];
+var animationTypeLength = animationType.length;
+var animationCount = 0;
+var animationTypePointer = 0;
+
+var t = Ti.UI.create2DMatrix();
+t = t.rotate(90);
+
+// animation properties
+var a = {
+  transform: t,
+  duration: 2000,
+  autoreverse: true
+};
+
+Ti.UI.backgroundColor = 'white';
+var win = Ti.UI.createWindow();
+
+var view = Ti.UI.createView({
+  backgroundColor:'#336699',
+  width:100, height:100
+});
+win.add(view);
+
+var button = Ti.UI.createButton({
+  title:'Animate ' + animationType[animationTypePointer].name,
+  height: (Ti.UI.Android) ? 80 : 40,
+  width: (Ti.UI.Android) ? 300 : 200,
+  top:30
+});
+win.add(button);
+
+function updateButton(name){
+  button.title = 'Animate ' + name;
+}
+
+button.addEventListener('click', function(){
+  // set new anchorPoint on animation for Android
+  a.anchorPoint = animationType[animationTypePointer].anchorPoint;
+
+  // set new anchorPoint on view for iOS
+  view.anchorPoint = animationType[animationTypePointer].anchorPoint;
+
+  animationCount++;
+
+  // determine position of next object in animationType array or return to first item
+  // using modulus operator
+  animationTypePointer = animationCount % animationTypeLength;
+
+  // animate view, followed by callback to set next button title
+  view.animate(a, function(){
+    updateButton(animationType[animationTypePointer].name);
+  });
+});
+
+win.open();
+</code></pre></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.UI.Animation.anchorPoint-property.html'>anchorPoint</a></td><td class='type'><a href='Point-object.html'><code>Point</code></a>  </td><td class='summary'><p>Coordinate of the view about which to pivot an animation.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.autoreverse-property.html'>autoreverse</a></td><td class='type'>Boolean  </td><td class='summary'><p>Specifies if the animation should be replayed in reverse upon completion.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.backgroundColor-property.html'>backgroundColor</a></td><td class='type'>String  </td><td class='summary'><p>Value of the <code>backgroundColor</code> property at the end of the animation, as a color name or hex triplet.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.bottom-property.html'>bottom</a></td><td class='type'>Number  </td><td class='summary'><p>Value of the <code>bottom</code> property at the end of the animation.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.center-property.html'>center</a></td><td class='type'>Object  </td><td class='summary'><p>Value of the <code>center</code> property at the end of the animation.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.color-property.html'>color</a></td><td class='type'>String  </td><td class='summary'><p>Value of the <code>color</code> property at the end of the animation, as a color name or hex triplet.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.curve-property.html'>curve</a></td><td class='type'>Number  </td><td class='summary'><p>Animation curve or easing function to apply to the animation.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.delay-property.html'>delay</a></td><td class='type'>Number  </td><td class='summary'><p>Delay, in milliseconds before starting the animation.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.duration-property.html'>duration</a></td><td class='type'>Number  </td><td class='summary'><p>Duration of the animation, in milliseconds.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.height-property.html'>height</a></td><td class='type'>Number  </td><td class='summary'><p>Value of the <code>height</code> property at the end of the animation.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.left-property.html'>left</a></td><td class='type'>Number  </td><td class='summary'><p>Value of the <code>left</code> property at the end of the animation.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.opacity-property.html'>opacity</a></td><td class='type'>Number  </td><td class='summary'><p>Value of the <code>opacity</code> property at the end of the animation.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.opaque-property.html'>opaque</a></td><td class='type'>Boolean  </td><td class='summary'><p>Value of the <code>opaque</code> property at the end of the animation.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.repeat-property.html'>repeat</a></td><td class='type'>Number  </td><td class='summary'><p>Number of times the animation should be performed.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.right-property.html'>right</a></td><td class='type'>Number  </td><td class='summary'><p>Value of the <code>right</code> property at the end of the animation.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.top-property.html'>top</a></td><td class='type'>Number  </td><td class='summary'><p>Value of the <code>top</code> property at the end of the animation.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.transform-property.html'>transform</a></td><td class='type'><a href='Titanium.UI.2DMatrix-object.html'><code>Titanium.UI.2DMatrix</code></a>  <a href='Titanium.UI.iOS.3DMatrix-object.html'><code>Titanium.UI.iOS.3DMatrix</code></a>  </td><td class='summary'><p>Animate the view from its current tranform to the specified transform.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.transition-property.html'>transition</a></td><td class='type'>Number  </td><td class='summary'><p>Transition type to use during a transition animation.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.visible-property.html'>visible</a></td><td class='type'>Boolean  </td><td class='summary'><p>Value of the <code>visible</code> property at the end of the animation.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.width-property.html'>width</a></td><td class='type'>Number  </td><td class='summary'><p>Value of the <code>width</code> property at the end of the animation.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.zIndex-property.html'>zIndex</a></td><td class='type'>Number  </td><td class='summary'><p>Value of the <code>zIndex</code> property at the end of the animation.</p></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.UI.Animation.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getAnchorPoint-method.html'>getAnchorPoint</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.anchorPoint-property.html">anchorPoint</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getAutoreverse-method.html'>getAutoreverse</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.autoreverse-property.html">autoreverse</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getBackgroundColor-method.html'>getBackgroundColor</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.backgroundColor-property.html">backgroundColor</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getBottom-method.html'>getBottom</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.bottom-property.html">bottom</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getCenter-method.html'>getCenter</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.center-property.html">center</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getColor-method.html'>getColor</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.color-property.html">color</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getCurve-method.html'>getCurve</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.curve-property.html">curve</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getDelay-method.html'>getDelay</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.delay-property.html">delay</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getDuration-method.html'>getDuration</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.duration-property.html">duration</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getHeight-method.html'>getHeight</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.height-property.html">height</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getLeft-method.html'>getLeft</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.left-property.html">left</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getOpacity-method.html'>getOpacity</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.opacity-property.html">opacity</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getOpaque-method.html'>getOpaque</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.opaque-property.html">opaque</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getRepeat-method.html'>getRepeat</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.repeat-property.html">repeat</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getRight-method.html'>getRight</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.right-property.html">right</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getTop-method.html'>getTop</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.top-property.html">top</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getTransform-method.html'>getTransform</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.transform-property.html">transform</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getTransition-method.html'>getTransition</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.transition-property.html">transition</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getVisible-method.html'>getVisible</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.visible-property.html">visible</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getWidth-method.html'>getWidth</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.width-property.html">width</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.getZIndex-method.html'>getZIndex</a></td><td class='summary'><p>Gets the value of the <a href="Titanium.UI.Animation.zIndex-property.html">zIndex</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setAnchorPoint-method.html'>setAnchorPoint</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.anchorPoint-property.html">anchorPoint</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setAutoreverse-method.html'>setAutoreverse</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.autoreverse-property.html">autoreverse</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setBackgroundColor-method.html'>setBackgroundColor</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.backgroundColor-property.html">backgroundColor</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setBottom-method.html'>setBottom</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.bottom-property.html">bottom</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setCenter-method.html'>setCenter</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.center-property.html">center</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setColor-method.html'>setColor</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.color-property.html">color</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setCurve-method.html'>setCurve</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.curve-property.html">curve</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setDelay-method.html'>setDelay</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.delay-property.html">delay</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setDuration-method.html'>setDuration</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.duration-property.html">duration</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setHeight-method.html'>setHeight</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.height-property.html">height</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setLeft-method.html'>setLeft</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.left-property.html">left</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setOpacity-method.html'>setOpacity</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.opacity-property.html">opacity</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setOpaque-method.html'>setOpaque</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.opaque-property.html">opaque</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setRepeat-method.html'>setRepeat</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.repeat-property.html">repeat</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setRight-method.html'>setRight</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.right-property.html">right</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setTop-method.html'>setTop</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.top-property.html">top</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setTransform-method.html'>setTransform</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.transform-property.html">transform</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setTransition-method.html'>setTransition</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.transition-property.html">transition</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setVisible-method.html'>setVisible</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.visible-property.html">visible</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setWidth-method.html'>setWidth</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.width-property.html">width</a> property.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.setZIndex-method.html'>setZIndex</a></td><td class='summary'><p>Sets the value of the <a href="Titanium.UI.Animation.zIndex-property.html">zIndex</a> property.</p></td></tr></tbody></table><br><h3 id='events'>Events</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.UI.Animation.complete-event.html.html'>complete</a></td><td class='summary'><p>Fired when the animation completes.</p></td></tr><tr><td class='name'><a href='Titanium.UI.Animation.start-event.html.html'>start</a></td><td class='summary'><p>Fired when the animation starts.</p></td></tr></tbody></table></div></body></html>

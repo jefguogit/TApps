@@ -1,0 +1,56 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li>Properties</li><li><a href='#events'>Events</a></li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.Accelerometer</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>The top-level Accelerometer module, used to determine the device's physical position.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>An accelerometer is a hardware unit integrated into a mobile device, that detects when the 
+device has moved, and returns its new orientation in a three-dimensional space. With its 
+single <code>update</code> event, this module provides an interface to access the output positional data.</p>
+<p>An accelerometer needs to be switched on in order for it to report to the operating system, 
+which consumes a lot of power that will deplete the battery over time. This is why it is 
+recommended that the accelerometer is switched off when not in use.</p>
+<p>The accelerometer may be switched on and off by simply by adding and removing the <code>update</code> 
+event listener function. See the example for a demonstration.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Basic Accelerometer Event</h4><div class='code_example'><p>Adds an accelerometer update event listener, and displays the x, y and z axis in the 
+window when the device is moved. On Android, the accelerometer is switched off and on when 
+the application is paused and resumed.</p>
+<pre><code>var win = Ti.UI.createWindow({
+  backgroundColor: 'white',
+  exitOnClose:true,
+  layout: 'vertical'
+});
+
+opts = {
+  color:'black',
+  font:{fontSize:20},
+  text:'-',
+  top:20, left:10,
+  width:300
+};
+var labelTimestamp = Ti.UI.createLabel(opts);
+win.add(labelTimestamp);
+var labelx = Ti.UI.createLabel(opts);
+win.add(labelx);
+var labely = Ti.UI.createLabel(opts);
+win.add(labely);
+var labelz = Ti.UI.createLabel(opts);
+win.add(labelz);
+win.open();
+
+var accelerometerCallback = function(e) {
+  labelTimestamp.text = 'timestamp: ' + e.timestamp;
+  labelx.text = 'x: ' + e.x;
+  labely.text = 'y: ' + e.y;
+  labelz.text = 'z: ' + e.z;
+};
+
+if (Ti.Platform.model === 'Simulator' || Ti.Platform.model.indexOf('sdk') !== -1 ){
+  alert('Accelerometer does not work on a virtual device');
+} else {
+  Ti.Accelerometer.addEventListener('update', accelerometerCallback);
+  if (Ti.Platform.name === 'android'){
+    Ti.Android.currentActivity.addEventListener('pause', function(e) {
+      Ti.API.info("removing accelerometer callback on pause");
+      Ti.Accelerometer.removeEventListener('update', accelerometerCallback);
+    });
+    Ti.Android.currentActivity.addEventListener('resume', function(e) {
+      Ti.API.info("adding accelerometer callback on resume");
+      Ti.Accelerometer.addEventListener('update', accelerometerCallback);
+    });
+  }
+}
+</code></pre></div></div><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Accelerometer.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.Accelerometer.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.Accelerometer.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr></tbody></table><br><h3 id='events'>Events</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.Accelerometer.update-event.html.html'>update</a></td><td class='summary'><p>Fired when the accelerometer changes.</p></td></tr></tbody></table></div></body></html>

@@ -1,0 +1,16 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li><a href='#properties'>Properties</a></li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.App.Android</h1><div class='namespace_type'>module   </div><h3 class='summary'>Summary</h3><div class='summary'><p>A module used to access Android application resources.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>For more information, refer to the official documentation on the Android Developer website about 
+<a href="http://developer.android.com/guide/topics/resources/index.html">application resources</a>.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Custom String Resource</h4><div class='code_example'><p>Custom Android resources may be placed in <code>platform/android</code> in the project root.<br />
+For example, to utilize a custom localization file, create and populate 
+<code>platform/android/res/values/mystrings.xml</code> with the following data.</p>
+<pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;resources&gt;
+    &lt;string name="mystring"&gt;testing 1 2 3&lt;/string&gt;
+&lt;/resources&gt;
+</code></pre>
+<p>In Javascript, this can be accessed as follows.</p>
+<pre><code>var activity = Ti.Android.currentActivity;
+var R = Ti.App.Android.R;
+
+var mystring = activity.getString(R.string.mystring);
+Ti.API.debug("mystring = " + mystring);
+</code></pre></div></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.App.Android.R-property.html'>R</a></td><td class='type'><a href='Titanium.App.Android.R-object.html'><code>Titanium.App.Android.R</code></a>  </td><td class='summary'><p>The <code>R</code> namespace for application resources.</p><span class='permission_warning'>read-only</span></td></tr></tbody></table><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.App.Android.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.App.Android.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.App.Android.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr></tbody></table></div></body></html>

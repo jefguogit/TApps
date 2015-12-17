@@ -1,0 +1,14 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#properties'>Properties</a></li></ul></div><br><h1 class='namespace' id='apititle'>callback</h1><div class='namespace_type'>Event of <a href='Titanium.CloudPush-module.html'>Titanium.CloudPush</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>2.0.0</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Fired whenever a push notification is received.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>If your application is not running when a push is received, the push will be saved in a queue until the next
+time you add an event listener for this.</p>
+<p>This will only be fired once per push notification.</p>
+<p>This event will be fired at different times depending on your settings and the application's present state
+(foreground, background, or not running at all). When <a href="Titanium.CloudPush.focusAppOnPush-property.html">focusAppOnPush</a> is true, this
+will fire as soon as you receive a push. When <a href="Titanium.CloudPush.showTrayNotification-property.html">showTrayNotification</a> is true, this
+will fire as soon as the user touches the tray notification to focus your application. Or, if
+<a href="Titanium.CloudPush.showTrayNotificationsWhenFocused-property.html">showTrayNotificationsWhenFocused</a> is false, and your application is
+in the foreground, it will be called right away. If both <a href="Titanium.CloudPush.focusAppOnPush-property.html">focusAppOnPush</a>
+and <a href="Titanium.CloudPush.showTrayNotification-property.html">showTrayNotification</a> are false, this will fire the next time your
+application is launched and you add an event listener for it.</p>
+<p>You can use the <a href="Titanium.CloudPush.trayClickLaunchedApp-event.html">trayClickLaunchedApp</a> and
+<a href="Titanium.CloudPush.trayClickFocusedApp-event.html">trayClickFocusedApp</a> events to distinguish between the various ways
+a push notification can return a user to your application.</p></div><br><h3 id='properties'>Properties</h3><table><tbody><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>payload</td><td class='type'>String  </td><td class='summary'><p>A JSON string of your data payload. Use JSON.parse to turn this in to an object you can use.</p></td></tr><tr><td class='name'>source</td><td class='type'>Object  </td><td class='summary'><p>Source object that fired the event.</p></td></tr><tr><td class='name'>type</td><td class='type'>String  </td><td class='summary'><p>Name of the event fired.</p></td></tr></tbody></table></div></body></html>

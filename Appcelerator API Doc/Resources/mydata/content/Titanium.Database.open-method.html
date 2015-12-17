@@ -1,0 +1,39 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#arguments'>Arguments</a></li><li><a href='#returns'>Return Type</a></li></ul></div><br><h1 class='namespace' id='apititle'>open</h1><div class='namespace_type'>Function of <a href='Titanium.Database-module.html'>Titanium.Database</a>.</div><div class='platforms'><table><tr><th>Platform</th><th>Since</th></tr><tr><td class='name'>Android</td><td class='description'>0.1</td></tr><tr><td class='name'>iPhone</td><td class='description'>0.1</td></tr><tr><td class='name'>iPad</td><td class='description'>0.1</td></tr></table></div><h3 class='summary'>Summary</h3><div class='summary'><p>Opens an SQLite database.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>Opens an SQLite database and returns a reference to it. If the database does
+not exist, creates an empty database file and returns a reference to this
+opened database.</p>
+<p>With Titanium 1.8.0.1 on iOS, the default database location changed in accordance
+with Apple's guidelines. If a database file already exists in the old
+location, <code>open</code> will automatically move it to the new location.</p>
+<p>Always <a href="Titanium.Database.DB.close-method.html">close</a> the database after use.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Open a Database from Internal Storage (iOS)</h4><div class='code_example'><p>A database, with a persistant name of <code>mydb1Installed</code> and located in the
+default database location on internal storage, is opened.</p>
+<pre><code>var db = Ti.Database.open('mydb1Installed');
+</code></pre>
+<p>A file extension of <code>sql</code> is added, and the file is opened from the
+following location.</p>
+<p>On simulator</p>
+<ul>
+<li><code>/Users/&lt;user name&gt;/Library/Application Support/iPhone Simulator/&lt;iOS version&gt;/Applications/&lt;apple app id&gt;/Library/Private Documents/mydb1Installed.sql</code> (Titanium 1.8.0.1)</li>
+<li><code>/Users/&lt;user name&gt;/Library/Application Support/iPhone Simulator/&lt;iOS version&gt;/Applications/&lt;apple app id&gt;/Library/Application Support/database/mydb1Installed.sql</code> (earlier versions)</li>
+</ul>
+<p>On device</p>
+<ul>
+<li><code>/Applications/&lt;apple app id&gt;/Library/Private Documents/mydb1Installed.sql</code> (Titanium 1.8.0.1)</li>
+<li><code>/Applications/&lt;apple app id&gt;/Library/Application Support/database/mydb1Installed.sql</code> (earlier versions)</li>
+</ul></div><h4 class='code_example_title'>Open a Database on Internal Storage (Android)</h4><div class='code_example'><p>A database, with a persistant name of <code>mydb1Installed</code> and located in the
+default database location on internal storage, is opened.</p>
+<p>var db1 = Ti.Database.open('mydb1Installed');</p>
+<p>Unlike on iOS, no file extension is added. The file is opened in
+the following location.</p>
+<ul>
+<li><code>file:///data/data/appID/databases/mydb1Installed</code></li>
+</ul></div><h4 class='code_example_title'>Open a Database on External Storage (Android)</h4><div class='code_example'><p>A database, with a filename of <code>mydb2Installed</code> and located at the
+absolute path provided, is opened.</p>
+<pre><code>if (Ti.Platform.name === 'android' &amp;&amp; Ti.Filesystem.isExternalStoragePresent()) {
+  var db2 = Ti.Database.open(Ti.Filesystem.externalStorageDirectory + 'path' + Ti.Filesystem.separator + 'to' + Ti.Filesystem.separator + 'mydb2Installed');
+}
+</code></pre>
+<p>Unlike on iOS, no file extension is added. The file is copied to the
+absolute path, as follows.</p>
+<ul>
+<li><code>file:///sdcard/path/to/mydb2Installed</code></li>
+</ul></div></div><br><h3 id='arguments'>Arguments</h3><table><tr><th>Name</th><th>Type</th><th>Summary</th></tr><tr><td class='name'>dbName</td><td class='type'>String  </td><td class='summary'><p>The dbname previously passed to <a href="Titanium.Database.install-method.html"><code>Titanium.Database.install</code></a>. On Android, an absolute path to the file, including one that is constructed with a <a href="Titanium.Filesystem-module.html"><code>Titanium.Filesystem</code></a> constant, may be used.</p></td></tr></table><br><h3 id='returns'>Return Type</h3><div>Titanium.Database.DB</div></div></body></html>

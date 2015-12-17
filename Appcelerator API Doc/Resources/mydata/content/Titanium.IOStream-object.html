@@ -1,0 +1,42 @@
+<html><head><link href='style.css' rel='stylesheet' type='text/css'/></head><body><div class='apidoc'><div class='page-nav'><ul><li><a href='#summary'>Summary</a></li><li><a href='#description'>Description</a></li><li><a href='#examples'>Examples</a></li><li><a href='#methods'>methods</a></li><li>Properties</li><li>Events</li></ul></div><br><h1 class='namespace' id='apititle'>Titanium.IOStream</h1><div class='namespace_type'>object   </div><h3 class='summary'>Summary</h3><div class='summary'><p>IOStream is the interface that all stream types implement.</p></div><br><h3 class='description'>Description</h3><div class='description'><p>See the <a href="Titanium.Stream-module.html"><code>Titanium.Stream</code></a> module for related utility methods that support asynchronous
+I/O.</p></div><br><h3 id='examples'>Code Examples </h3><div class='examples'><h4 class='code_example_title'>Write Data to a Stream</h4><div class='code_example'><p>This example demonstrates writing data to a stream.</p>
+<pre><code>var outBuffer = Ti.createBuffer({data: "write me"});
+var outStream = // stream object could be socket, file, buffer or blob
+
+var bytesWritten = outStream.write(outBuffer);  // writes entire buffer to stream
+Ti.API.info("Bytes written:" + bytesWritten);  // should be 8
+
+bytesWritten = outStream.write(outBuffer, 2, 5);  // only writes "ite m" to stream
+Ti.API.info("Bytes written:" + bytesWritten);  // should be 5
+</code></pre></div><h4 class='code_example_title'>Read Data From a Stream</h4><div class='code_example'><p>This shows a simple example of reading data from a stream, one buffer full at a
+time. </p>
+<pre><code>var size = 0;
+// read data one buffer full at a time
+while ((size = instream.read(buffer)) &gt; -1) {
+    // do something with the data here ...
+    Ti.API.info("Read " + size + " bytes.");
+}
+</code></pre></div><h4 class='code_example_title'>Read Data With Offset and Length</h4><div class='code_example'><p>This example shows how to read data from a stream into a buffer. We assume that
+the <code>inStream</code> variable holds a previously initialized stream that contains the 
+string, "World Titanium".</p>
+<pre><code>var inBuffer = Ti.createBuffer({ value: "Hello [           ]" });
+
+// Read the first 6 bytes from the stream to the buffer, starting at position 10.
+var bytesRead = inStream.read(inBuffer, 10, 6);
+
+Ti.API.info("Bytes read: " + bytesRead);
+Ti.API.info(inBuffer.toString());
+
+// Read the next 8  bytes from the stream to the buffer, starting at position 8.
+bytesRead = inStream.read(inBuffer, 8, 8);
+
+Ti.API.info("Bytes read: " + bytesRead);
+Ti.API.info(inBuffer.toString());
+</code></pre>
+<p>The second <code>read</code> overwrites the data from the first <code>read</code>, so the output looks
+like this:</p>
+<pre><code>[INFO] Bytes read: 6
+[INFO] Hello [   World   ]
+[INFO] Bytes read: 8
+[INFO] Hello [ Titanium  ]
+</code></pre></div></div><br><h3 id='methods'>Methods</h3><table><tbody><tr><th>Name</th><th>Summary</th></tr><tr><td class='name'><a href='Titanium.IOStream.addEventListener-method.html'>addEventListener</a></td><td class='summary'><p>Adds the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.IOStream.close-method.html'>close</a></td><td class='summary'><p>Closes this stream.</p></td></tr><tr><td class='name'><a href='Titanium.IOStream.fireEvent-method.html'>fireEvent</a></td><td class='summary'><p>Fires a synthesized event to any registered listeners.</p></td></tr><tr><td class='name'><a href='Titanium.IOStream.isReadable-method.html'>isReadable</a></td><td class='summary'><p>Indicates whether this stream is readable.</p></td></tr><tr><td class='name'><a href='Titanium.IOStream.isWriteable-method.html'>isWriteable</a></td><td class='summary'><p>Indicates whether this stream is writeable.</p></td></tr><tr><td class='name'><a href='Titanium.IOStream.read-method.html'>read</a></td><td class='summary'><p>Reads data from this stream into a buffer.</p></td></tr><tr><td class='name'><a href='Titanium.IOStream.removeEventListener-method.html'>removeEventListener</a></td><td class='summary'><p>Removes the specified callback as an event listener for the named event.</p></td></tr><tr><td class='name'><a href='Titanium.IOStream.write-method.html'>write</a></td><td class='summary'><p>Writes data from a buffer to this stream.</p></td></tr></tbody></table></div></body></html>
